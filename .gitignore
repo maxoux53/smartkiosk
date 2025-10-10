@@ -2,8 +2,8 @@
 .DS_Store
 
 ### Draw.io ###
-*.bkp
-*drawio.dtmp
+*.drawio.bkp
+*.drawio.dtmp
 
 ### Visual Studio Code ###
 .vscode/

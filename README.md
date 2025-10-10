@@ -15,7 +15,7 @@
 > [!IMPORTANT]
 > Schémas uniquement visibles avec l'interface en **thème clair** !
 
-**Schema entité-association (EA)**  
+**Schema entité-association**  
 ![Schema entité-association](database/docs/entity-relationship-diagram.svg)
 
 **Schema relationnel**  

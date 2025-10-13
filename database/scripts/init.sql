@@ -19,7 +19,7 @@ BEGIN TRANSACTION;
     CREATE TABLE role (
         user_id INT REFERENCES user(id),
         event_id INT REFERENCES event(id),
-        role VARCHAR(50) NOT NULL,
+        label VARCHAR(50) NOT NULL,
 
         CONSTRAINT pk_role PRIMARY KEY (user_id, event_id)
     );

@@ -7,8 +7,28 @@
 ## Table des matières
 
 1. [À propos](#à-propos)
-2. [Structure de la base de données](#structure-de-la-base-de-données)
-3. [Informations sur la licence](#informations-sur-la-licence)
+2. [Table des matières](#table-des-matières)
+3. [Structure de la base de données](#structure-de-la-base-de-données)
+4. [Informations sur la licence](#informations-sur-la-licence)
+
+## Technologies utilisées
+
+### Développement
+
+- React
+- Express
+- React-Native
+- Expo
+
+### Base de données
+
+- PostgreSQL
+- Docker
+- DataGrip et VS Code avec extension PostgreSQL
+
+### Conception
+
+- Draw.io pour la modélisation de la base de données (entité-association et relationnel)
 
 ## Structure de la base de données
 

@@ -35,11 +35,11 @@
 > [!IMPORTANT]
 > Schémas uniquement visibles avec l'interface en **thème clair** !
 
-**Schema entité-association**  
-![Schema entité-association](database/docs/entity-relationship-diagram.svg)
+**Schéma entité-association**  
+![Schéma entité-association](database/docs/entity-relationship-diagram.svg)
 
-**Schema relationnel**  
-![Schema relationnel](database/docs/relational-schema.svg)
+**Schéma relationnel**  
+![Schéma relationnel](database/docs/relational_schema.svg)
 
 ## Informations sur la licence
 

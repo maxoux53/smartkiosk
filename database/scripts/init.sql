@@ -5,6 +5,7 @@ BEGIN TRANSACTION;
         last_name VARCHAR(40) NOT NULL,
         email VARCHAR(80) UNIQUE NOT NULL,
         password BYTEA NOT NULL,
+        is_admin BOOLEAN NOT NULL DEFAULT FALSE,
         avatar TEXT,
         is_deleted BOOLEAN NOT NULL DEFAULT FALSE
     );
@@ -19,7 +20,7 @@ BEGIN TRANSACTION;
 
     CREATE TYPE membership_role AS ENUM (
         'host',
-        'bartender',
+        'cashier',
         'guest'
     );
 

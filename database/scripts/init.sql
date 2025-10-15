@@ -5,23 +5,31 @@ BEGIN TRANSACTION;
         last_name VARCHAR(40) NOT NULL,
         email VARCHAR(80) UNIQUE NOT NULL,
         password BYTEA NOT NULL,
-        avatar TEXT DEFAULT NULL
+        is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+        avatar TEXT,
+        is_deleted BOOLEAN NOT NULL DEFAULT FALSE
     );
 
     CREATE TABLE event (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         location VARCHAR(80) NOT NULL,
-        is_active BOOLEAN DEFAULT TRUE,
+        is_active BOOLEAN NOT NULL DEFAULT TRUE,
         iban VARCHAR(35) NOT NULL
     );
 
-    CREATE TABLE role (
+    CREATE TYPE membership_role AS ENUM (
+        'host',
+        'cashier',
+        'guest'
+    );
+
+    CREATE TABLE membership (
         user_id INT REFERENCES user(id),
         event_id INT REFERENCES event(id),
-        label VARCHAR(50) NOT NULL,
+        role membership_role NOT NULL DEFAULT 'guest',
 
-        CONSTRAINT pk_role PRIMARY KEY (user_id, event_id)
+        CONSTRAINT pk_membership PRIMARY KEY (user_id, event_id)
     );
 
     CREATE TABLE vat (
@@ -34,25 +42,25 @@ BEGIN TRANSACTION;
     CREATE TABLE category (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         label VARCHAR(50) NOT NULL,
-        vat_type CHAR(1) REFERENCES vat(type)
+        vat_type CHAR(1) NOT NULL REFERENCES vat(type)
     );
 
     CREATE TABLE product (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         label VARCHAR(80) NOT NULL,
-        is_available BOOLEAN DEFAULT TRUE,
+        is_available BOOLEAN NOT NULL DEFAULT TRUE,
         excl_vat_price MONEY NOT NULL,
-        is_removed BOOLEAN DEFAULT FALSE,
-        category_id INT REFERENCES category(id),
-        event_id INT REFERENCES event(id),
+        is_removed BOOLEAN NOT NULL DEFAULT FALSE,
+        category_id INT NOT NULL REFERENCES category(id),
+        event_id INT NOT NULL REFERENCES event(id),
 
         CONSTRAINT chk_price CHECK (excl_vat_price >= 0::MONEY)
     );
 
     CREATE TABLE purchase (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        user_id INT REFERENCES user(id)
+        date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        user_id INT NOT NULL REFERENCES user(id)
     );
 
     CREATE TABLE order_line (

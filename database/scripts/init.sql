@@ -7,13 +7,14 @@ BEGIN TRANSACTION;
         password BYTEA NOT NULL,
         is_admin BOOLEAN NOT NULL DEFAULT FALSE,
         avatar TEXT,
-        is_deleted BOOLEAN NOT NULL DEFAULT FALSE
+        deletion_date TIMESTAMP DEFAULT NULL
     );
 
     CREATE TABLE event (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         location VARCHAR(80) NOT NULL,
+        image TEXT,
         is_active BOOLEAN NOT NULL DEFAULT TRUE,
         iban VARCHAR(35) NOT NULL
     );
@@ -35,6 +36,7 @@ BEGIN TRANSACTION;
     CREATE TABLE vat (
         type CHAR(1) PRIMARY KEY,
         rate SMALLINT NOT NULL,
+        deletion_date TIMESTAMP DEFAULT NULL,
 
         CONSTRAINT chk_rate CHECK (rate >= 0 AND rate <= 100)
     );
@@ -50,9 +52,10 @@ BEGIN TRANSACTION;
         label VARCHAR(80) NOT NULL,
         is_available BOOLEAN NOT NULL DEFAULT TRUE,
         excl_vat_price MONEY NOT NULL,
-        is_removed BOOLEAN NOT NULL DEFAULT FALSE,
-        category_id INT NOT NULL REFERENCES category(id),
-        event_id INT NOT NULL REFERENCES event(id),
+        deletion_date TIMESTAMP DEFAULT NULL,
+        picture TEXT NOT NULL,
+        category_id INT REFERENCES category(id),
+        event_id INT REFERENCES event(id),
 
         CONSTRAINT chk_price CHECK (excl_vat_price >= 0::MONEY)
     );

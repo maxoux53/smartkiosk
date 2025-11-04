@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es2024",
+        "module": "esnext",
+        "lib": ["ES2024"],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowImportingTsExtensions": true
+    },
+    "exclude": ["node_modules"]
+}

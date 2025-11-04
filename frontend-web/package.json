@@ -1,0 +1,13 @@
+{
+    "name": "@smartkiosk/frontend-web",
+    "version": "1.0.0",
+    "description": "Web frontend for Smart Kiosk",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

@@ -1,0 +1,16 @@
+{
+    "name": "@smartkiosk/backend",
+    "version": "1.0.0",
+    "description": "Backend API for Smart Kiosk",
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "express": "^5.1.0"
+    },
+    "devDependencies": {}
+}

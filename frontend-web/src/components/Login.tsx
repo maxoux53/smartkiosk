@@ -7,7 +7,7 @@ function Login(): JSX.Element {
     const [password, setPassword] = useState<string>("");
     const [connectionMessage, setConnectionMessage] = useState<string>("");
 
-    function login() {
+    function login(): void {
         console.log("test")
         if (mail === "test" && password === "mdp"){
             setConnectionMessage("Connexion réussie");

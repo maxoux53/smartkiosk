@@ -1,12 +1,12 @@
-import * as React from 'react';
 import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 import EventsScreen from './EventsScreen';
 import ProductsScreen from './ProductsScreen';
 import OrderScreen from './OrderScreen';
-import AccountScreen from './AccountScreen';
+import AccountScreen from './AccountGroup/AccountStack';
+import { TabParamList } from '../types/navigation';
 
-const Tab = createNativeBottomTabNavigator();
+const Tab = createNativeBottomTabNavigator<TabParamList>();
 
 
 export default function TabBar() {

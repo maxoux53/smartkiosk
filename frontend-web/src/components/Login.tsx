@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, type JSX } from "react";
+import styles from './Login.module.css'
 
-function Login() {
+function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [connectionMessage, setConnectionMessage] = useState<string>("");

@@ -1,9 +1,10 @@
-import Login from "../components/Login";
+import type { JSX } from "react";
+import LoginComponent from "../components/Login";
 
-function login() {
+function Login(): JSX.Element {
     return (
         <>
-            <Login></Login>
+            <LoginComponent></LoginComponent>
         </>
     )
 }

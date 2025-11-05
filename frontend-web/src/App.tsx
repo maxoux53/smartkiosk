@@ -1,11 +1,10 @@
-import Login from "./components/Login"
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/router";
 
 function App() {
-  
-
   return (
     <>
-      <Login></Login>
+      <RouterProvider router={router}/>
     </>
   )
 }

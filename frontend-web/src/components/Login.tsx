@@ -1,5 +1,6 @@
 import { useState, type JSX } from "react";
-import styles from './Login.module.css'
+import "./login.scss";
+
 
 function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");
@@ -16,14 +17,21 @@ function Login(): JSX.Element {
     }
 
     return (
-        <>
-            <p>Login</p>
-            <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setMail(e.target.value)}}/>
-            <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
-
-            <button onClick={login}>Se connecter</button>
+        <main className="login">
+            <h1>Login</h1>
+            <form>
+                <label>Email
+                    <input type="email" placeholder="Entrez une adresse email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setMail(e.target.value)}}/>
+                </label>
+                <label>Mot de passe
+                    <input type="password" placeholder="Entrez un mot de passe" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
+                </label>
+                
+                <input type="submit" value="Se connecter"/>
+            </form>
+            
             {connectionMessage}
-        </>
+        </main>
     )
 }
 

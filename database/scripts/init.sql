@@ -44,7 +44,8 @@ BEGIN TRANSACTION;
     CREATE TABLE category (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         label VARCHAR(50) NOT NULL,
-        vat_type CHAR(1) NOT NULL REFERENCES vat(type)
+        vat_type CHAR(1) NOT NULL REFERENCES vat(type),
+        deletion_date TIMESTAMP DEFAULT NULL
     );
 
     CREATE TABLE product (
@@ -54,7 +55,7 @@ BEGIN TRANSACTION;
         excl_vat_price MONEY NOT NULL,
         deletion_date TIMESTAMP DEFAULT NULL,
         picture TEXT NOT NULL,
-        category_id INT REFERENCES category(id),
+        category_id INT NOT NULL REFERENCES category(id),
         event_id INT REFERENCES event(id),
 
         CONSTRAINT chk_price CHECK (excl_vat_price >= 0::MONEY)

@@ -1,13 +1,7 @@
 {
-    "extends": "../tsconfig.base.json",
-    "compilerOptions": {
-        "jsx": "react-jsx",
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "composite": true
-    },
-    "include": ["src/**/*"],
-    "references": [
-        { "path": "../shared" }
-    ]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

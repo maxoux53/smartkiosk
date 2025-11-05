@@ -24,13 +24,15 @@ function ProductsScreen() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16 }}>
       <SegmentedControl
         values={['Tous', 'Catégorie 1', 'Catégorie 2']}
         selectedIndex={selectedIndex}
         onChange={(event: SegmentedControlChangeEvent) => {
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
         }}
+        tintColor="lightgray"
+        style={{ alignSelf: 'stretch', height: 34, marginVertical: 12 }}
       />
       <Text>Produits! Index sélectionné: {selectedIndex}</Text>
     </View>

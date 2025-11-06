@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, type JSX } from 'react';
 import { Text, View } from 'react-native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
@@ -8,8 +8,8 @@ type SegmentedControlChangeEvent = {
     };
 };
 
-export default function ProductsScreen() : React.JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+export default function ProductsScreen() : JSX.Element {
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16 }}>

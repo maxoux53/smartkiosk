@@ -1,4 +1,7 @@
 import type { JSX } from "react"
+import NavButton from "../components/navButton"
+
+import { TABLES } from "../constant"
 
 function Gestion(): JSX.Element {
     const role: string = "Administrateur" // Accès à la base de donnée
@@ -12,11 +15,11 @@ function Gestion(): JSX.Element {
             </div>
                 
             <div id="navBar">
-
+                <NavButton name={TABLES.USERS}></NavButton>
             </div>
 
             <div id="body">
-
+                
             </div>
 
             <div id="footer">

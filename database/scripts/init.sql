@@ -45,6 +45,7 @@ BEGIN TRANSACTION;
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         label VARCHAR(50) NOT NULL,
         vat_type CHAR(1) NOT NULL REFERENCES vat(type),
+        picture TEXT NOT NULL,
         deletion_date TIMESTAMP DEFAULT NULL
     );
 
@@ -54,7 +55,7 @@ BEGIN TRANSACTION;
         is_available BOOLEAN NOT NULL DEFAULT TRUE,
         excl_vat_price MONEY NOT NULL,
         deletion_date TIMESTAMP DEFAULT NULL,
-        picture TEXT NOT NULL,
+        picture TEXT,
         category_id INT NOT NULL REFERENCES category(id),
         event_id INT REFERENCES event(id),
 

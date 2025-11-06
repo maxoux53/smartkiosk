@@ -31,7 +31,7 @@ function Login(): JSX.Element {
                 
                 {connectionMessage}
             </main>
-        )
+        );
 }
 
 export default Login;

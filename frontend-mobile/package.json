@@ -2,7 +2,7 @@
   "name": "@smartkiosk/frontend-mobile",
   "version": "1.0.0",
   "description": "Mobile app for Smart Kiosk",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",

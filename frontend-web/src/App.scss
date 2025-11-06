@@ -18,5 +18,11 @@
   > .gestion #header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 3%;
+  }
+
+  > .gestion #navBar {
+    display: flex;
+    justify-content: space-between
   }
 }

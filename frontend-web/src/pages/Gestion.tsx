@@ -16,6 +16,13 @@ function Gestion(): JSX.Element {
                 
             <div id="navBar">
                 <NavButton name={TABLES.USERS}></NavButton>
+                <NavButton name={TABLES.MEMBERSHIPS}></NavButton>
+                <NavButton name={TABLES.EVENTS}></NavButton>
+                <NavButton name={TABLES.PURCHASES}></NavButton>
+                <NavButton name={TABLES.ORDER_LINES}></NavButton>
+                <NavButton name={TABLES.PRODUCTS}></NavButton>
+                <NavButton name={TABLES.CATEGORIES}></NavButton>
+                <NavButton name={TABLES.VATS}></NavButton>
             </div>
 
             <div id="body">

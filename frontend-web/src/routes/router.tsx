@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
-import Gestion from "../pages/Gestion"
+import Admin from "../pages/Admin"
 
 const router = createBrowserRouter([
     {
@@ -9,8 +9,8 @@ const router = createBrowserRouter([
     },
 
     {
-        path: '/',
-        element: <Gestion></Gestion>
+        path: '/admin',
+        element: <Admin></Admin>
     }
 ])
 

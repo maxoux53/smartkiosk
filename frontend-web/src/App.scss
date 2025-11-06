@@ -7,6 +7,9 @@
 );
 
 #root {
+
+  // Login
+
   > .login {
     display: flex;
     flex-direction: column;
@@ -14,6 +17,8 @@
     min-height: 100vh;
     max-width: map.get(map.get($breakpoints, "sm"), "viewport");
   }
+
+  // Gestion
 
   > .gestion #header {
     display: flex;
@@ -23,6 +28,16 @@
 
   > .gestion #navBar {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    margin-bottom: 5%;
+  }
+
+  > .gestion #table {
+    border: solid;
+    border-radius: 5px;
+  }
+
+  > .gestion #table th {
+    border: solid;
   }
 }

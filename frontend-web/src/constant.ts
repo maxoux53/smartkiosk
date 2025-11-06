@@ -1,4 +1,4 @@
-export const TABLES = {
+export const TABLES: Record<string, string> = {
   USERS: "Utilisateurs",
   MEMBERSHIPS: "Participations",
   EVENTS: "Évènements",

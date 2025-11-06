@@ -1,7 +1,7 @@
 PODS:
   - EXConstants (18.0.10):
     - ExpoModulesCore
-  - Expo (54.0.21):
+  - Expo (54.0.22):
     - ExpoModulesCore
     - hermes-engine
     - RCTRequired
@@ -34,7 +34,7 @@ PODS:
     - ExpoModulesCore
   - ExpoKeepAwake (15.0.7):
     - ExpoModulesCore
-  - ExpoModulesCore (3.0.23):
+  - ExpoModulesCore (3.0.24):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1808,7 +1808,7 @@ PODS:
     - React-utils (= 0.81.5)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.81.5)
-  - RNScreens (4.18.0):
+  - RNScreens (4.16.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1830,9 +1830,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
-    - RNScreens/common (= 4.18.0)
+    - RNScreens/common (= 4.16.0)
     - Yoga
-  - RNScreens/common (4.18.0):
+  - RNScreens/common (4.16.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2104,12 +2104,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   EXConstants: fd688cef4e401dcf798a021cfb5d87c890c30ba3
-  Expo: 27ae59be9be4feab2b1c1ae06550752c524ca558
+  Expo: 6194a78e573849c28ab2f14fb3dce1b525ee4d6d
   ExpoAsset: 9ba6fbd677fb8e241a3899ac00fa735bc911eadf
   ExpoFileSystem: b79eadbda7b7f285f378f95f959cc9313a1c9c61
   ExpoFont: cf9d90ec1d3b97c4f513211905724c8171f82961
   ExpoKeepAwake: 1a2e820692e933c94a565ec3fbbe38ac31658ffe
-  ExpoModulesCore: 5f20603cf25698682d7c43c05fbba8c748b189d2
+  ExpoModulesCore: 87979cd52381b29e81e9cb7fa0fd5c4ae494d83e
   FBLazyVector: e95a291ad2dadb88e42b06e0c5fb8262de53ec12
   hermes-engine: 9f4dfe93326146a1c99eb535b1cb0b857a3cd172
   RCTDeprecation: 943572d4be82d480a48f4884f670135ae30bf990
@@ -2179,7 +2179,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 7d4593f7591f002d137fe40cef3f6c11f13c88cc
   ReactCommon: 08810150b1206cc44aecf5f6ae19af32f29151a8
   ReactNativeDependencies: 71ce9c28beb282aa720ea7b46980fff9669f428a
-  RNScreens: 61c18865ab074f4d995ac8d7cf5060522a649d05
+  RNScreens: d8d6f1792f6e7ac12b0190d33d8d390efc0c1845
   SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
   Yoga: 5934998fbeaef7845dbf698f698518695ab4cd1a
 

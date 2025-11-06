@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 import EventsScreen from './EventsScreen';
@@ -9,7 +10,7 @@ import { TabParamList } from '../types/navigation';
 const Tab = createNativeBottomTabNavigator<TabParamList>();
 
 
-export default function TabBar() {
+export default function TabBar() : JSX.Element {
     return (
         <Tab.Navigator>
             <Tab.Screen

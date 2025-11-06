@@ -8,7 +8,7 @@ type SegmentedControlChangeEvent = {
     };
 };
 
-export default function ProductsScreen() {
+export default function ProductsScreen() : React.JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     return (

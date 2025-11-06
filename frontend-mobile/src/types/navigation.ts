@@ -1,18 +1,4 @@
-import { NavigatorScreenParams } from '@react-navigation/native';
-
-// Types for the Account Stack Navigator
-export type AccountStackParamList = {
-  Profile: { screen: string } | undefined;
-  OrderHistory: { screen: string } | undefined;
+export type AccountStackParamList = { // définit les écrans de la stack "Account"
+  Profile: undefined; // clé = nom de l'écran, valeur = type des paramètres (ici undefined = aucun)
+  OrderHistory: undefined;
 };
-
-// Types for the Tab Navigator
-export type TabParamList = {
-  Evenements: undefined;
-  Produits: undefined;
-  Commande: undefined;
-  Compte: NavigatorScreenParams<AccountStackParamList>;
-};
-
-// Root navigation type
-export type RootStackParamList = TabParamList;

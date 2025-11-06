@@ -1,6 +1,4 @@
 import { useState, type JSX } from "react";
-import "./login.scss";
-
 
 function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");

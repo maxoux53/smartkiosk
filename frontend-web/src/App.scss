@@ -15,11 +15,8 @@
     max-width: map.get(map.get($breakpoints, "sm"), "viewport");
   }
 
-  > .gestion {
+  > .gestion #header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    max-width: map.get(map.get($breakpoints, "sm"), "viewport");
+    justify-content: space-between;
   }
 }

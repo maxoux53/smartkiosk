@@ -8,9 +8,7 @@
 ### Visual Studio Code ###
 .vscode/
 
-### Bun ###
-*.bun
-.bun/
+### Node.js ###
 node_modules/
 
 ### Logs ###
@@ -21,3 +19,9 @@ npm-debug.log*
 ### Vite ###
 dist/
 dist-ssr/
+
+### TypeScript ###
+*.tsbuildinfo
+
+### Expo ###
+.expo/

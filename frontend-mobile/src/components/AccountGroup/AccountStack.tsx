@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator<AccountStackParamList>();
 export default function AccountStack() : JSX.Element {
   return (
     <Stack.Navigator
-    initialRouteName="Profile"
+    initialRouteName="Login"
     screenOptions={{ headerShown: false }}
     >
       <Stack.Screen

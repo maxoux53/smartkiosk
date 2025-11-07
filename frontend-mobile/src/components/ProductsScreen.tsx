@@ -9,7 +9,7 @@ type SegmentedControlChangeEvent = {
 };
 
 export default function ProductsScreen() : JSX.Element {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16 }}>

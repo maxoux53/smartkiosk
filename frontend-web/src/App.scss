@@ -1,0 +1,43 @@
+@use "sass:map";
+@use "@picocss/pico/scss/pico" as * with (
+  $theme-color: "blue",
+  $semantic-root-element: "#root",
+  $enable-semantic-container: true,
+  $enable-classes: false,
+);
+
+#root {
+
+  // Login
+
+  > .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: map.get(map.get($breakpoints, "sm"), "viewport");
+  }
+
+  // Gestion
+
+  > .gestion #header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3%;
+  }
+
+  > .gestion #navBar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+  }
+
+  > .gestion #table {
+    border: solid;
+    border-radius: 5px;
+  }
+
+  > .gestion #table th {
+    border: solid;
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "frontend-web",
-  "description": "",
+  "description": "Web frontend for Smart Kiosk",
   "private": true,
   "version": "0.0.0",
   "type": "module",

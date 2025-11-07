@@ -1,5 +1,4 @@
-import type { JSX } from "react";
-import { useState } from "react";
+import { useState, type JSX, type ChangeEvent } from "react";
 
 function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");
@@ -20,10 +19,10 @@ function Login(): JSX.Element {
                 <h1>Login</h1>
                 <form>
                     <label>Email
-                        <input type="email" placeholder="Entrez une adresse email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setMail(e.target.value)}}/>
+                        <input type="email" placeholder="Entrez une adresse email" onChange={(e: ChangeEvent<HTMLInputElement>) => {setMail(e.target.value)}}/>
                     </label>
                     <label>Mot de passe
-                        <input type="password" placeholder="Entrez un mot de passe" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
+                        <input type="password" placeholder="Entrez un mot de passe" onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
                     </label>
                     
                     <input type="submit" value="Se connecter"/>

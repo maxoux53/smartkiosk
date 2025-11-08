@@ -1,31 +1,49 @@
 {
     "name": "smartkiosk",
     "private": true,
-    "description": "monorepo root Smart Kiosk",
+    "type": "module",
+    "description": "monorepo Smart Kiosk",
     "workspaces": [
         "backend",
         "frontend-web",
-        "frontend-mobile",
-        "shared"
+        "frontend-mobile"
     ],
     "scripts": {
-        "dev:api": "npm run dev --workspace=backend",
-        "dev:web": "npm run dev --workspace=frontend-web",
-        "clean": "rm -rf **/node_modules",
-        "format:check": "prettier --check .",
+        "api": "npm run type-check:backend && npm run dev --workspace=backend",
+        "web": "npm run type-check:web && npm run dev --workspace=frontend-web",
+        "mobile": "npm run type-check:mobile && npm run start --workspace=frontend-mobile",
+        "ios": "npm run type-check:mobile && npm run ios --workspace=frontend-mobile",
+        "android": "npm run type-check:mobile && npm run android --workspace=frontend-mobile",
+
+        "format-check": "prettier --check .",
+
+        "type-check": "tsc --noEmit",
+        "type-check:backend": "cd backend && tsc --noEmit",
+        "type-check:web": "cd frontend-web && tsc --noEmit",
+        "type-check:mobile": "cd frontend-mobile && tsc --noEmit",
+
         "lint": "eslint .",
-        "type-check": "tsc --noEmit"
+        "lint:backend": "eslint backend/**/*.{ts,js}",
+        "lint:web": "eslint frontend-web/**/*.{ts,tsx}",
+        "lint:mobile": "eslint frontend-mobile/**/*.{ts,tsx}",
+        
+        "clean": "find . -name \"node_modules\" -type d -exec rm -rf {} + && find . -name \"build\" -type d -exec rm -rf {} + && find . -name \"dist\" -type d -exec rm -rf {} +"
     },
     "devDependencies": {
+        "@eslint/js": "^9.36.0",
         "@types/node": "^24.10.0",
         "eslint": "^9.39.0",
         "eslint-config-prettier": "^10.1.8",
         "prettier": "^3.6.2",
         "tsx": "^4.20.6",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.46.2"
-    },
-    "dependencies": {
-        "react-native-segmented-control-tab": "^4.0.0"
+        "typescript-eslint": "^8.46.2",
+        "eslint-config-expo": "^10.0.0",
+        "eslint-plugin-react": "^7.37.2",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "eslint-plugin-react-refresh": "^0.4.16",
+        "eslint-plugin-react-x": "^1.5.1",
+        "eslint-plugin-react-dom": "^1.1.0",
+        "globals": "^15.12.0"
     }
 }

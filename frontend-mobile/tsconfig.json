@@ -1,6 +1,6 @@
 {
     "extends": [
-        "../../tsconfig.base.json",
+        "../tsconfig.base.json",
         "expo/tsconfig.base"
     ],
     "compilerOptions": {
@@ -16,8 +16,5 @@
         "allowSyntheticDefaultImports": true // Compat avec modules RN
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules"],
-    "references": [
-        { "path": "../../shared" }
-    ]
+    "exclude": ["node_modules"]
 }

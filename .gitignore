@@ -53,4 +53,4 @@ project.xcworkspace
 *.jsbundle
 
 ### CocoaPods ###
-/Pods/
+**/Pods/

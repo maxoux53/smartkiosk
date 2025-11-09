@@ -1,4 +1,4 @@
-name: Type, Lint and Format Check
+name: PR Check
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 jobs:
   type-check:
     runs-on: ubuntu-latest
-    name: TypeScript Type Check
+    name: Type
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
 
   eslint:
     runs-on: ubuntu-latest
-    name: ESLint Check
+    name: ESLint
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
 
   prettier:
     runs-on: ubuntu-latest
-    name: Prettier Check
+    name: Prettier
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -62,24 +62,3 @@ jobs:
 
       - name: Run Prettier check
         run: npm run format-check
-
-  super-linter: # en phase de test dans le but de potentiellement remplacer eslint + prettier
-    runs-on: ubuntu-latest
-    name: Super-Linter
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run Super-Linter
-        uses: super-linter/super-linter@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_TYPESCRIPT_ES: true
-          VALIDATE_JAVASCRIPT_PRETTIER: true
-          VALIDATE_TYPESCRIPT_PRETTIER: true
-          JAVASCRIPT_ES_CONFIG_FILE: eslint.config.js
-          TYPESCRIPT_ES_CONFIG_FILE: eslint.config.js
-          LINTER_RULES_PATH: .

@@ -20,7 +20,7 @@ function Table(): JSX.Element {
                 </tr>
             </tbody>
         </table>
-    )
+    );
 }
 
 export default Table;

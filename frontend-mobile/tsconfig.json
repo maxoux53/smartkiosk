@@ -1,8 +1,5 @@
 {
-    "extends": [
-        "../../tsconfig.base.json",
-        "expo/tsconfig.base"
-    ],
+    "extends": ["../tsconfig.base.json", "expo/tsconfig.base"],
     "compilerOptions": {
         "jsx": "react-native", // Spécifique à RN, pour Metro bundler
         "allowJs": true,
@@ -16,8 +13,5 @@
         "allowSyntheticDefaultImports": true // Compat avec modules RN
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules"],
-    "references": [
-        { "path": "../../shared" }
-    ]
+    "exclude": ["node_modules"]
 }

@@ -21,9 +21,9 @@
         "type-check:web": "cd frontend-web && tsc --noEmit",
         "type-check:mobile": "cd frontend-mobile && tsc --noEmit",
         "lint": "eslint .",
-        "lint:backend": "eslint backend/**/*.{ts,js}",
-        "lint:web": "eslint frontend-web/**/*.{ts,tsx}",
-        "lint:mobile": "eslint frontend-mobile/**/*.{ts,tsx}",
+        "lint:backend": "eslint backend",
+        "lint:web": "eslint frontend-web",
+        "lint:mobile": "eslint frontend-mobile",
         "clean": "find . -name \"node_modules\" -type d -exec rm -rf {} + && find . -name \"build\" -type d -exec rm -rf {} + && find . -name \"dist\" -type d -exec rm -rf {} +"
     },
     "devDependencies": {

@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Run TypeScript type check
-        run: npm run type-check
+        run: npm run type-check:all
 
   eslint:
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
       - name: Run Prettier check
         run: npm run format-check
 
-  super-linter: # test
+  super-linter: # en phase de test dans le but de potentiellement remplacer eslint + prettier
     runs-on: ubuntu-latest
     name: Super-Linter
     steps:
@@ -82,4 +82,4 @@ jobs:
           VALIDATE_TYPESCRIPT_PRETTIER: true
           JAVASCRIPT_ES_CONFIG_FILE: eslint.config.js
           TYPESCRIPT_ES_CONFIG_FILE: eslint.config.js
-          ESLINT_USE_FLAT_CONFIG: true
+          LINTER_RULES_PATH: .

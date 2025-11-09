@@ -5,7 +5,7 @@ function NavButton({ name }: { name: string }): JSX.Element {
         <>
             <button>{name}</button>
         </>
-    )
+    );
 }
 
 export default NavButton;

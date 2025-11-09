@@ -6,8 +6,8 @@ function Login(): JSX.Element {
     const [connectionMessage, setConnectionMessage] = useState<string>("");
 
     function login(): void {
-        console.log("test")
-        if (mail === "test" && password === "mdp"){
+        console.log("test");
+        if (mail === "test" && password === "mdp") {
             setConnectionMessage("Connexion réussie");
         } else {
             setConnectionMessage("Connexion échouée");
@@ -18,16 +18,30 @@ function Login(): JSX.Element {
         <main className="login">
             <h1>Login</h1>
             <form>
-                <label>Email
-                    <input type="email" placeholder="Entrez une adresse email" onChange={(e: ChangeEvent<HTMLInputElement>) => {setMail(e.target.value)}}/>
+                <label>
+                    Email
+                    <input
+                        type="email"
+                        placeholder="Entrez une adresse email"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            setMail(e.target.value);
+                        }}
+                    />
                 </label>
-                <label>Mot de passe
-                    <input type="password" placeholder="Entrez un mot de passe" onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}/>
+                <label>
+                    Mot de passe
+                    <input
+                        type="password"
+                        placeholder="Entrez un mot de passe"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            setPassword(e.target.value);
+                        }}
+                    />
                 </label>
-                
-                <input type="submit" value="Se connecter"/>
+
+                <input type="submit" value="Se connecter" />
             </form>
-            
+
             {connectionMessage}
         </main>
     );

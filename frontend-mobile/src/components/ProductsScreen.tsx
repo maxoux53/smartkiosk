@@ -1,6 +1,6 @@
-import { useState, type JSX } from 'react';
-import { Text, View } from 'react-native';
-import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import { useState, type JSX } from "react";
+import { Text, View } from "react-native";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
 type SegmentedControlChangeEvent = {
     nativeEvent: {
@@ -8,19 +8,26 @@ type SegmentedControlChangeEvent = {
     };
 };
 
-export default function ProductsScreen() : JSX.Element {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+export default function ProductsScreen(): JSX.Element {
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16 }}>
+        <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingHorizontal: 16
+            }}
+        >
             <SegmentedControl
-                values={['Tous', 'Catégorie 1', 'Catégorie 2']}
+                values={["Tous", "Catégorie 1", "Catégorie 2"]}
                 selectedIndex={selectedIndex}
                 onChange={(event: SegmentedControlChangeEvent) => {
                     setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
                 }}
                 tintColor="lightgray"
-                style={{ alignSelf: 'stretch', height: 34, marginVertical: 12 }}
+                style={{ alignSelf: "stretch", height: 34, marginVertical: 12 }}
             />
 
             <Text>Produits! Index sélectionné: {selectedIndex}</Text>

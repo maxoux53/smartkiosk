@@ -16,7 +16,7 @@
         "android": "npm run type-check:mobile && npm run android --workspace=frontend-mobile",
         "format-check": "prettier --check .",
         "format-fix": "prettier --write .",
-        "type-check:all": "npm run type-check:web && npm run type-check:mobile",
+        "type-check:all": "npm run type-check:backend && npm run type-check:web && npm run type-check:mobile",
         "type-check:backend": "cd backend && tsc --noEmit",
         "type-check:web": "cd frontend-web && tsc --noEmit",
         "type-check:mobile": "cd frontend-mobile && tsc --noEmit",

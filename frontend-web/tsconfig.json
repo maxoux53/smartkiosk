@@ -9,7 +9,6 @@
         "rootDir": "./src",
         "composite": true,
         "moduleResolution": "bundler",
-        "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
         "moduleDetection": "force"
     },

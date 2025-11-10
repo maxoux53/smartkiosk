@@ -17,7 +17,7 @@
         max-width: map.get(map.get($breakpoints, "sm"), "viewport");
     }
 
-    // Gestion
+    // Admin
 
     > #admin #header {
         display: flex;
@@ -38,5 +38,24 @@
 
     > #admin #table th {
         border: solid;
+    }
+
+    // EventList
+
+    > #eventList #header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    > #eventList #list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        max-width: 100%;
     }
 }

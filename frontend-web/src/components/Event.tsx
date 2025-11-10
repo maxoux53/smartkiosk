@@ -1,9 +1,9 @@
 import type { JSX } from "react";
 
-function Event({name}: {name: string},/* {imgPath}: {imgPath: string}*/): JSX.Element {
+function Event({name, imagePath}: {name: string, imagePath: string}): JSX.Element {
     return (
         <div onClick={e => {console.log("test")}}>
-            <img src="../../public/vite.svg" alt="" />
+            <img src={imagePath} alt={name} />
             <p>{name}</p>        
         </div>
     );

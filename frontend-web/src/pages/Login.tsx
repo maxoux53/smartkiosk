@@ -15,7 +15,7 @@ function Login(): JSX.Element {
     }
 
     return (
-        <main className="login">
+        <main id="login">
             <h1>Login</h1>
             <form>
                 <label>

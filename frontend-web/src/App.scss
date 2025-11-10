@@ -9,7 +9,7 @@
 #root {
     // Login
 
-    > .login {
+    > #login {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -19,24 +19,24 @@
 
     // Gestion
 
-    > .admin #header {
+    > #admin #header {
         display: flex;
         justify-content: space-between;
         margin-bottom: 3%;
     }
 
-    > .admin #navBar {
+    > #admin #navBar {
         display: flex;
         justify-content: space-between;
         margin-bottom: 5%;
     }
 
-    > .admin #table {
+    > #admin #table {
         border: solid;
         border-radius: 5px;
     }
 
-    > .admin #table th {
+    > #admin #table th {
         border: solid;
     }
 }

@@ -2,31 +2,46 @@
 
 ## À propos
 
-...
+Smart Kiosk est un projet full-stack développé en TypeScript composé d'une application web, d'une application mobile et d'un backend. Il conciste en une solution complète permettant aux consommateurs d'avoir toutes les informations sur les événements à portée de main, de passer des commandes directement depuis leur appareil mobile, et aux organisateurs de gérer efficacement les événements (gestion des produits, des commandes, des utilisateurs, etc.).
 
 ## Table des matières
 
 1. [À propos](#à-propos)
 2. [Table des matières](#table-des-matières)
-3. [Structure de la base de données](#structure-de-la-base-de-données)
-4. [Informations sur la licence](#informations-sur-la-licence)
+3. [Technologies utilisées](#technologies-utilisées)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Base de données](#base-de-données)
+    - [Modélisation](#modélisation)
+4. [Structure de la base de données](#structure-de-la-base-de-données)
+5. [Informations sur la licence](#informations-sur-la-licence)
 
 ## Technologies utilisées
 
-### Développement
+### Frontend
+
+#### Frontend web
 
 - React
-- Express
-- React-Native
+- Vite
+- PicoCSS
+
+#### Frontend mobile
+
+- React Native
 - Expo
+
+### Backend
+
+- Node.js
+- Express
+- Prisma ORM
 
 ### Base de données
 
 - PostgreSQL
-- Docker
-- DataGrip et VS Code avec extension PostgreSQL
 
-### Conception
+### Modélisation
 
 - Draw.io pour la modélisation de la base de données (entité-association et relationnel)
 

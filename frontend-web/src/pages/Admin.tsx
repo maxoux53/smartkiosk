@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import NavButton from "../components/navButton";
+import NavButton from "../components/NavButton";
 import Table from "../components/Table";
 
 import { TABLES } from "../constant";

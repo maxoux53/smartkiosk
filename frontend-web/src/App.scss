@@ -19,24 +19,24 @@
 
     // Gestion
 
-    > .gestion #header {
+    > .admin #header {
         display: flex;
         justify-content: space-between;
         margin-bottom: 3%;
     }
 
-    > .gestion #navBar {
+    > .admin #navBar {
         display: flex;
         justify-content: space-between;
         margin-bottom: 5%;
     }
 
-    > .gestion #table {
+    > .admin #table {
         border: solid;
         border-radius: 5px;
     }
 
-    > .gestion #table th {
+    > .admin #table th {
         border: solid;
     }
 }

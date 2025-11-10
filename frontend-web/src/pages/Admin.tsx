@@ -8,7 +8,7 @@ function Gestion(): JSX.Element {
     const role: string = "Administrateur"; // Accès à la base de donnée
 
     return (
-        <main className="gestion">
+        <main className="admin">
             <div id="header">
                 <h1>{role}</h1>
             </div>

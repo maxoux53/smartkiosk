@@ -9,7 +9,7 @@
         "frontend-mobile"
     ],
     "scripts": {
-        "api": "npm run type-check:backend && npm run dev --workspace=backend",
+        "backend": "npm run type-check:backend && npm run dev --workspace=backend",
         "web": "npm run type-check:web && npm run dev --workspace=frontend-web",
         "mobile": "npm run type-check:mobile && npm run start --workspace=frontend-mobile",
         "ios": "npm run type-check:mobile && npm run ios --workspace=frontend-mobile",
@@ -20,10 +20,11 @@
         "type-check:backend": "cd backend && tsc --noEmit",
         "type-check:web": "cd frontend-web && tsc --noEmit",
         "type-check:mobile": "cd frontend-mobile && tsc --noEmit",
-        "lint": "eslint .",
+        "lint:all": "eslint .",
         "lint:backend": "eslint backend",
         "lint:web": "eslint frontend-web",
         "lint:mobile": "eslint frontend-mobile",
+        "build:web": "npm run type-check:web && npm run build --workspace=frontend-web",
         "clean": "find . -name \"node_modules\" -type d -exec rm -rf {} + && find . -name \"build\" -type d -exec rm -rf {} + && find . -name \"dist\" -type d -exec rm -rf {} +"
     },
     "devDependencies": {

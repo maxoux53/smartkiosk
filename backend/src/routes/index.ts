@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from "express";
-import { default as productRouter } from "./product.js";
+import { default as productRouter } from "./product.ts";
 
 const router = Router();
 

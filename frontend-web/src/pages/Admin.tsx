@@ -1,29 +1,21 @@
 import type { JSX } from "react";
+import Gestion from "../components/Gestion"
+
+import { ADMIN_TABLES } from "../constant";
 import NavButton from "../components/NavButton";
-import Table from "../components/Table";
 
-import { TABLES } from "../constant";
+function Admin(): JSX.Element {
+    const navButtons: JSX.Element[] = [];
+    navButtons.push(<NavButton name={ADMIN_TABLES.USERS}></NavButton>)
+    navButtons.push(<NavButton name={ADMIN_TABLES.MEMBERSHIPS}></NavButton>)
+    navButtons.push(<NavButton name={ADMIN_TABLES.EVENTS}></NavButton>)
 
-function Gestion(): JSX.Element {
+
     return (
         <main id="admin">
-            <div id="header">
-                <h1>Administrateur</h1>
-            </div>
-
-            <div id="navBar">
-                {Object.entries(TABLES).map(([_, tablaName]) => {
-                    return <NavButton name={tablaName}></NavButton>;
-                })}
-            </div>
-
-            <div id="table">
-                <Table></Table>
-            </div>
-
-            <div id="footer"></div>
+            <Gestion roleName="Administrateur" navButtons={navButtons}></Gestion>
         </main>
     );
 }
 
-export default Gestion;
+export default Admin;

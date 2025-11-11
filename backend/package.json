@@ -9,6 +9,7 @@
         "start": "node dist/server.js"
     },
     "dependencies": {
+        "@prisma/client": "^6.19.0",
         "dotenv": "^16.4.7",
         "express": "^5.1.0"
     },

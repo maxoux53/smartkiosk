@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Admin from "../pages/Admin";
 import EventList from "../pages/EventList";
+import EventManager from "../pages/EventManager";
 
 const router = createBrowserRouter([
     {
@@ -10,14 +11,21 @@ const router = createBrowserRouter([
     },
 
     {
+        path: "/",
+        element: <EventList></EventList>
+    },
+
+    {
         path: "/admin",
         element: <Admin></Admin>
     },
 
     {
-        path: "/",
-        element: <EventList></EventList>
+        path: "/manager",
+        element: <EventManager></EventManager>
     }
+
+    
 ]);
 
 export default router;

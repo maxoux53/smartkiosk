@@ -21,6 +21,26 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
     }
 };
 
+export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
+    try {
+        const products = await prisma.product.findMany({
+            where: {
+                deletion_date: null
+            }
+        });
+        if (products) {
+            res.send(products);
+
+        } else {
+            res.sendStatus(404);
+        }
+
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+};
+
 export const createProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
         /* possibilité 1
@@ -104,4 +124,5 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
         console.error(e);
         res.sendStatus(500);
     }
+    
 };

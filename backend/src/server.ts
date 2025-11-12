@@ -1,4 +1,4 @@
-import express, { Request, Response, type Express } from "express";
+import express, { Request, Response, Express } from "express";
 import { default as Router } from "./routes/index.ts";
 import "dotenv/config";
 

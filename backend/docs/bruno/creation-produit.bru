@@ -1,0 +1,22 @@
+meta {
+  name: creation produit
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/product/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "label": "carton (de Tournai)",
+    "is_available": false,
+    "excl_vat_price": "3",
+    "picture": "https://media.licdn.com/dms/image/v2/D4D35AQFCrinYDwNcRw/profile-framedphoto-shrink_800_800/B4DZeodi5KGsAg-/0/1750878007274?e=1763564400&v=beta&t=5OgNX3h86s_Eexpgqyub9WWUWQo9-8qQ_zq7E6FNaP0",
+    "category_id": 1,
+    "event_id": 1
+  }
+}

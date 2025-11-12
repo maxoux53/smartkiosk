@@ -10,13 +10,13 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
             }
         });
 
-        if(product){
+        if (product) {
             res.send(product);
         } else {
             res.sendStatus(404);
         }
-    } catch (err) {
-        console.error(err);
+    } catch (e) {
+        console.error(e);
         res.sendStatus(500);
     }
 };
@@ -58,18 +58,18 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
         });
         
         res.status(201).send(newProductId);
-    } catch (err) {
-        console.error(err);
+    } catch (e) {
+        console.error(e);
         res.sendStatus(500);
     }
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
+    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } : product = req.body;
+    // const safeExclVatPriceDecimal = new prisma.Decimal(excl_vat_price);
+    
     try {
-        const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } : product = req.body;
-        // const safeExclVatPriceDecimal = new prisma.Decimal(excl_vat_price);
-
-        const updatedProduct = await prisma.product.update({
+        await prisma.product.update({
             where: {
                 id
             },
@@ -84,9 +84,24 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
             }
         });
 
-        res.send(updatedProduct);
-    } catch (err) {
-        console.error(err);
+        res.sendStatus(200);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+};
+
+export const deleteProduct = async (req : Request, res : Response) : Promise<void> => {
+    try {
+        await prisma.product.delete({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        });
+
+        res.sendStatus(204);
+    } catch (e) {
+        console.error(e);
         res.sendStatus(500);
     }
 };

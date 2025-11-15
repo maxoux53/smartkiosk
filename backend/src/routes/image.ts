@@ -1,12 +1,9 @@
 import { Router } from 'express';
 import {
-    
-} from "../controller/product.ts";
+    avatarUploadAddress
+} from "../controller/image.ts";
 const router = Router();
 
-/* router.get('/:id', getProduct);
-router.post('/', addProduct);
-router.patch('/', updateProduct);
-router.delete('/:id', deleteProduct); */
+router.get('/', avatarUploadAddress);
 
 export default router;

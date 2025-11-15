@@ -6,6 +6,7 @@ import { default as imageRouter } from "./image.ts";
 import { default as purchaseRouter } from "./purchase.ts";
 import { default as userRouter } from "./user.ts";
 import { default as vatRouter } from "./vat.ts";
+import { default as personalRouter } from "./me.ts";
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use("/image", imageRouter);
 router.use("/purchase", purchaseRouter);
 router.use("/user", userRouter);
 router.use("/vat", vatRouter);
+router.use("/me", personalRouter);
 
 // Gestion d'une URL hors application
 router.use((req : Request, res : Response) : Response => {

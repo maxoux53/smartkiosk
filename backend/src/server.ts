@@ -1,6 +1,8 @@
 import express, { Request, Response, Express } from "express";
 import { default as Router } from "./routes/index.ts";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config({ path: '../.env' });
 
 const app : Express = express();
 const port : number = parseInt(process.env.PORT || '3001');

@@ -1,19 +1,17 @@
 import prisma from "../database/databaseORM.ts";
 import { eraseStoredImage, genImgUploadUrl } from "../images.ts";
 import { Request, Response } from "express";
-import { user } from "../generated/prisma/client.ts";
-
 
 export const avatarUploadAddress = async (req : Request, res : Response) : Promise<void> => {
     const retrievedUserAvatar = (await prisma.user.findUnique({
-        where: { id: parseInt(req.id) },
+        where: { id: req.userId },
         select: { avatar: true }
     }))!;
 
     const directUpload = await genImgUploadUrl();
 
     await prisma.user.update({
-        where: { id: req.id },
+        where: { id: req.userId },
         data: { avatar: directUpload.id }
     });
 

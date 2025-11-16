@@ -3,6 +3,14 @@ import * as productSchemas from './product.ts';
 import { Request, Response, NextFunction } from 'express';
 
 export const productVal = {
+    get: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            req.body = await productSchemas.productSearch.validate(req.params);
+            next();
+        } catch (e) {
+            res.status(400).send((e as ValidationError).message);
+        }
+    },
     create: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await productSchemas.productCreation.validate(req.body);

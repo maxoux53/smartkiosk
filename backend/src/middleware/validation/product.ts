@@ -24,6 +24,7 @@ const productUpdateSchema = vine.object({
 });
 
 export const
+    productSearch = vine.compile(productIdSchema),
     productCreation = vine.compile(productCreationSchema),
     productUpdate = vine.compile(productUpdateSchema),
     productDeletion = vine.compile(productIdSchema)

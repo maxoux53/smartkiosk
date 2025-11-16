@@ -54,3 +54,9 @@ project.xcworkspace
 
 ### CocoaPods ###
 **/Pods/
+
+### Prisma ###
+/backend/src/generated/prisma
+
+### JetBrains ###
+.idea/

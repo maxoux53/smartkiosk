@@ -1,5 +1,6 @@
 import Cloudflare from 'cloudflare';
 import { DirectUploadCreateResponse } from 'cloudflare/resources/images/v2.mjs';
+import "dotenv/config";
 
 const client = new Cloudflare({
     apiToken: process.env.CF_API_TOKEN!

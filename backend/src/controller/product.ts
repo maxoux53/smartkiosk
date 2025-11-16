@@ -6,7 +6,7 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
     try {
         const product = await prisma.product.findUnique({
             where: {
-                id: parseInt(req.params.id)
+                id: parseInt(req.body.id)
             }
         });
 
@@ -115,7 +115,7 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     try {
         await prisma.product.delete({
             where: {
-                id: parseInt(req.params.id)
+                id: parseInt(req.body.id)
             }
         });
 

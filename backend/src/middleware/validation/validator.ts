@@ -29,7 +29,7 @@ export const productVal = {
     },
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await productSchemas.productDeletion.validate(req.body);
+            req.body = await productSchemas.productDeletion.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

@@ -44,7 +44,7 @@ const router = Router();
  *               type: string
  *       500:
  *         description: Server error
- */
+*/
 router.get('/:id', productVal.get, getProduct);
 
 /**
@@ -74,7 +74,7 @@ router.get('/:id', productVal.get, getProduct);
  *         $ref: '#/components/responses/UnauthorizedError'
  *       500:
  *         description: Server error
- */
+*/
 router.post('/', productVal.create, createProduct);
 
 /**
@@ -104,7 +104,7 @@ router.post('/', productVal.create, createProduct);
  *               type: string
  *       500:
  *         description: Server error
- */
+*/
 router.patch('/', productVal.update, updateProduct);
 
 /**
@@ -136,7 +136,7 @@ router.patch('/', productVal.update, updateProduct);
  *         $ref: '#/components/responses/UnauthorizedError'
  *       500:
  *         description: Server error
- */
+*/
 router.delete('/:id', productVal.delete, deleteProduct);
 
 export default router;

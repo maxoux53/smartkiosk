@@ -29,11 +29,7 @@ const router = Router();
  *         description: Numeric ID of the product to get
  *     responses:
  *       200:
- *         description: Product found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
+ *         $ref: '#/components/schemas/Product'
  *       400:
  *         description: Invalid ID supplied
  *         content:
@@ -50,8 +46,97 @@ const router = Router();
  *         description: Server error
  */
 router.get('/:id', productVal.get, getProduct);
+
+/**
+ * @swagger
+ * /product:
+ *   post:
+ *     summary: Create a new product
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Product
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProductToAdd'
+ *     responses:
+ *       201:
+ *         $ref: '#/components/responses/ProductAdded'
+ *       400:
+ *         description: Described error
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       500:
+ *         description: Server error
+ */
 router.post('/', productVal.create, createProduct);
+
+/**
+ * @swagger
+ * /product:
+ *   patch:
+ *     summary: Update an existing product
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Product
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProductToUpdate'
+ *     responses:
+ *       204:
+ *         description: Product updated
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       400:
+ *         description: Described error
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *       500:
+ *         description: Server error
+ */
 router.patch('/', productVal.update, updateProduct);
+
+/**
+ * @swagger
+ * /product/{id}:
+ *   delete:
+ *     summary: Delete a product by ID
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Product
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Numeric ID of the product to delete
+ *     responses:
+ *       204:
+ *         description: Product deleted
+ *       400:
+ *         description: Described error
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       500:
+ *         description: Server error
+ */
 router.delete('/:id', productVal.delete, deleteProduct);
 
 export default router;

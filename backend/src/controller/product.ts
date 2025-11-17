@@ -11,7 +11,7 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
         });
 
         if (product) {
-            res.send(product);
+            res.status(200).send(product);
         } else {
             res.sendStatus(404);
         }
@@ -29,7 +29,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
         if (products) {
-            res.send(products);
+            res.status(200).send(products);
 
         } else {
             res.sendStatus(404);

@@ -2,6 +2,43 @@ import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { product } from "../generated/prisma/client.ts";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         label:
+ *           type: string
+ *         is_available:
+ *           type: boolean
+ *         excl_vat_price:
+ *           type: number
+ *         deletion_date:
+ *           type: string
+ *           format: date-time
+ *         category_id:
+ *           type: integer
+ *         event_id:
+ *           type: integer
+*/
+
+
+
+/**
+ * @swagger
+ * components:
+ *   responses:
+ *     getProduct:
+ *       description: The product
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+*/
 export const getProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
         const product = await prisma.product.findUnique({
@@ -41,6 +78,20 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
     }
 };
 
+/**
+ * @swagger
+ * components:
+ *   responses:
+ *     ProductAdded:
+ *       description: The product
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+*/
 export const createProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
         /* possibilité 1

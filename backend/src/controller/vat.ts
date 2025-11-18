@@ -6,7 +6,8 @@ export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
         const vat = await prisma.vat.findUnique({
             where: {
-                type: req.params.id
+                type: req.params.id,
+                deletion_date: null
             }
         });
         if (vat) {
@@ -18,7 +19,7 @@ export const getVat = async (req : Request, res : Response) : Promise<void> => {
         console.error(e);
         res.sendStatus(500);
     }
-}
+};
 
 export const getAllVats = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -36,4 +37,4 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
         console.error(e);
         res.sendStatus(500);
     }
-}
+};

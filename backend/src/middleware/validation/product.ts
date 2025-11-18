@@ -8,9 +8,7 @@ const productCreationSchema = vine.object({
     label: vine.string().minLength(1).maxLength(80),
     is_available: vine.boolean().optional(),
     excl_vat_price: vine.number().min(0),
-    deletion_date: vine.date().optional(),
     category_id: vine.number(),
-    event_id: vine.number()
 });
 
 const productUpdateSchema = vine.object({
@@ -20,7 +18,6 @@ const productUpdateSchema = vine.object({
     excl_vat_price: vine.number().min(0).optional(),
     deletion_date: vine.date().optional(),
     category_id: vine.number().optional(),
-    event_id: vine.number().optional()
 });
 
 export const

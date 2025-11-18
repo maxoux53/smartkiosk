@@ -14,6 +14,7 @@ export const productVal = {
     create: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await productSchemas.productCreation.validate(req.body);
+            req.body.event_id = parseInt(req.params.event_id);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

@@ -4,7 +4,7 @@ BEGIN TRANSACTION;
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
     email VARCHAR(80) UNIQUE NOT NULL,
-    password BYTEA NOT NULL,
+    password_hash TEXT NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT FALSE,
     avatar TEXT,
     deletion_date TIMESTAMP DEFAULT NULL

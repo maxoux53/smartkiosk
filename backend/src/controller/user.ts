@@ -1,6 +1,27 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { hash } from "../util/hash.ts";
+import { hash, compare} from "../util/hash.ts";
+import { sign } from "../util/jwt.ts";
+
+export const login = async (req: Request, res: Response) : Promise<void> => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: req.body.email
+            }
+        });
+
+        if (user && (await compare(req.body.password, user.password_hash))) {
+            const token = sign(user, { expiresIn: '8h' });
+            res.status(200).send(token);
+        } else {
+            res.sendStatus(401);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+};
 
 export const getUser = async (req: Request, res: Response) : Promise<void> => {
     try {

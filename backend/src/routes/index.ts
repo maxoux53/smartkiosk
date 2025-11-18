@@ -7,9 +7,11 @@ import { default as purchaseRouter } from "./purchase.ts";
 import { default as userRouter } from "./user.ts";
 import { default as vatRouter } from "./vat.ts";
 import { default as personalRouter } from "./me.ts";
+import { login } from "../controller/user.ts";
 
 const router = Router();
 
+router.post("/login", login);
 router.use("/product", productRouter);
 router.use("/category", categoryRouter);
 router.use("/event", eventRouter);

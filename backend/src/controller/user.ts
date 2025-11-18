@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { hash } from "../util/hash.ts";
 
 export const getUser = async (req: Request, res: Response) : Promise<void> => {
     try {
@@ -36,14 +37,14 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
 
 export const createUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const { first_name, last_name, email, password_hash, is_admin } = req.body;
+        const { first_name, last_name, email, password, is_admin } = req.body;
 
         const newUser = await prisma.user.create({
             data: {
                 first_name,
                 last_name,
                 email,
-                password_hash,
+                password_hash: await hash(password),
                 is_admin
             }
         });
@@ -72,7 +73,7 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const { id, first_name, last_name, email, password_hash, is_admin } = req.body;
+        const { id, first_name, last_name, email, password, is_admin } = req.body;
 
         const updatedUser = await prisma.user.update({
             where: {
@@ -82,7 +83,7 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 first_name,
                 last_name,
                 email,
-                password_hash,
+                password_hash: await hash(password),
                 is_admin
             }
         });

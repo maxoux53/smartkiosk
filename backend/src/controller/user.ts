@@ -1,16 +1,19 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { user } from "../generated/prisma/client.ts";
+import { parse } from "path";
 
 export const getUser = async (req: Request, res: Response) : Promise<void> => {
+export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const user = await prisma.user.findUnique({
             where: {
                 id: parseInt(req.body.id)
+                id: parseInt(req.params.id),
+                deletion_date: null
             }
         });
-
         if (user) {
-            res.status(200).send(user);
         } else {
             res.sendStatus(404);
         }

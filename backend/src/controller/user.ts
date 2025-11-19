@@ -1,7 +1,27 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { user } from "../generated/prisma/client.ts";
-import { parse } from "path";
+import { hash, compare} from "../util/hash.ts";
+import { sign } from "../util/jwt.ts";
+
+export const login = async (req: Request, res: Response) : Promise<void> => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: req.body.email
+            }
+        });
+
+        if (user && (await compare(req.body.password, user.password_hash))) {
+            const token = sign(user, { expiresIn: '8h' });
+            res.status(200).send(token);
+        } else {
+            res.sendStatus(401);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+};
 
 export const getUser = async (req: Request, res: Response) : Promise<void> => {
 export const getUser = async (req: Request, res: Response): Promise<void> => {
@@ -39,14 +59,14 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
 
 export const createUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const { first_name, last_name, email, password_hash, is_admin } = req.body;
+        const { first_name, last_name, email, password, is_admin } = req.body;
 
         const newUser = await prisma.user.create({
             data: {
                 first_name,
                 last_name,
                 email,
-                password_hash,
+                password_hash: await hash(password),
                 is_admin
             }
         });
@@ -75,7 +95,7 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const { id, first_name, last_name, email, password_hash, is_admin } = req.body;
+        const { id, first_name, last_name, email, password, is_admin } = req.body;
 
         const updatedUser = await prisma.user.update({
             where: {
@@ -85,7 +105,7 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 first_name,
                 last_name,
                 email,
-                password_hash,
+                password_hash: await hash(password),
                 is_admin
             }
         });

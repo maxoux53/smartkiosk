@@ -1,4 +1,5 @@
 import { Router, type Request, type Response } from "express";
+
 import { default as productRouter } from "./product.ts";
 import { default as categoryRouter } from "./category.ts";
 import { default as eventRouter } from "./event.ts";
@@ -8,16 +9,21 @@ import { default as userRouter } from "./user.ts";
 import { default as vatRouter } from "./vat.ts";
 import { default as personalRouter } from "./me.ts";
 
+import { identificationMiddleware } from "../middleware/identification.ts";
+
+import { login } from "../controller/user.ts";
+
 const router = Router();
 
+router.post("/login", login);
 router.use("/product", productRouter);
 router.use("/category", categoryRouter);
 router.use("/event", eventRouter);
-router.use("/image", imageRouter);
+router.use("/images", imageRouter);
 router.use("/purchase", purchaseRouter);
 router.use("/user", userRouter);
 router.use("/vat", vatRouter);
-router.use("/me", personalRouter);
+router.use("/me", identificationMiddleware, personalRouter);
 
 // Gestion d'une URL hors application
 router.use((req : Request, res : Response) : Response => {

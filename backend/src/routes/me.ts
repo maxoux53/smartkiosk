@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { default as imageRouter } from "./image.ts";
+
+import {
+    avatarUploadAddress
+} from "../controller/image.ts";
 
 const router = Router();
 
-router.use("/image", imageRouter);
+router.get('/image', avatarUploadAddress);
 
 export default router;

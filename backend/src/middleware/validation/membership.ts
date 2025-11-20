@@ -8,12 +8,12 @@ const membershipIdSchema = vine.object({
 const membershipCreationSchema = vine.object({
     user_id: vine.number(),
     event_id: vine.number(),
-    role: vine.string().minLength(1).maxLength(10) // Vérification du role dans controller
+    role: vine.enum(['host', 'cashier', 'guest'])
 });
 
 const membershipUpdateSchema = vine.object({
     id: vine.number(),
-    role: vine.string().minLength(1).maxLength(10).optional() // Vérification du role dans controller
+    role: vine.enum(['host', 'cashier', 'guest']).optional()
 });
 
 export const

@@ -61,18 +61,13 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const products = await prisma.product.findMany({
-            where: {
-                deletion_date: null
-            }
-        });
-        if (products) {
-            res.status(200).send(products);
-
+        let products;
+        if (req.body.event_id) {
+            products = await prisma.product.findMany({ where: { deletion_date: null, event_id: req.body.event_id } });
         } else {
-            res.sendStatus(404);
+            products = await prisma.product.findMany({ where: { deletion_date: null } });
         }
-
+        res.status(200).send(products);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
@@ -167,7 +162,7 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     try {
         await prisma.product.delete({
             where: {
-                id: parseInt(req.body.id)
+                id: req.body.id
             }
         });
 
@@ -175,6 +170,5 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
-    }
-    
+    }  
 };

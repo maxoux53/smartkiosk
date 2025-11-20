@@ -5,12 +5,17 @@ const purchaseIdSchema = vine.object({
 });
 
 const purchaseCreationSchema = vine.object({
-    date: vine.date(),
-    // user_id dans validator 
+    user_id: vine.number()
 });
+
+const purchaseListSchema = vine.object({
+    // optionnal if admin
+    user_id: vine.number().optional()
+})
 
 export const
     purchaseSearch = vine.compile(purchaseIdSchema),
     purchaseCreation = vine.compile(purchaseCreationSchema),
-    purchaseDeletion = vine.compile(purchaseIdSchema)
+    purchaseDeletion = vine.compile(purchaseIdSchema),
+    purchaseList = vine.compile(purchaseListSchema)
 ;

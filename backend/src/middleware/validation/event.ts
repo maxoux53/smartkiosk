@@ -21,9 +21,15 @@ const eventUpdatedSchema = vine.object({
     iban: vine.string().minLength(35).maxLength(35).optional(),
 });
 
+const eventListSchema = vine.object({
+    // optionnal if admin
+    user_id: vine.number().optional()
+})
+
 export const
     eventSearch = vine.compile(eventIdSchema),
     eventCreation = vine.compile(eventCreatedSchema),
     eventUpdate = vine.compile(eventUpdatedSchema),
-    eventDeletion = vine.compile(eventIdSchema)
+    eventDeletion = vine.compile(eventIdSchema),
+    eventList = vine.compile(eventListSchema)
 ;

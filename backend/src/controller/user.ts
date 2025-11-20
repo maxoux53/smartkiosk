@@ -23,13 +23,12 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
     }
 };
 
-export const getUser = async (req: Request, res: Response) : Promise<void> => {
+
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                id: parseInt(req.body.id)
-                id: parseInt(req.params.id),
+                id: parseInt(req.body.id),
                 deletion_date: null
             }
         });

@@ -1,4 +1,5 @@
 import vine from '@vinejs/vine'
+import e from 'express';
 
 const productIdSchema = vine.object({
     id: vine.number()
@@ -9,6 +10,7 @@ const productCreationSchema = vine.object({
     is_available: vine.boolean().optional(),
     excl_vat_price: vine.number().min(0),
     category_id: vine.number(),
+    event_id: vine.number()
 });
 
 const productUpdateSchema = vine.object({
@@ -17,12 +19,18 @@ const productUpdateSchema = vine.object({
     is_available: vine.boolean().optional(),
     excl_vat_price: vine.number().min(0).optional(),
     deletion_date: vine.date().optional(),
-    category_id: vine.number().optional(),
+    category_id: vine.number().optional()
+});
+
+const productsListSchema = vine.object({
+    // optionnal if admin
+    event_id: vine.number().optional()
 });
 
 export const
     productSearch = vine.compile(productIdSchema),
     productCreation = vine.compile(productCreationSchema),
     productUpdate = vine.compile(productUpdateSchema),
-    productDeletion = vine.compile(productIdSchema)
+    productDeletion = vine.compile(productIdSchema),
+    productList = vine.compile(productsListSchema)
 ;

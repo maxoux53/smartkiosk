@@ -4,6 +4,7 @@ const categoryIdSchema = vine.object({
     id: vine.number()
 });
 
+// Admins only
 const categoryCreationSchema = vine.object({
     label: vine.string().minLength(1).maxLength(50),
     vat_type: vine.string().minLength(1).maxLength(1),

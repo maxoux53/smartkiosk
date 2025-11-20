@@ -1,5 +1,4 @@
 import vine from '@vinejs/vine'
-import e from 'express';
 
 const userIdSchema = vine.object({
     id: vine.number()

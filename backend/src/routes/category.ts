@@ -1,12 +1,18 @@
 import { Router } from 'express';
+import { replaceCategoryPicture } from '../middleware/image-replacement.ts';
 import {
-    
-} from "../controller/product.ts";
+    getCategory,
+    getAllCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory
+} from "../controller/category.ts";
 const router = Router();
 
-/* router.get('/:id', getProduct);
-router.post('/', addProduct);
-router.patch('/', updateProduct);
-router.delete('/:id', deleteProduct); */
+router.get('/:id', getCategory);
+router.get('/', getAllCategories);
+router.post('/', createCategory);
+router.patch('/:id', replaceCategoryPicture, updateCategory);
+router.delete('/:id', deleteCategory);
 
 export default router;

@@ -62,11 +62,22 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
     try {
         let products;
+
         if (req.body.event_id) {
-            products = await prisma.product.findMany({ where: { deletion_date: null, event_id: req.body.event_id } });
+            products = await prisma.product.findMany({
+                where: {
+                    deletion_date: null,
+                    event_id: req.body.event_id
+                }
+            });
         } else {
-            products = await prisma.product.findMany({ where: { deletion_date: null } });
+            products = await prisma.product.findMany({
+                where: {
+                    deletion_date: null
+                }
+            });
         }
+
         res.status(200).send(products);
     } catch (e) {
         console.error(e);
@@ -90,10 +101,9 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
 */
 export const createProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        /* possibilité 1
         const { label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } : product = req.body;
 
-        const newProductId : { id : number} = await prisma.product.create({
+        const newProductId = await prisma.product.create({
             data: {
                 label,
                 is_available,
@@ -102,22 +112,6 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
                 picture,
                 category_id,
                 event_id
-            },
-            select: {
-                id: true
-            }
-        }); */
-
-        // possibilité 2
-        const newProductId : { id : number} = await prisma.product.create({
-            data: {
-                label: req.body.label,
-                is_available: req.body.is_available,
-                excl_vat_price: req.body.excl_vat_price,
-                deletion_date: req.body.deletion_date,
-                picture: req.body.picture,
-                category_id: req.body.category_id,
-                event_id: req.body.event_id
             },
             select: {
                 id: true

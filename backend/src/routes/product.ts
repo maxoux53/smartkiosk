@@ -1,7 +1,8 @@
 import { Router } from 'express';
-
+import { replaceProductPicture } from '../middleware/image-replacement.ts';
 import {
     getProduct,
+    getAllProducts,
     createProduct,
     updateProduct,
     deleteProduct
@@ -46,6 +47,8 @@ const router = Router();
  *         description: Server error
 */
 router.get('/:id', productVal.get, getProduct);
+
+router.get('/', getAllProducts);
 
 /**
  * @swagger
@@ -105,7 +108,7 @@ router.post('/', productVal.create, createProduct);
  *       500:
  *         description: Server error
 */
-router.patch('/', productVal.update, updateProduct);
+router.patch('/', productVal.update, replaceProductPicture, updateProduct);
 
 /**
  * @swagger

@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { vat } from "../generated/prisma/client.ts";
 
 export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -10,6 +9,7 @@ export const getVat = async (req : Request, res : Response) : Promise<void> => {
                 deletion_date: null
             }
         });
+
         if (vat) {
             res.send(vat);
         } else {
@@ -26,8 +26,9 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
         const vats = await prisma.vat.findMany({
             where: {
                 deletion_date: null
-            }    
+            }
         });
+
         if (vats) {
             res.send(vats);
         } else {

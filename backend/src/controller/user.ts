@@ -4,15 +4,21 @@ import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
+    const { email, password } = req.body;
+
     try {
         const user = await prisma.user.findUnique({
             where: {
-                email: req.body.email
+                email: email
             }
         });
 
-        if (user && (await compare(req.body.password, user.password_hash))) {
-            const token = sign(user, { expiresIn: '8h' });
+        if (user && (await compare(password, user.password_hash))) {
+            const token = sign(
+                user,
+                { expiresIn: '8h' }
+            );
+
             res.status(200).send(token);
         } else {
             res.sendStatus(401);
@@ -28,11 +34,13 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                id: parseInt(req.body.id),
+                id: req.body.id,
                 deletion_date: null
             }
         });
+
         if (user) {
+            res.status(200).send(user);
         } else {
             res.sendStatus(404);
         }
@@ -45,6 +53,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 export const getAllUsers = async (req: Request, res: Response) : Promise<void> => {
     try {
         const users = await prisma.user.findMany();
+
         if (users) {
             res.status(200).send(users);
         } else {
@@ -57,9 +66,9 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
 };
 
 export const createUser = async (req: Request, res: Response) : Promise<void> => {
+    const { first_name, last_name, email, password, is_admin } = req.body;
+    
     try {
-        const { first_name, last_name, email, password, is_admin } = req.body;
-
         const newUser = await prisma.user.create({
             data: {
                 first_name,
@@ -81,7 +90,7 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
     try {
         const deletedUser = await prisma.user.delete({
             where: {
-                id: parseInt(req.body.id)
+                id: req.body.id
             }
         });
 
@@ -93,12 +102,12 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
 };
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
+    const { id, first_name, last_name, email, password, is_admin } = req.body;
+    
     try {
-        const { id, first_name, last_name, email, password, is_admin } = req.body;
-
         const updatedUser = await prisma.user.update({
             where: {
-                id: parseInt(id)
+                id: id
             },
             data: {
                 first_name,

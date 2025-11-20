@@ -14,7 +14,7 @@ const categoryCreationSchema = vine.object({
 const categoryUpdateSchema = vine.object({
     id: vine.number(),
     label: vine.string().minLength(1).maxLength(50).optional(),
-    vat_type: vine.string().minLength(1).maxLength(1).optional(), // Modifiable ?
+    vat_type: vine.string().minLength(1).maxLength(1).optional(),
     picture: vine.string().optional()
 });
 

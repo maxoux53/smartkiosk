@@ -43,7 +43,7 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
     try {
         const product = await prisma.product.findUnique({
             where: {
-                id: parseInt(req.body.id),
+                id: req.body.id,
                 deletion_date: null
             }
         });

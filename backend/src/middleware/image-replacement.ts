@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { eraseStoredImage } from '../images.ts';
 import prisma from '../database/databaseORM.ts'
 
-export const replaceEventImage = async (req: Request, res: Response, next: NextFunction) => {
+export const replaceEventImage = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const event = await prisma.event.findUnique({
         where: {
             id: req.body.id
@@ -23,7 +23,7 @@ export const replaceEventImage = async (req: Request, res: Response, next: NextF
     next();
 }
 
-export const replaceUserAvatar = async (req: Request, res: Response, next: NextFunction) => {
+export const replaceUserAvatar = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const user = await prisma.user.findUnique({
         where: {
             id: req.body.id
@@ -44,7 +44,7 @@ export const replaceUserAvatar = async (req: Request, res: Response, next: NextF
     next();
 }
 
-export const replaceProductPicture = async (req: Request, res: Response, next: NextFunction) => {
+export const replaceProductPicture = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const product = await prisma.product.findUnique({
         where: {
             id: req.body.id
@@ -65,7 +65,7 @@ export const replaceProductPicture = async (req: Request, res: Response, next: N
     next();
 }
 
-export const replaceCategoryPicture = async (req: Request, res: Response, next: NextFunction) => {
+export const replaceCategoryPicture = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const category = await prisma.category.findUnique({
         where: {
             id: req.body.id

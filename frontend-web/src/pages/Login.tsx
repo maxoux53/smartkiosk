@@ -1,5 +1,7 @@
 import { useState, type JSX, type ChangeEvent } from "react";
 
+import "./login.css";
+
 function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -18,28 +20,30 @@ function Login(): JSX.Element {
         <main id="login">
             <h1>Login</h1>
             <form>
-                <label>
-                    Email
-                    <input
-                        type="email"
-                        placeholder="Entrez une adresse email"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            setMail(e.target.value);
-                        }}
-                    />
-                </label>
-                <label>
-                    Mot de passe
-                    <input
-                        type="password"
-                        placeholder="Entrez un mot de passe"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            setPassword(e.target.value);
-                        }}
-                    />
-                </label>
+                <fieldset>
+                    <label>
+                        Email
+                        <input
+                            type="email"
+                            placeholder="Entrez une adresse email"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setMail(e.target.value);
+                            }}
+                        />
+                    </label>
+                    <label>
+                        Mot de passe
+                        <input
+                            type="password"
+                            placeholder="Entrez un mot de passe"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setPassword(e.target.value);
+                            }}
+                        />
+                    </label>
 
-                <input type="submit" value="Se connecter" />
+                    <input type="submit" value="Se connecter" />
+                </fieldset>
             </form>
 
             {connectionMessage}

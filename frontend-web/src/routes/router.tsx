@@ -1,31 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
-import Admin from "../pages/Admin";
-import EventList from "../pages/EventList";
+// Admin
+import AdminRouteur from "./AdminRouteur";
+
+import EventListing from "../pages/EventListing";
 import EventManager from "../pages/EventManager";
 
 const router = createBrowserRouter([
     {
         path: "/login",
-        element: <Login></Login>
+        element: <Login />
     },
 
     {
         path: "/",
-        element: <EventList></EventList>
+        element: <EventListing />
     },
 
-    {
-        path: "/admin",
-        element: <Admin></Admin>
-    },
+    ...AdminRouteur,
 
     {
         path: "/manager",
-        element: <EventManager></EventManager>
+        element: <EventManager />
     }
-
-    
 ]);
 
 export default router;

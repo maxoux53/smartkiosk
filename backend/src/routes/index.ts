@@ -9,23 +9,23 @@ import { default as userRouter } from "./user.ts";
 import { default as vatRouter } from "./vat.ts";
 import { default as personalRouter } from "./me.ts";
 
-import { identificationMiddleware } from "../middleware/identification.ts";
-
-import { login } from "../controller/user.ts";
+import { self, checkJWT, isAdmin } from "../middleware/identification.ts";
+import { login, createUser } from "../controller/user.ts";
 
 const router = Router();
 
 router.post("/login", login);
+router.post("/signup", createUser);
+
 router.use("/product", productRouter);
 router.use("/category", categoryRouter);
 router.use("/event", eventRouter);
-router.use("/images", imageRouter);
+router.use("/images", checkJWT, imageRouter);
 router.use("/purchase", purchaseRouter);
 router.use("/user", userRouter);
 router.use("/vat", vatRouter);
-router.use("/me", identificationMiddleware, personalRouter);
+router.use("/me", checkJWT, self, personalRouter);
 
-// Gestion d'une URL hors application
 router.use((req : Request, res : Response) : Response => {
     console.error(`Bad URL: ${req.path}`);
     return res.status(404).send("Il ne s'agit pas d'une URL prise en charge par l'application");

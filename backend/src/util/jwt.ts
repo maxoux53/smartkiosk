@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import jsonwebtoken, { JwtPayload, SignOptions, VerifyOptions } from 'jsonwebtoken';
+import jsonwebtoken, { JwtPayload, SignOptions } from 'jsonwebtoken';
 
 export function sign(payload: JwtPayload, options: SignOptions) : string {
     return jsonwebtoken.sign(payload, process.env.JWT_SECRET!, options);

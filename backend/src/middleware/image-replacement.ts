@@ -13,7 +13,8 @@ export const replaceEventImage = async (req: Request, res: Response, next: NextF
     });
 
     if (!event) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
 
     if (event.image != null) {
@@ -34,7 +35,8 @@ export const replaceUserAvatar = async (req: Request, res: Response, next: NextF
     });
 
     if (!user) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
 
     if (user.avatar != null) {
@@ -55,7 +57,8 @@ export const replaceProductPicture = async (req: Request, res: Response, next: N
     });
 
     if (!product) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
 
     if (product.picture != null) {
@@ -76,7 +79,8 @@ export const replaceCategoryPicture = async (req: Request, res: Response, next: 
     });
 
     if (!category) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
 
     await eraseStoredImage(category.picture);

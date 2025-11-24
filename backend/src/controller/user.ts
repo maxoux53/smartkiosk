@@ -9,13 +9,19 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                email: email
+                email
+            },
+            select: {
+                id: true,
+                password_hash: true,
+                email: true,
+                is_admin: true
             }
         });
 
         if (user && (await compare(password, user.password_hash))) {
             const token = sign(
-                user,
+                { id: user.id, email: user.email, is_admin: user.is_admin },
                 { expiresIn: '8h' }
             );
 
@@ -28,7 +34,6 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
         res.sendStatus(500);
     }
 };
-
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -76,6 +81,9 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
                 email,
                 password_hash: await hash(password),
                 is_admin
+            },
+            select: {
+                id: true
             }
         });
 

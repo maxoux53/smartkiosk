@@ -8,6 +8,7 @@ import {
     deleteProduct
 } from "../controller/product.ts";
 
+import { checkJWT, isAdmin } from "../middleware/identification.ts";
 import { productVal } from '../middleware/validation/validator.ts';
 
 const router = Router();
@@ -78,7 +79,7 @@ router.get('/', getAllProducts);
  *       500:
  *         description: Server error
 */
-router.post('/', productVal.create, createProduct);
+router.post('/', checkJWT, isAdmin, productVal.create, createProduct);
 
 /**
  * @swagger
@@ -108,7 +109,7 @@ router.post('/', productVal.create, createProduct);
  *       500:
  *         description: Server error
 */
-router.patch('/', productVal.update, replaceProductPicture, updateProduct);
+router.patch('/', checkJWT, isAdmin, productVal.update, replaceProductPicture, updateProduct);
 
 /**
  * @swagger
@@ -140,6 +141,6 @@ router.patch('/', productVal.update, replaceProductPicture, updateProduct);
  *       500:
  *         description: Server error
 */
-router.delete('/:id', productVal.delete, deleteProduct);
+router.delete('/:id', checkJWT, isAdmin, productVal.delete, deleteProduct);
 
 export default router;

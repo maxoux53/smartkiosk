@@ -1,7 +1,32 @@
 import { Request, Response, NextFunction } from 'express';
+import { verify } from '../util/jwt.js';
+import { VerifyErrors } from 'jsonwebtoken';
 
-export const identificationMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    // DEV DEMO ONLY !!
-    req.userId = 1;
+export const checkJWT = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
+    const authorize = req.get('authorization');
+
+    if (authorize?.includes('Bearer')) {
+        try {
+            req.session = verify(authorize.split(' ')[1]);
+            next();
+        } catch (e) {
+            res.status(401).send((e as VerifyErrors).message);
+        }
+    } else {
+        res.status(401).send('No jwt');
+    }
+};
+
+
+export const isAdmin = (req: Request, res: Response, next: NextFunction) : void => {
+    if (!req.session?.isAdmin) {
+        res.status(403).send('Admin access required');
+        return;
+    }
+    next();
+}
+
+export const self = (req: Request, res: Response, next: NextFunction) : void => {
+    req.body.id = req.session.id;
     next();
 }

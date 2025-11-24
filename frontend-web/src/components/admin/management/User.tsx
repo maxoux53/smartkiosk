@@ -34,7 +34,12 @@ export default function User({
     return (
         <main>
             <div id="title">
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>
                     {data ?
                         "Modifier un utilisateur"
@@ -143,7 +148,7 @@ export default function User({
                     :   <></>}
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

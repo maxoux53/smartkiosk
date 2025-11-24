@@ -30,7 +30,12 @@ export default function OrderLine({
     return (
         <main>
             <div id="title">
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>
                     {data ?
                         "Modifier une Ligne de Commande"
@@ -90,7 +95,7 @@ export default function OrderLine({
                     />
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

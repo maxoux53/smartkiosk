@@ -32,7 +32,12 @@ export default function Event({
     return (
         <main>
             <div id="title">
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>
                     {data ? "Modifier un Événement" : "Ajouter un Événement"}
                 </h1>
@@ -99,7 +104,7 @@ export default function Event({
                     />
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

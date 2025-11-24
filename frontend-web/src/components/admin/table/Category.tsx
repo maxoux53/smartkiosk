@@ -2,7 +2,7 @@ import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { type category } from "../../../type";
 
 export default function CategoryTable(): JSX.Element {
@@ -18,7 +18,7 @@ export default function CategoryTable(): JSX.Element {
         });
     };
 
-    const remove = (row: category) => {};
+    const remove = () => {};
 
     const data: category[] = useMemo(
         () => [
@@ -81,7 +81,10 @@ export default function CategoryTable(): JSX.Element {
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
                     return !value ? null : (
-                            <button onClick={(): void => console.log(value)}>
+                            <button
+                                type="button"
+                                onClick={(): void => console.log(value)}
+                            >
                                 Voir image
                             </button>
                         );
@@ -97,13 +100,13 @@ export default function CategoryTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

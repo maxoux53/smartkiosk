@@ -29,7 +29,12 @@ export default function Purchase({
     return (
         <main>
             <div id="title">
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>{data ? "Modifier un Achat" : "Ajouter un Achat"}</h1>
             </div>
             <fieldset>
@@ -64,7 +69,7 @@ export default function Purchase({
                     />
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

@@ -1,12 +1,11 @@
-import { useMemo, useState, type JSX } from "react";
+import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { useNavigate } from "react-router-dom";
 import { type user } from "../../../type";
 
 export default function UserTable(): JSX.Element {
-    const [deleteElement, setDeleteElement] = useState<JSX.Element>(<></>);
     const navigate = useNavigate();
 
     const add = () => {
@@ -19,7 +18,7 @@ export default function UserTable(): JSX.Element {
         });
     };
 
-    const remove = (row: user) => {
+    const remove = () => {
         // delete
     };
 
@@ -157,7 +156,10 @@ export default function UserTable(): JSX.Element {
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
                     return !value ? null : (
-                            <button onClick={(): void => console.log(value)}>
+                            <button
+                                type="button"
+                                onClick={(): void => console.log(value)}
+                            >
                                 Voir avatar
                             </button>
                         );
@@ -178,13 +180,13 @@ export default function UserTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

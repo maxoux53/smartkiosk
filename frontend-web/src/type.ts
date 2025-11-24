@@ -61,3 +61,8 @@ export type vat = {
     rate: number;
     deletion_date: string | null;
 };
+
+export type pagination = {
+    pageIndex: number;
+    pageSize: number;
+};

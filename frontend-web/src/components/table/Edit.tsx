@@ -8,30 +8,31 @@ import {
     type ColumnDef,
     type Table
 } from "@tanstack/react-table";
+import type { pagination } from "../../type";
 import "./Edit.css";
 
-export default function CommonAdminTable({
+export default function Edit<T>({
     columns,
     data,
     add,
     edit,
     remove
 }: {
-    columns: Array<ColumnDef<any>>;
-    data: Array<any>;
+    columns: Array<ColumnDef<T>>;
+    data: Array<T>;
     add: () => void;
-    edit: (row: any) => void;
-    remove: (row: any) => void;
+    edit: (row: T) => void;
+    remove: (row: T) => void;
 }): JSX.Element {
-    const [selectedRow, setSelectedRow] = useState<any | null>();
+    const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
-    const [pagination, setPagination] = useState<any>({
+    const [pagination, setPagination] = useState<pagination>({
         pageIndex: 0,
         pageSize: 7
     });
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
-    const table: Table<any> = useReactTable({
+    const table: Table<T> = useReactTable({
         data,
         columns,
         state: {
@@ -60,14 +61,16 @@ export default function CommonAdminTable({
                         <p>Voulez-vraiment supprimer cet élément ?</p>
                         <footer>
                             <button
+                                type="button"
                                 onClick={(): void => {
-                                    remove(selectedRow);
+                                    if (selectedRow) remove(selectedRow);
                                     setShowDeleteModal(false);
                                 }}
                             >
                                 Supprimer
                             </button>
                             <button
+                                type="button"
                                 className="secondary"
                                 onClick={(): void => setShowDeleteModal(false)}
                             >
@@ -90,7 +93,7 @@ export default function CommonAdminTable({
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => {
                         return (
-                            <tr id={headerGroup.id}>
+                            <tr key={headerGroup.id}>
                                 <th></th>
                                 {headerGroup.headers.map((header) => {
                                     return (
@@ -139,14 +142,20 @@ export default function CommonAdminTable({
             </table>
             <div id="footer">
                 <div role="group">
-                    <button onClick={add}>Ajouter</button>
+                    <button type="button" onClick={add}>
+                        Ajouter
+                    </button>
                     <button
-                        onClick={(): void => edit(selectedRow)}
+                        type="button"
+                        onClick={(): void => {
+                            if (selectedRow) edit(selectedRow);
+                        }}
                         disabled={!selectedRow}
                     >
                         Modifier
                     </button>
                     <button
+                        type="button"
                         onClick={(): void => setShowDeleteModal(true)}
                         disabled={!selectedRow}
                     >
@@ -155,12 +164,14 @@ export default function CommonAdminTable({
                 </div>
                 <div role="group">
                     <button
+                        type="button"
                         onClick={(): void => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
                         Précédent
                     </button>
                     <button
+                        type="button"
                         onClick={(): void => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >

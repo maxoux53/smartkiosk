@@ -2,7 +2,7 @@ import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { type event } from "../../../type";
 
 export default function EventTable(): JSX.Element {
@@ -18,7 +18,7 @@ export default function EventTable(): JSX.Element {
         });
     };
 
-    const remove = (row: event) => {};
+    const remove = () => {};
 
     const data: event[] = useMemo(
         () => [
@@ -91,7 +91,10 @@ export default function EventTable(): JSX.Element {
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
                     return !value ? null : (
-                            <button onClick={(): void => console.log(value)}>
+                            <button
+                                type="button"
+                                onClick={(): void => console.log(value)}
+                            >
                                 Voir image
                             </button>
                         );
@@ -107,13 +110,13 @@ export default function EventTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

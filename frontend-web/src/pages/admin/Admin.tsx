@@ -18,31 +18,53 @@ export default function Admin(): JSX.Element {
 
             <div role="group">
                 <button
+                    type="button"
                     onClick={(): void => {
                         setElement(<UserTable />);
                     }}
                 >
                     {TABLES.USERS}
                 </button>
-                <button onClick={(): void => setElement(<MembershipTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<MembershipTable />)}
+                >
                     {TABLES.MEMBERSHIPS}
                 </button>
-                <button onClick={(): void => setElement(<EventTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<EventTable />)}
+                >
                     {TABLES.EVENTS}
                 </button>
-                <button onClick={(): void => setElement(<PurchaseTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<PurchaseTable />)}
+                >
                     {TABLES.PURCHASES}
                 </button>
-                <button onClick={(): void => setElement(<OrderLineTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<OrderLineTable />)}
+                >
                     {TABLES.ORDER_LINES}
                 </button>
-                <button onClick={(): void => setElement(<ProductTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<ProductTable />)}
+                >
                     {TABLES.PRODUCTS}
                 </button>
-                <button onClick={(): void => setElement(<CategoryTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<CategoryTable />)}
+                >
                     {TABLES.CATEGORIES}
                 </button>
-                <button onClick={(): void => setElement(<VatTable />)}>
+                <button
+                    type="button"
+                    onClick={(): void => setElement(<VatTable />)}
+                >
                     {TABLES.VATS}
                 </button>
             </div>

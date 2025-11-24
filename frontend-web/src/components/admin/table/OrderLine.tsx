@@ -2,7 +2,7 @@ import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { type order_line } from "../../../type";
 
 export default function OrderLineTable(): JSX.Element {
@@ -18,7 +18,7 @@ export default function OrderLineTable(): JSX.Element {
         });
     };
 
-    const remove = (row: order_line) => {};
+    const remove = () => {};
 
     const data: order_line[] = useMemo(
         () => [
@@ -80,13 +80,13 @@ export default function OrderLineTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

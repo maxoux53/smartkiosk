@@ -5,16 +5,6 @@ import "./login.css";
 function Login(): JSX.Element {
     const [mail, setMail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [connectionMessage, setConnectionMessage] = useState<string>("");
-
-    function login(): void {
-        console.log("test");
-        if (mail === "test" && password === "mdp") {
-            setConnectionMessage("Connexion réussie");
-        } else {
-            setConnectionMessage("Connexion échouée");
-        }
-    }
 
     return (
         <main id="login">
@@ -26,6 +16,7 @@ function Login(): JSX.Element {
                         <input
                             type="email"
                             placeholder="Entrez une adresse email"
+                            value={mail}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                 setMail(e.target.value);
                             }}
@@ -36,6 +27,7 @@ function Login(): JSX.Element {
                         <input
                             type="password"
                             placeholder="Entrez un mot de passe"
+                            value={password}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                 setPassword(e.target.value);
                             }}
@@ -45,8 +37,6 @@ function Login(): JSX.Element {
                     <input type="submit" value="Se connecter" />
                 </fieldset>
             </form>
-
-            {connectionMessage}
         </main>
     );
 }

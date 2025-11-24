@@ -8,27 +8,28 @@ import {
     type ColumnDef,
     type Table
 } from "@tanstack/react-table";
+import type { pagination } from "../../type";
 
-export default function CommonAdminTable({
+export default function Select<T>({
     columns,
     data,
     confirm,
     cancel
 }: {
-    columns: Array<ColumnDef<any>>;
-    data: Array<any>;
-    confirm: (row: any) => void;
-    cancel: (row: any) => void;
+    columns: Array<ColumnDef<T>>;
+    data: Array<T>;
+    confirm: (row: T) => void;
+    cancel: (row: T) => void;
 }): JSX.Element {
-    const [selectedRow, setSelectedRow] = useState<any | null>();
+    const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
-    const [pagination, setPagination] = useState<any>({
+    const [pagination, setPagination] = useState<pagination>({
         pageIndex: 0,
         pageSize: 7
     });
     const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
 
-    const table: Table<any> = useReactTable({
+    const table: Table<T> = useReactTable({
         data,
         columns,
         state: {
@@ -57,14 +58,16 @@ export default function CommonAdminTable({
                         <p>Voulez-vraiment Annuler cet élément ?</p>
                         <footer>
                             <button
+                                type="button"
                                 onClick={(): void => {
-                                    cancel(selectedRow);
+                                    if (selectedRow) cancel(selectedRow);
                                     setShowCancelModal(false);
                                 }}
                             >
                                 Oui
                             </button>
                             <button
+                                type="button"
                                 className="secondary"
                                 onClick={(): void => setShowCancelModal(false)}
                             >
@@ -87,7 +90,7 @@ export default function CommonAdminTable({
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => {
                         return (
-                            <tr id={headerGroup.id}>
+                            <tr key={headerGroup.id}>
                                 <th></th>
                                 {headerGroup.headers.map((header) => {
                                     return (
@@ -137,13 +140,19 @@ export default function CommonAdminTable({
             <div id="footer">
                 <div role="group">
                     <button
-                        onClick={(): void => confirm(selectedRow)}
+                        type="button"
+                        onClick={(): void => {
+                            if (selectedRow) confirm(selectedRow);
+                        }}
                         disabled={!selectedRow}
                     >
                         confirmer
                     </button>
                     <button
-                        onClick={(): void => cancel(selectedRow)}
+                        type="button"
+                        onClick={(): void => {
+                            if (selectedRow) cancel(selectedRow);
+                        }}
                         disabled={!selectedRow}
                     >
                         Annuler
@@ -151,12 +160,14 @@ export default function CommonAdminTable({
                 </div>
                 <div role="group">
                     <button
+                        type="button"
                         onClick={(): void => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
                         Précédent
                     </button>
                     <button
+                        type="button"
                         onClick={(): void => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >

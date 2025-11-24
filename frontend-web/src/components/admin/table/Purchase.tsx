@@ -2,7 +2,7 @@ import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { type purchase } from "../../../type";
 
 export default function PurchaseTable(): JSX.Element {
@@ -18,7 +18,7 @@ export default function PurchaseTable(): JSX.Element {
         });
     };
 
-    const remove = (row: purchase) => {};
+    const remove = () => {};
 
     const data: purchase[] = useMemo(
         () => [
@@ -71,13 +71,13 @@ export default function PurchaseTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

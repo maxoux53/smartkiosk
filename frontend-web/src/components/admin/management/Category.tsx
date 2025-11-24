@@ -30,8 +30,13 @@ export default function Category({
 
     return (
         <main>
-            <div id="title"> 
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+            <div id="title">
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>
                     {data ? "Modifier une Catégorie" : "Ajouter une Catégorie"}
                 </h1>
@@ -109,7 +114,7 @@ export default function Category({
                     :   <></>}
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

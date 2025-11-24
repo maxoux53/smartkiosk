@@ -8,21 +8,22 @@ import {
     type ColumnDef,
     type Table
 } from "@tanstack/react-table";
+import type { pagination } from "../../type";
 
-export default function CommonAdminTable({
+export default function ViewOnly<T>({
     columns,
     data
 }: {
-    columns: Array<ColumnDef<any>>;
-    data: Array<any>;
+    columns: Array<ColumnDef<T>>;
+    data: Array<T>;
 }): JSX.Element {
     const [globalFilter, setGlobalFilter] = useState<string>("");
-    const [pagination, setPagination] = useState<any>({
+    const [pagination, setPagination] = useState<pagination>({
         pageIndex: 0,
         pageSize: 7
     });
 
-    const table: Table<any> = useReactTable({
+    const table: Table<T> = useReactTable({
         data,
         columns,
         state: {
@@ -53,7 +54,7 @@ export default function CommonAdminTable({
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => {
                         return (
-                            <tr id={headerGroup.id}>
+                            <tr key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
                                         <th key={header.id}>
@@ -93,12 +94,14 @@ export default function CommonAdminTable({
             <div id="footer">
                 <div role="group">
                     <button
+                        type="button"
                         onClick={(): void => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
                         Précédent
                     </button>
                     <button
+                        type="button"
                         onClick={(): void => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >

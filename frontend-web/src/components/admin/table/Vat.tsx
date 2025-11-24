@@ -2,7 +2,7 @@ import { useMemo, type JSX } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
-import CommonAdminTable from "../../table/Edit";
+import Edit from "../../table/Edit";
 import { type vat } from "../../../type";
 
 export default function VatTable(): JSX.Element {
@@ -18,7 +18,7 @@ export default function VatTable(): JSX.Element {
         });
     };
 
-    const remove = (row: vat) => {};
+    const remove = () => {};
 
     const data: vat[] = useMemo(
         () => [
@@ -66,13 +66,13 @@ export default function VatTable(): JSX.Element {
 
     return (
         <>
-            <CommonAdminTable
+            <Edit
                 columns={columns}
                 data={data}
                 add={add}
                 edit={edit}
                 remove={remove}
-            ></CommonAdminTable>
+            ></Edit>
         </>
     );
 }

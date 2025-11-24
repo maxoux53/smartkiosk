@@ -25,7 +25,10 @@ export default function Product({
         )
     );
 
-    const editProduct = (key: string, value: string | number | boolean | null) => {
+    const editProduct = (
+        key: string,
+        value: string | number | boolean | null
+    ) => {
         setProduct((prev: product) => ({ ...prev, [key]: value }));
     };
 
@@ -34,7 +37,12 @@ export default function Product({
     return (
         <main>
             <div id="title">
-                <button onClick={(): void | Promise<void> => navigate("/admin")}>&#60;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &#60;
+                </button>
                 <h1>{data ? "Modifier un Produit" : "Ajouter un Produit"}</h1>
             </div>
             <fieldset>
@@ -142,7 +150,7 @@ export default function Product({
                     :   <></>}
                 </label>
             </fieldset>
-            <button onClick={actionButton}>
+            <button type="button" onClick={actionButton}>
                 {data ? "Modifier" : "Ajouter"}
             </button>
         </main>

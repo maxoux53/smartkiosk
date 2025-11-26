@@ -34,10 +34,12 @@ export default function User({
     return (
         <main>
             <div id="title">
-                <button 
-                type="button"
-                onClick={(): void | Promise<void> => navigate("/admin")}
-                >&lt;</button>
+                <button
+                    type="button"
+                    onClick={(): void | Promise<void> => navigate("/admin")}
+                >
+                    &lt;
+                </button>
                 <h1>
                     {data ?
                         "Modifier un utilisateur"

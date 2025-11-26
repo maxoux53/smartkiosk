@@ -93,7 +93,10 @@ export default function Product({
                             value={product.category_id}
                             placeholder="Exemple: 1"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct("category_id", parseInt(e.target.value))
+                                editProduct(
+                                    "category_id",
+                                    parseInt(e.target.value)
+                                )
                             }
                             required
                         />
@@ -107,7 +110,9 @@ export default function Product({
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editProduct(
                                     "event_id",
-                                    e.target.value ? parseInt(e.target.value) : null
+                                    e.target.value ?
+                                        parseInt(e.target.value)
+                                    :   null
                                 )
                             }
                         />

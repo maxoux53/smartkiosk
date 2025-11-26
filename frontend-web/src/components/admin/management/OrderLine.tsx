@@ -81,7 +81,10 @@ export default function OrderLine({
                             value={orderLine.quantity}
                             placeholder="Exemple: 2"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine("quantity", parseInt(e.target.value))
+                                editOrderLine(
+                                    "quantity",
+                                    parseInt(e.target.value)
+                                )
                             }
                             required
                         />
@@ -94,7 +97,10 @@ export default function OrderLine({
                             value={orderLine.price}
                             placeholder="Exemple: 10.50"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine("price", parseFloat(e.target.value))
+                                editOrderLine(
+                                    "price",
+                                    parseFloat(e.target.value)
+                                )
                             }
                             required
                         />

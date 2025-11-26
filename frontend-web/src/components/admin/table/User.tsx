@@ -155,9 +155,7 @@ export default function UserTable(): JSX.Element {
                 header: "Avatar",
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
-                    return !value ? null : (
-                            <a>{value}</a>
-                        );
+                    return !value ? null : <a>{value}</a>;
                 }
             },
             {

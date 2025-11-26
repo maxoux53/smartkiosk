@@ -27,8 +27,8 @@ form fieldset {
     gap: 20px;
     border: none;
     padding: 0;
-    margin-top: auto;    /* Crée un espace flexible au-dessus du fieldset */
-    margin-bottom: 0;    /* On retire la marge auto du bas */
+    margin-top: auto;
+    margin-bottom: 0;
 }
 
 form label {

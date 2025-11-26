@@ -80,9 +80,7 @@ export default function CategoryTable(): JSX.Element {
                 header: "Image",
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
-                    return !value ? null : (
-                            <a>{value}</a>
-                        );
+                    return !value ? null : <a>{value}</a>;
                 }
             },
             {

@@ -50,7 +50,10 @@ export default function Membership({
                             value={membership.user_id}
                             placeholder="Exemple: 1"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editMembership("user_id", parseInt(e.target.value))
+                                editMembership(
+                                    "user_id",
+                                    parseInt(e.target.value)
+                                )
                             }
                             required
                         />
@@ -62,7 +65,10 @@ export default function Membership({
                             value={membership.event_id}
                             placeholder="Exemple: 1"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editMembership("event_id", parseInt(e.target.value))
+                                editMembership(
+                                    "event_id",
+                                    parseInt(e.target.value)
+                                )
                             }
                             required
                         />

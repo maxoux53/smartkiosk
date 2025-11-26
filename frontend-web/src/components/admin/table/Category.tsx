@@ -81,12 +81,7 @@ export default function CategoryTable(): JSX.Element {
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
                     return !value ? null : (
-                            <button
-                                type="button"
-                                onClick={(): void => console.log(value)}
-                            >
-                                Voir image
-                            </button>
+                            <a>{value}</a>
                         );
                 }
             },

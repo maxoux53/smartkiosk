@@ -1,3 +1,38 @@
 #title {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+#title button {
+    position: absolute;
+    left: 0;
+}
+
+#switch {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+button[type="submit"] {
+    margin-top: 90px;
+}
+
+form fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border: none;
+    padding: 0;
+    margin-top: auto;    /* Crée un espace flexible au-dessus du fieldset */
+    margin-bottom: 0;    /* On retire la marge auto du bas */
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

@@ -41,48 +41,54 @@ export default function Membership({
                     :   "Ajouter une Participation"}
                 </h1>
             </div>
-            <fieldset>
-                <label>
-                    ID utilisateur
-                    <input
-                        type="number"
-                        value={membership.user_id}
-                        placeholder="Exemple: 1"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editMembership("user_id", parseInt(e.target.value))
-                        }
-                    />
-                </label>
-                <label>
-                    ID évènement
-                    <input
-                        type="number"
-                        value={membership.event_id}
-                        placeholder="Exemple: 1"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editMembership("event_id", parseInt(e.target.value))
-                        }
-                    />
-                </label>
-                <label>
-                    Rôle
-                    <select
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                            editMembership("role", e.target.value)
-                        }
-                    >
-                        <option selected disabled value="">
-                            Choisir un rôle...
-                        </option>
-                        <option value="host">Gérant</option>
-                        <option value="cashier">Serveur</option>
-                        <option value="guest">Invité</option>
-                    </select>
-                </label>
-            </fieldset>
-            <button type="button" onClick={actionButton}>
-                {data ? "Modifier" : "Ajouter"}
-            </button>
+            <form>
+                <fieldset>
+                    <label>
+                        ID utilisateur
+                        <input
+                            type="number"
+                            value={membership.user_id}
+                            placeholder="Exemple: 1"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editMembership("user_id", parseInt(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        ID évènement
+                        <input
+                            type="number"
+                            value={membership.event_id}
+                            placeholder="Exemple: 1"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editMembership("event_id", parseInt(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Rôle
+                        <select
+                            value={membership.role}
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                editMembership("role", e.target.value)
+                            }
+                            required
+                        >
+                            <option disabled value="">
+                                Choisir un rôle...
+                            </option>
+                            <option value="host">Gérant</option>
+                            <option value="cashier">Serveur</option>
+                            <option value="guest">Invité</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <button type="submit" onClick={actionButton}>
+                    {data ? "Modifier" : "Ajouter"}
+                </button>
+            </form>
         </main>
     );
 }

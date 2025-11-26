@@ -42,62 +42,68 @@ export default function OrderLine({
                     :   "Ajouter une Ligne de Commande"}
                 </h1>
             </div>
-            <fieldset>
-                <label>
-                    ID Produit
-                    <input
-                        type="number"
-                        value={orderLine.product_id}
-                        placeholder="Exemple: 1"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editOrderLine(
-                                "product_id",
-                                parseInt(e.target.value)
-                            )
-                        }
-                    />
-                </label>
-                <label>
-                    ID Achat
-                    <input
-                        type="number"
-                        value={orderLine.purchase_id}
-                        placeholder="Exemple: 1"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editOrderLine(
-                                "purchase_id",
-                                parseInt(e.target.value)
-                            )
-                        }
-                    />
-                </label>
-                <label>
-                    Quantité
-                    <input
-                        type="number"
-                        value={orderLine.quantity}
-                        placeholder="Exemple: 2"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editOrderLine("quantity", parseInt(e.target.value))
-                        }
-                    />
-                </label>
-                <label>
-                    Prix
-                    <input
-                        type="number"
-                        step="0.01"
-                        value={orderLine.price}
-                        placeholder="Exemple: 10.50"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editOrderLine("price", parseFloat(e.target.value))
-                        }
-                    />
-                </label>
-            </fieldset>
-            <button type="button" onClick={actionButton}>
-                {data ? "Modifier" : "Ajouter"}
-            </button>
+            <form>
+                <fieldset>
+                    <label>
+                        ID Produit
+                        <input
+                            type="number"
+                            value={orderLine.product_id}
+                            placeholder="Exemple: 1"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editOrderLine(
+                                    "product_id",
+                                    parseInt(e.target.value)
+                                )
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        ID Achat
+                        <input
+                            type="number"
+                            value={orderLine.purchase_id}
+                            placeholder="Exemple: 1"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editOrderLine(
+                                    "purchase_id",
+                                    parseInt(e.target.value)
+                                )
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Quantité
+                        <input
+                            type="number"
+                            value={orderLine.quantity}
+                            placeholder="Exemple: 2"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editOrderLine("quantity", parseInt(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Prix
+                        <input
+                            type="number"
+                            step="0.01"
+                            value={orderLine.price}
+                            placeholder="Exemple: 10.50"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editOrderLine("price", parseFloat(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                </fieldset>
+                <button type="submit" onClick={actionButton}>
+                    {data ? "Modifier" : "Ajouter"}
+                </button>
+            </form>
         </main>
     );
 }

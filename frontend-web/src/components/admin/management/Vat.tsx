@@ -37,63 +37,67 @@ export default function Vat({
                 </button>
                 <h1>{data ? "Modifier une TVA" : "Ajouter une TVA"}</h1>
             </div>
-            <fieldset>
-                <label>
-                    Type
-                    <input
-                        type="text"
-                        value={vat.type}
-                        placeholder="Exemple: Standard"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editVat("type", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    Taux (%)
-                    <input
-                        type="number"
-                        step="0.1"
-                        value={vat.rate}
-                        placeholder="Exemple: 20.0"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editVat("rate", parseFloat(e.target.value))
-                        }
-                    />
-                </label>
-                <label>
-                    Date de suppression
-                    <input
-                        className="switch"
-                        type="checkbox"
-                        role="switch"
-                        checked={vat.deletion_date ? true : false}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editVat(
-                                "deletion_date",
-                                e.target.checked ?
-                                    new Date().toISOString()
-                                :   null
-                            )
-                        }
-                    />
-                    {vat.deletion_date !== null ?
+            <form>
+                <fieldset>
+                    <label>
+                        Type
                         <input
-                            type="date"
-                            value={vat.deletion_date}
+                            type="text"
+                            value={vat.type}
+                            placeholder="Exemple: Standard"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVat((prev: vat) => ({
-                                    ...prev,
-                                    deletion_date: e.target.value
-                                }))
+                                editVat("type", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Taux (%)
+                        <input
+                            type="number"
+                            step="0.1"
+                            value={vat.rate}
+                            placeholder="Exemple: 20.0"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editVat("rate", parseFloat(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Date de suppression
+                        <input
+                            className="switch"
+                            type="checkbox"
+                            role="switch"
+                            checked={vat.deletion_date ? true : false}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editVat(
+                                    "deletion_date",
+                                    e.target.checked ?
+                                        new Date().toISOString()
+                                    :   null
+                                )
                             }
                         />
-                    :   <></>}
-                </label>
-            </fieldset>
-            <button type="button" onClick={actionButton}>
-                {data ? "Modifier" : "Ajouter"}
-            </button>
+                        {vat.deletion_date !== null ?
+                            <input
+                                type="date"
+                                value={vat.deletion_date}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setVat((prev: vat) => ({
+                                        ...prev,
+                                        deletion_date: e.target.value
+                                    }))
+                                }
+                            />
+                        :   <></>}
+                    </label>
+                </fieldset>
+                <button type="submit" onClick={actionButton}>
+                    {data ? "Modifier" : "Ajouter"}
+                </button>
+            </form>
         </main>
     );
 }

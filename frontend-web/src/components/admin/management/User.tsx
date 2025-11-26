@@ -34,123 +34,127 @@ export default function User({
     return (
         <main>
             <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
-                >
-                    &#60;
-                </button>
+                <button 
+                type="button"
+                onClick={(): void | Promise<void> => navigate("/admin")}
+                >&lt;</button>
                 <h1>
                     {data ?
                         "Modifier un utilisateur"
                     :   "Ajouter un utilisateur"}
                 </h1>
             </div>
-            <fieldset>
-                <label>
-                    ID
-                    <input
-                        type="text"
-                        value={user.id === -1 ? "" : user.id}
-                        placeholder="L'Id est généré automatiquement !"
-                        disabled
-                    />
-                </label>
-                <label>
-                    Prénom
-                    <input
-                        type="text"
-                        value={user.first_name}
-                        placeholder="Exemple: Jean"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser("first_name", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    Nom de famille
-                    <input
-                        type="text"
-                        value={user.last_name}
-                        placeholder="Exemple: Dupont"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser("last_name", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    Email
-                    <input
-                        type="text"
-                        value={user.email}
-                        placeholder="Exemple: jean.dupont@mail.com"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser("email", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    Mot de passe
-                    <input
-                        type="text"
-                        value={user.password}
-                        placeholder="Exemple: JeanJean12345"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser("password", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    Avatar
-                    <input
-                        type="file" // Mettre en place cloudflare lorsqu'on sera connecté à l'API
-                    />
-                </label>
-                <label>
-                    Administrateur
-                    <input
-                        className="switch"
-                        type="checkbox"
-                        role="switch"
-                        checked={user.is_admin}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser("is_admin", e.target.checked)
-                        }
-                    />
-                </label>
-                <label>
-                    Date de suppression
-                    <input
-                        className="switch"
-                        type="checkbox"
-                        role="switch"
-                        checked={user.deletion_date ? true : false}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editUser(
-                                "deletion_date",
-                                e.target.checked ?
-                                    new Date().toISOString()
-                                :   null
-                            )
-                        }
-                    />
-                    {user.deletion_date !== null ?
+            <form>
+                <fieldset>
+                    <label>
+                        ID
                         <input
-                            type="date"
-                            value={user.deletion_date}
+                            type="text"
+                            value={user.id === -1 ? "" : user.id}
+                            placeholder="L'Id est généré automatiquement !"
+                            disabled
+                        />
+                    </label>
+                    <label>
+                        Prénom
+                        <input
+                            type="text"
+                            value={user.first_name}
+                            placeholder="Exemple: Jean"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setUser((prev: user) => ({
-                                    ...prev,
-                                    deletion_date: e.target.value
-                                }))
+                                editUser("first_name", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Nom de famille
+                        <input
+                            type="text"
+                            value={user.last_name}
+                            placeholder="Exemple: Dupont"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser("last_name", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Email
+                        <input
+                            type="email"
+                            value={user.email}
+                            placeholder="Exemple: jean.dupont@mail.com"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser("email", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Mot de passe
+                        <input
+                            type="text"
+                            value={user.password}
+                            placeholder="Exemple: JeanJean12345"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser("password", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        Avatar
+                        <input
+                            type="file" // Mettre en place cloudflare lorsqu'on sera connecté à l'API
+                        />
+                    </label>
+                    <label id="switch">
+                        Administrateur
+                        <input
+                            className="switch"
+                            type="checkbox"
+                            role="switch"
+                            checked={user.is_admin}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser("is_admin", e.target.checked)
                             }
                         />
-                    :   <></>}
-                </label>
-            </fieldset>
-            <button type="button" onClick={actionButton}>
-                {data ? "Modifier" : "Ajouter"}
-            </button>
+                    </label>
+                    <label id="switch">
+                        Date de suppression
+                        <input
+                            className="switch"
+                            type="checkbox"
+                            role="switch"
+                            checked={user.deletion_date ? true : false}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser(
+                                    "deletion_date",
+                                    e.target.checked ?
+                                        new Date().toISOString()
+                                    :   null
+                                )
+                            }
+                        />
+                        {user.deletion_date !== null ?
+                            <input
+                                type="date"
+                                value={user.deletion_date}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setUser((prev: user) => ({
+                                        ...prev,
+                                        deletion_date: e.target.value
+                                    }))
+                                }
+                            />
+                        :   <></>}
+                    </label>
+                </fieldset>
+                <button type="submit" onClick={actionButton}>
+                    {data ? "Modifier" : "Ajouter"}
+                </button>
+            </form>
         </main>
     );
 }

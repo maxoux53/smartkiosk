@@ -37,41 +37,45 @@ export default function Purchase({
                 </button>
                 <h1>{data ? "Modifier un Achat" : "Ajouter un Achat"}</h1>
             </div>
-            <fieldset>
-                <label>
-                    ID
-                    <input
-                        type="text"
-                        value={purchase.id === -1 ? "" : purchase.id}
-                        placeholder="L'Id est généré automatiquement !"
-                        disabled
-                    />
-                </label>
-                <label>
-                    Date
-                    <input
-                        type="date"
-                        value={purchase.date}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editPurchase("date", e.target.value)
-                        }
-                    />
-                </label>
-                <label>
-                    ID Utilisateur
-                    <input
-                        type="number"
-                        value={purchase.user_id}
-                        placeholder="Exemple: 1"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            editPurchase("user_id", parseInt(e.target.value))
-                        }
-                    />
-                </label>
-            </fieldset>
-            <button type="button" onClick={actionButton}>
-                {data ? "Modifier" : "Ajouter"}
-            </button>
+            <form>
+                <fieldset>
+                    <label>
+                        ID
+                        <input
+                            type="text"
+                            value={purchase.id === -1 ? "" : purchase.id}
+                            placeholder="L'Id est généré automatiquement !"
+                            disabled
+                        />
+                    </label>
+                    <label>
+                        Date
+                        <input
+                            type="date"
+                            value={purchase.date}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editPurchase("date", e.target.value)
+                            }
+                            required
+                        />
+                    </label>
+                    <label>
+                        ID Utilisateur
+                        <input
+                            type="number"
+                            value={purchase.user_id}
+                            placeholder="Exemple: 1"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editPurchase("user_id", parseInt(e.target.value))
+                            }
+                            required
+                        />
+                    </label>
+                </fieldset>
+                <button type="submit" onClick={actionButton}>
+                    {data ? "Modifier" : "Ajouter"}
+                </button>
+            </form>
         </main>
     );
 }

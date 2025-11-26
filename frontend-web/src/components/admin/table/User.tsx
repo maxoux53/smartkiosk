@@ -156,12 +156,7 @@ export default function UserTable(): JSX.Element {
                 cell: ({ getValue }) => {
                     const value = getValue() as string | null;
                     return !value ? null : (
-                            <button
-                                type="button"
-                                onClick={(): void => console.log(value)}
-                            >
-                                Voir avatar
-                            </button>
+                            <a>{value}</a>
                         );
                 }
             },

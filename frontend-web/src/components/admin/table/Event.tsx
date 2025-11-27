@@ -83,7 +83,7 @@ export default function EventTable(): JSX.Element {
             {
                 accessorKey: "is_active",
                 header: "Actif",
-                cell: ({ getValue }) => (getValue() ? "Oui" : "Non")
+                accessorFn: (row) => row.is_active ? "Oui" : "Non"
             },
             {
                 accessorKey: "image",

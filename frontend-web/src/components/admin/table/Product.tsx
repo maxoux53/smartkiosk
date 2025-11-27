@@ -89,7 +89,7 @@ export default function ProductTable(): JSX.Element {
             {
                 accessorKey: "is_available",
                 header: "Disponible",
-                cell: ({ getValue }) => (getValue() ? "Oui" : "Non")
+                accessorFn: (row) => row.is_available ? "Oui" : "Non"
             },
             {
                 accessorKey: "excl_vat_price",
@@ -113,7 +113,8 @@ export default function ProductTable(): JSX.Element {
             },
             {
                 accessorKey: "deletion_date",
-                header: "Date de suppression"
+                header: "Date de suppression",
+                accessorFn: (row) => row.deletion_date ? new Date(row.deletion_date).toLocaleDateString("fr-FR") : ""
             }
         ],
         []

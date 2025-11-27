@@ -58,6 +58,7 @@ export default function Vat({
                             step="0.1"
                             value={vat.rate}
                             placeholder="Exemple: 20.0"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editVat("rate", parseFloat(e.target.value))
                             }

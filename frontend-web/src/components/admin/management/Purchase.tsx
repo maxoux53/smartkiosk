@@ -65,6 +65,7 @@ export default function Purchase({
                             type="number"
                             value={purchase.user_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editPurchase(
                                     "user_id",

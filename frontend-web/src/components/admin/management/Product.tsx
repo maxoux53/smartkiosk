@@ -74,6 +74,8 @@ export default function Product({
                             type="number"
                             value={product.excl_vat_price}
                             placeholder="Exemple: 2.50"
+                            min="0.01"
+                            step="0.01"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editProduct("excl_vat_price", e.target.value)
                             }
@@ -92,6 +94,7 @@ export default function Product({
                             type="number"
                             value={product.category_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editProduct(
                                     "category_id",
@@ -107,6 +110,7 @@ export default function Product({
                             type="number"
                             value={product.event_id || ""}
                             placeholder="Exemple: 1 (optionnel)"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editProduct(
                                     "event_id",

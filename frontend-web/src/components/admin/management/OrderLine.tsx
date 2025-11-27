@@ -50,6 +50,7 @@ export default function OrderLine({
                             type="number"
                             value={orderLine.product_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editOrderLine(
                                     "product_id",
@@ -65,6 +66,7 @@ export default function OrderLine({
                             type="number"
                             value={orderLine.purchase_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editOrderLine(
                                     "purchase_id",
@@ -80,6 +82,7 @@ export default function OrderLine({
                             type="number"
                             value={orderLine.quantity}
                             placeholder="Exemple: 2"
+                            min="1"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editOrderLine(
                                     "quantity",
@@ -96,6 +99,7 @@ export default function OrderLine({
                             step="0.01"
                             value={orderLine.price}
                             placeholder="Exemple: 10.50"
+                            min="0.01"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editOrderLine(
                                     "price",

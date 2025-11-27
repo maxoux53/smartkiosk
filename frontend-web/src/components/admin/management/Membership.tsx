@@ -49,6 +49,7 @@ export default function Membership({
                             type="number"
                             value={membership.user_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editMembership(
                                     "user_id",
@@ -64,6 +65,7 @@ export default function Membership({
                             type="number"
                             value={membership.event_id}
                             placeholder="Exemple: 1"
+                            min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editMembership(
                                     "event_id",
@@ -71,6 +73,7 @@ export default function Membership({
                                 )
                             }
                             required
+                            
                         />
                     </label>
                     <label>

@@ -154,10 +154,7 @@ export default function Product({
                                 type="date"
                                 value={product.deletion_date}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    editProduct(
-                                        "deletion_date",
-                                        e.target.value
-                                    )
+                                    editProduct("deletion_date", e.target.value)
                                 }
                             />
                         :   <></>}

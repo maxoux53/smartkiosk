@@ -12,7 +12,7 @@ import VatTable from "../../components/admin/table/Vat";
 type Section = {
     key: string;
     component: JSX.Element;
-}
+};
 
 const sections: Section[] = [
     { key: TABLES.USERS, component: <UserTable /> },
@@ -22,7 +22,7 @@ const sections: Section[] = [
     { key: TABLES.ORDER_LINES, component: <OrderLineTable /> },
     { key: TABLES.PRODUCTS, component: <ProductTable /> },
     { key: TABLES.CATEGORIES, component: <CategoryTable /> },
-    { key: TABLES.VATS, component: <VatTable /> },
+    { key: TABLES.VATS, component: <VatTable /> }
 ];
 
 export default function Admin(): JSX.Element {

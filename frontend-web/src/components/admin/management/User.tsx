@@ -144,10 +144,7 @@ export default function User({
                                 type="date"
                                 value={user.deletion_date}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    editUser(
-                                        "deletion_date",
-                                        e.target.value
-                                    )
+                                    editUser("deletion_date", e.target.value)
                                 }
                             />
                         :   <></>}

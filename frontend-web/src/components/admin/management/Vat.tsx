@@ -86,10 +86,10 @@ export default function Vat({
                                 type="date"
                                 value={vat.deletion_date}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setVat((prev: vat) => ({
-                                        ...prev,
-                                        deletion_date: e.target.value
-                                    }))
+                                    editVat(
+                                        "deletion_date",
+                                        e.target.value
+                                    )
                                 }
                             />
                         :   <></>}

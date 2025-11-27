@@ -109,10 +109,10 @@ export default function Category({
                                 type="date"
                                 value={category.deletion_date}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setCategory((prev: category) => ({
-                                        ...prev,
-                                        deletion_date: e.target.value
-                                    }))
+                                    editCategory(
+                                        "deletion_date",
+                                        e.target.value
+                                    )
                                 }
                             />
                         :   <></>}

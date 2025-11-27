@@ -9,64 +9,44 @@ import ProductTable from "../../components/admin/table/Product";
 import CategoryTable from "../../components/admin/table/Category";
 import VatTable from "../../components/admin/table/Vat";
 
+type Section = {
+    key: string;
+    component: JSX.Element;
+}
+
+const sections: Section[] = [
+    { key: TABLES.USERS, component: <UserTable /> },
+    { key: TABLES.MEMBERSHIPS, component: <MembershipTable /> },
+    { key: TABLES.EVENTS, component: <EventTable /> },
+    { key: TABLES.PURCHASES, component: <PurchaseTable /> },
+    { key: TABLES.ORDER_LINES, component: <OrderLineTable /> },
+    { key: TABLES.PRODUCTS, component: <ProductTable /> },
+    { key: TABLES.CATEGORIES, component: <CategoryTable /> },
+    { key: TABLES.VATS, component: <VatTable /> },
+];
+
 export default function Admin(): JSX.Element {
     const [element, setElement] = useState<JSX.Element>(<></>);
+    const [currentSection, setCurrentSection] = useState<string>("");
 
     return (
         <main>
             <h1>Administrateur</h1>
 
             <div role="group">
-                <button
-                    type="button"
-                    onClick={(): void => {
-                        setElement(<UserTable />);
-                    }}
-                >
-                    {TABLES.USERS}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<MembershipTable />)}
-                >
-                    {TABLES.MEMBERSHIPS}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<EventTable />)}
-                >
-                    {TABLES.EVENTS}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<PurchaseTable />)}
-                >
-                    {TABLES.PURCHASES}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<OrderLineTable />)}
-                >
-                    {TABLES.ORDER_LINES}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<ProductTable />)}
-                >
-                    {TABLES.PRODUCTS}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<CategoryTable />)}
-                >
-                    {TABLES.CATEGORIES}
-                </button>
-                <button
-                    type="button"
-                    onClick={(): void => setElement(<VatTable />)}
-                >
-                    {TABLES.VATS}
-                </button>
+                {sections.map((section) => (
+                    <button
+                        key={section.key}
+                        type="button"
+                        disabled={currentSection === section.key}
+                        onClick={(): void => {
+                            setElement(section.component);
+                            setCurrentSection(section.key);
+                        }}
+                    >
+                        {section.key}
+                    </button>
+                ))}
             </div>
 
             {element}

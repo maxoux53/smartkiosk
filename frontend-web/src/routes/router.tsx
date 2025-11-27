@@ -9,7 +9,7 @@ import AdminRouteur from "./AdminRouteur";
 const router = createBrowserRouter([
     {
         path: "*",
-        element: <UnknowPage/>
+        element: <UnknowPage />
     },
     {
         path: "/login",

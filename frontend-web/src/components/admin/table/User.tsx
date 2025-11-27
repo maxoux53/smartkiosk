@@ -161,12 +161,15 @@ export default function UserTable(): JSX.Element {
             {
                 accessorKey: "is_admin",
                 header: "Administrateur",
-                accessorFn: (row) => row.is_admin ? "Oui" : "Non"
+                accessorFn: (row) => (row.is_admin ? "Oui" : "Non")
             },
             {
                 accessorKey: "deletion_date",
                 header: "Date de suppression",
-                accessorFn: (row) => row.deletion_date ? new Date(row.deletion_date).toLocaleDateString("fr-FR") : ""
+                accessorFn: (row) =>
+                    row.deletion_date ?
+                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                    :   ""
             }
         ],
         []

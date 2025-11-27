@@ -86,7 +86,10 @@ export default function CategoryTable(): JSX.Element {
             {
                 accessorKey: "deletion_date",
                 header: "Date de suppression",
-                accessorFn: (row) => row.deletion_date ? new Date(row.deletion_date).toLocaleDateString("fr-FR") : ""
+                accessorFn: (row) =>
+                    row.deletion_date ?
+                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                    :   ""
             }
         ],
         []

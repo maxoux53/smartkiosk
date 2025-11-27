@@ -165,14 +165,20 @@ export default function Edit<T>({
                 <div role="group">
                     <button
                         type="button"
-                        onClick={(): void => table.previousPage()}
+                        onClick={(): void => {
+                            table.previousPage();
+                            setSelectedRow(null);
+                        }}
                         disabled={!table.getCanPreviousPage()}
                     >
                         Précédent
                     </button>
                     <button
                         type="button"
-                        onClick={(): void => table.nextPage()}
+                        onClick={(): void => {
+                            table.nextPage();
+                            setSelectedRow(null);
+                        }}
                         disabled={!table.getCanNextPage()}
                     >
                         Suivant

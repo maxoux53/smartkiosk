@@ -5,9 +5,9 @@ import EventsScreen from "./EventsScreen";
 import ProductsScreen from "./ProductsScreen";
 import OrderScreen from "./OrderScreen";
 import AccountScreen from "./AccountGroup/AccountStack";
-import { TabParamList } from "../types/navigation";
+import { TabBarParamList } from "../types/navigation";
 
-const Tab = createNativeBottomTabNavigator<TabParamList>();
+const Tab = createNativeBottomTabNavigator<TabBarParamList>();
 
 export default function TabBar(): JSX.Element {
     return (

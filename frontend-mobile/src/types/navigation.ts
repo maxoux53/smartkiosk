@@ -4,3 +4,10 @@ export type AccountStackParamList = {
     Profile: undefined;
     OrderHistory: undefined;
 };
+
+export type TabBarParamList = {
+    Evenements: undefined;
+    Produits: undefined;
+    Commande: undefined;
+    Compte: undefined;
+};

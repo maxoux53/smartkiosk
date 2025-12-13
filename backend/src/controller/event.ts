@@ -28,10 +28,10 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
     try {
         const events = await prisma.event.findMany({
             include: {
-                product: true
+                product: true   
             }
         });
-        res.sendStatus(200).send(events);
+        res.status(200).send(events);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

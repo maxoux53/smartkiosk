@@ -27,15 +27,37 @@ export const getOrderLine = async (req: Request, res: Response): Promise<void> =
 };
 
 export const createOrderLine = async (req: Request, res: Response): Promise<void> => {
-    const { product_id, purchase_id, quantity, price } : order_line = req.body;
-
+    const { product_id, purchase_id, quantity } : order_line = req.body;
+    const product = await prisma.product.findUnique({
+        where: {
+             id: product_id
+        },
+        select: {
+            excl_vat_price: true,
+            category: {
+                select: {
+                    vat: {
+                        select: {
+                            rate:true
+                        }
+                    }
+                }
+            }
+        }
+    })
+    if (!product) {
+        res.sendStatus(400);
+        return;
+    }
+    const totalPrice = ((quantity * product.excl_vat_price) * (1 + (product.category.vat.rate / 100)));
+    
     try {
         const newOrderLine = await prisma.order_line.create({
             data: {
                 product_id,
                 purchase_id,
                 quantity,
-                price
+                totalPrice
             },
             select: {
                 product_id: true,

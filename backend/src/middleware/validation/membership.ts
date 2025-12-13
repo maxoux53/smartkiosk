@@ -15,7 +15,8 @@ const membershipCreationSchema = vine.object({
 });
 
 const membershipUpdateSchema = vine.object({
-    id: vine.number(),
+    user_id: vine.number(),
+    event_id: vine.number(),
     role: vine.enum(roleEnumValues).optional()
 });
 

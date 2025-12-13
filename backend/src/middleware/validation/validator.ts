@@ -98,7 +98,7 @@ export const eventVal = {
     },
     list: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await eventSchemas.eventList.validate(req.params);
+            req.body = await eventSchemas.eventByUserList.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

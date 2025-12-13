@@ -5,6 +5,6 @@ export function sign(payload: JwtPayload, options: SignOptions) : string {
     return jsonwebtoken.sign(payload, process.env.JWT_SECRET!, options);
 };
 
-export function verify(jwt: string) : JwtPayload | string {
-    return jsonwebtoken.verify(jwt, process.env.JWT_SECRET!);
+export function verify(jwt: string) : JwtPayload {
+    return jsonwebtoken.verify(jwt, process.env.JWT_SECRET!) as JwtPayload;
 };

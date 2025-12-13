@@ -3,6 +3,6 @@ import { JwtPayload } from "jsonwebtoken";
 
 declare module "express-serve-static-core" {
     interface Request {
-        session: string | JwtPayload;
+        session: JwtPayload | { id: number; email: string; isAdmin: boolean};
     }
 }

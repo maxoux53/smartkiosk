@@ -2,6 +2,7 @@ import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
+import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = req.body;
@@ -14,18 +15,17 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
             select: {
                 id: true,
                 password_hash: true,
-                email: true,
                 is_admin: true
             }
         });
 
         if (user && (await compare(password, user.password_hash))) {
             const token = sign(
-                { id: user.id, email: user.email, is_admin: user.is_admin },
+                { id: user.id, isAdmin: user.is_admin },
                 { expiresIn: '8h' }
             );
 
-            res.status(200).send(token);
+            res.status(200).send({token, user: {id: user.id, is_admin: user.is_admin}});
         } else {
             res.sendStatus(401);
         }
@@ -41,10 +41,21 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
             where: {
                 id: req.body.id,
                 deletion_date: null
+            },
+            select: {
+                id: true,
+                first_name: true,
+                last_name: true,
+                email: true,
+                avatar: true
             }
         });
 
         if (user) {
+            if (user.avatar) {
+                user.avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${user.avatar}/public`;
+            }
+
             res.status(200).send(user);
         } else {
             res.sendStatus(404);
@@ -60,9 +71,23 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
         const users = await prisma.user.findMany({
             where: {
                 deletion_date: null
+            },
+            select: {
+                id: true,
+                first_name: true,
+                last_name: true,
+                email: true,
+                avatar: true
             }
         });
-        res.sendStatus(404);
+
+        for (const iUser in users) {
+            if (users[iUser].avatar) {
+                users[iUser].avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${users[iUser].avatar}/public`;
+            }
+        }
+        
+        res.status(200).send(users);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
@@ -95,24 +120,26 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
 
 export const deleteUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const deletedUser = await prisma.user.update({
+        await prisma.user.update({
             where: {
-                id: req.body.id
+                id: req.body.id,
+                deletion_date: null
             },
             data: {
                 deletion_date: new Date()
             }
         });
 
-        res.status(200).send(deletedUser);
+        res.sendStatus(200);
     } catch (e) {
         console.error(e);
-        res.sendStatus(500);
+        res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
     }
 };
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
-    const { id, first_name, last_name, email, password, is_admin } = req.body;
+    const { id, first_name, last_name, email, is_admin, avatar } = req.body;
+    const password_hash = (req.body.password ? await hash(req.body.password) : undefined);
     
     try {
         const updatedUser = await prisma.user.update({
@@ -123,8 +150,12 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 first_name,
                 last_name,
                 email,
-                password_hash: await hash(password),
-                is_admin
+                password_hash,
+                is_admin,
+                avatar
+            },
+            select: {
+                id: true
             }
         });
 

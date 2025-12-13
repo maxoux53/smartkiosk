@@ -1,0 +1,18 @@
+meta {
+  name: maj utilisateur
+  type: http
+  seq: 2
+}
+
+patch {
+  url: http://localhost:3001/user
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 14,
+    "first_name": "alloqodiozeu"
+  }
+}

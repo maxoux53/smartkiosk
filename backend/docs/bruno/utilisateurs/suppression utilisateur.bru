@@ -1,0 +1,18 @@
+meta {
+  name: suppression utilisateur
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3001/user/1654345/
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 14,
+    "first_name": "alloqodiozeu"
+  }
+}

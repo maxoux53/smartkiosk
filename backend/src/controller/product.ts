@@ -171,9 +171,12 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
 
 export const deleteProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        await prisma.product.delete({
+        await prisma.product.update({
             where: {
                 id: req.body.id
+            },
+            data: {
+                deletion_date: new Date()
             }
         });
 

@@ -1,6 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { order_line } from "../generated/prisma/client.ts";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export const getOrderLine = async (req: Request, res: Response): Promise<void> => {
     const { product_id, purchase_id } : order_line = req.body;
@@ -44,20 +45,23 @@ export const createOrderLine = async (req: Request, res: Response): Promise<void
                 }
             }
         }
-    })
+    });
+
     if (!product) {
         res.sendStatus(400);
         return;
     }
-    const totalPrice = ((quantity * product.excl_vat_price) * (1 + (product.category.vat.rate / 100)));
-    
+
+    //const totalPrice = ((quantity * product.excl_vat_price) * (1 + (product.category.vat.rate / 100)));
+    const totalPrice = new Decimal(quantity).mul(product.excl_vat_price).mul(new Decimal(1).add(product.category.vat.rate / 100));
+
     try {
         const newOrderLine = await prisma.order_line.create({
             data: {
                 product_id,
                 purchase_id,
                 quantity,
-                totalPrice
+                price: totalPrice
             },
             select: {
                 product_id: true,

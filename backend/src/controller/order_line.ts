@@ -53,7 +53,7 @@ export const createOrderLine = async (req: Request, res: Response): Promise<void
     }
 
     //const totalPrice = ((quantity * product.excl_vat_price) * (1 + (product.category.vat.rate / 100)));
-    const totalPrice = new Decimal(quantity).mul(product.excl_vat_price).mul(new Decimal(1).add(product.category.vat.rate / 100));
+    const totalPrice = ((new Decimal(quantity).mul(product.excl_vat_price).mul(new Decimal(1).plus(product.category.vat.rate / 100)))).toDecimalPlaces(2);
 
     try {
         const newOrderLine = await prisma.order_line.create({

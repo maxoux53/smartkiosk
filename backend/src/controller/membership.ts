@@ -5,10 +5,12 @@ import { membership } from "../generated/prisma/client.ts";
 export const getMembership = async (req : Request, res : Response) : Promise<void> => {
     const { user_id, event_id } : membership = req.body;
     try {
-        const membership = await prisma.membership.findFirst({
+        const membership = await prisma.membership.findUnique({
             where: {
-                user_id,
-                event_id
+                user_id_event_id: {
+                    user_id,
+                    event_id
+                }
             }
         });
 

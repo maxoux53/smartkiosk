@@ -60,24 +60,28 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 };
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
-    try {
-        let products;
+    try { 
+            const products = await prisma.product.findMany({
+                where: {
+                    deletion_date: null
+                }
+            });
 
-        if (req.body.event_id) {
-            products = await prisma.product.findMany({
+        res.status(200).send(products);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+};
+
+export const getAllProductsOfAnEvent = async (req : Request, res : Response) : Promise<void> => {
+    try {
+            const products = await prisma.product.findMany({
                 where: {
                     deletion_date: null,
                     event_id: req.body.event_id
                 }
             });
-        } else {
-            products = await prisma.product.findMany({
-                where: {
-                    deletion_date: null
-                }
-            });
-        }
-
         res.status(200).send(products);
     } catch (e) {
         console.error(e);
@@ -101,15 +105,28 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
 */
 export const createProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const { label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } : product = req.body;
+        const { label, is_available, excl_vat_price, picture, category_id, event_id } : product = req.body;
 
+        const category = await prisma.category.findUnique({
+            where: {
+                id: category_id
+            },
+            select: {
+                picture: true
+            }
+        });
+        if (!category) {
+            res.sendStatus(400);
+            return;
+        }
+        const productPicture = picture || category.picture;
+        
         const newProductId = await prisma.product.create({
             data: {
                 label,
                 is_available,
                 excl_vat_price,
-                deletion_date,
-                picture,
+                picture: productPicture,
                 category_id,
                 event_id
             },

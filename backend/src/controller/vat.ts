@@ -28,12 +28,7 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
                 deletion_date: null
             }
         });
-
-        if (vats) {
-            res.send(vats);
-        } else {
-            res.sendStatus(404);
-        }
+        res.sendStatus(404);
     } catch(e) {
         console.error(e);
         res.sendStatus(500);

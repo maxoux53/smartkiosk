@@ -37,6 +37,24 @@ export const getAllCategories = async (req : Request, res : Response) : Promise<
     }
 }
 
+export const getAllLabelCategory = async (req : Request, res : Response) : Promise<void> => {
+    try {
+        const labels = await prisma.category.findMany({
+            where: {
+                deletion_date: null
+            },
+            select: {
+                id:true,
+                label:true
+            }
+        })
+        res.status(200).send(labels);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+}
+
 export const createCategory = async (req : Request, res : Response) : Promise<void> => {
     const { label, vat_type, picture } : category = req.body;
 
@@ -47,7 +65,9 @@ export const createCategory = async (req : Request, res : Response) : Promise<vo
                 vat_type,
                 picture
             },
-            select: { id: true }
+            select: {
+                id: true
+            }
         });
 
         res.status(201).send(newCategory);

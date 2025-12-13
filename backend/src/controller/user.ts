@@ -57,13 +57,12 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const getAllUsers = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const users = await prisma.user.findMany();
-
-        if (users) {
-            res.status(200).send(users);
-        } else {
-            res.sendStatus(404);
-        }
+        const users = await prisma.user.findMany({
+            where: {
+                deletion_date: null
+            }
+        });
+        res.sendStatus(404);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
@@ -96,9 +95,12 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
 
 export const deleteUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const deletedUser = await prisma.user.delete({
+        const deletedUser = await prisma.user.update({
             where: {
                 id: req.body.id
+            },
+            data: {
+                deletion_date: new Date()
             }
         });
 

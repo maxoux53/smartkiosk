@@ -7,6 +7,9 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
         const purchase = await prisma.purchase.findUnique({
             where: {
                 id: req.body.id,
+            },
+            include: {
+                order_line: true
             }
         });
 
@@ -20,3 +23,11 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
         res.sendStatus(500);
     }
 };
+
+export const createPurchase = async (req: Request, res: Response): Promise<void> => {
+    const { id, user_id, date } : purchase = req.body;
+    
+
+}
+
+

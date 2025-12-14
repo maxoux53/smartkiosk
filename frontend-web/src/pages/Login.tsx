@@ -1,25 +1,31 @@
-import { useState, type JSX, type ChangeEvent } from "react";
+import { type JSX, useRef, type FormEvent } from "react";
 
 import "./login.css";
 
 function Login(): JSX.Element {
-    const [mail, setMail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const mailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault(); // Éviter le comportement par défaut de submit
+        const mail = mailRef.current?.value;
+        const password = passwordRef.current?.value;
+        // appelle API
+        console.log(`${mail} / ${password}`);
+    };
 
     return (
         <main id="login">
             <h1>Login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         Email
                         <input
                             type="email"
                             placeholder="Entrez une adresse email"
-                            value={mail}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                setMail(e.target.value);
-                            }}
+                            required
+                            ref={mailRef}
                         />
                     </label>
                     <label>
@@ -27,10 +33,8 @@ function Login(): JSX.Element {
                         <input
                             type="password"
                             placeholder="Entrez un mot de passe"
-                            value={password}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                setPassword(e.target.value);
-                            }}
+                            required
+                            ref={passwordRef}
                         />
                     </label>
 

@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { vat } from "../../../type";
 import "./management.css";
 
-export default function Vat({
-    data,
-    actionButton
-}: {
-    data?: vat;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Vat({data, actionButton}: {data?: vat; actionButton: () => void;}): JSX.Element {
     const [vat, setVat] = useState<vat>(
         data ? data : (
             {

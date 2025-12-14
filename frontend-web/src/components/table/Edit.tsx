@@ -11,19 +11,8 @@ import {
 import type { pagination } from "../../type";
 import "./Edit.css";
 
-export default function Edit<T>({
-    columns,
-    data,
-    add,
-    edit,
-    remove
-}: {
-    columns: Array<ColumnDef<T>>;
-    data: Array<T>;
-    add: () => void;
-    edit: (row: T) => void;
-    remove: (row: T) => void;
-}): JSX.Element {
+export default function Edit<T>({ columns, data, add, edit, remove }:
+     { columns: Array<ColumnDef<T>>; data: Array<T>; add: () => void; edit: (row: T) => void; remove: (row: T) => void; }): JSX.Element {
     const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({

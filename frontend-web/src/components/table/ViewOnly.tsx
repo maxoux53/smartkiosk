@@ -10,13 +10,7 @@ import {
 } from "@tanstack/react-table";
 import type { pagination } from "../../type";
 
-export default function ViewOnly<T>({
-    columns,
-    data
-}: {
-    columns: Array<ColumnDef<T>>;
-    data: Array<T>;
-}): JSX.Element {
+export default function ViewOnly<T>({ columns, data }: { columns: Array<ColumnDef<T>>; data: Array<T>; }): JSX.Element {
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({
         pageIndex: 0,

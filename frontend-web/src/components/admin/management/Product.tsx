@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { product } from "../../../type";
 import "./management.css";
 
-export default function Product({
-    data,
-    actionButton
-}: {
-    data?: product;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Product({ data, actionButton }: { data?: product; actionButton: () => void; }): JSX.Element {
     const [product, setProduct] = useState<product>(
         data ? data : (
             {
@@ -25,10 +19,7 @@ export default function Product({
         )
     );
 
-    const editProduct = (
-        key: string,
-        value: string | number | boolean | Date | null
-    ) => {
+    const editProduct = (key: string, value: string | number | boolean | Date | null) => {
         setProduct((prev: product) => ({ ...prev, [key]: value }));
     };
 

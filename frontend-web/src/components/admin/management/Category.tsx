@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { category } from "../../../type";
 import "./management.css";
 
-export default function Category({
-    data,
-    actionButton
-}: {
-    data?: category;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Category({ data, actionButton }: { data?: category; actionButton: () => void; }): JSX.Element {
     const [category, setCategory] = useState<category>(
         data ? data : (
             {

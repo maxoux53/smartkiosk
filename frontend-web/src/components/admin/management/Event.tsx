@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { event } from "../../../type";
 import "./management.css";
 
-export default function Event({
-    data,
-    actionButton
-}: {
-    data?: event;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Event({ data, actionButton }: { data?: event; actionButton: () => void; }): JSX.Element {
     const [event, setEvent] = useState<event>(
         data ? data : (
             {

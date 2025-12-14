@@ -1,12 +1,6 @@
 import type { JSX } from "react";
 
-function Event({
-    name,
-    imagePath
-}: {
-    name: string;
-    imagePath: string;
-}): JSX.Element {
+function Event({ name, imagePath }: { name: string; imagePath: string; }): JSX.Element {
     return (
         <div
             onClick={() => {

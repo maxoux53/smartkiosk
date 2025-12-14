@@ -10,17 +10,8 @@ import {
 } from "@tanstack/react-table";
 import type { pagination } from "../../type";
 
-export default function Select<T>({
-    columns,
-    data,
-    confirm,
-    cancel
-}: {
-    columns: Array<ColumnDef<T>>;
-    data: Array<T>;
-    confirm: (row: T) => void;
-    cancel: (row: T) => void;
-}): JSX.Element {
+export default function Select<T>({ columns, data, confirm, cancel }:
+     { columns: Array<ColumnDef<T>>; data: Array<T>; confirm: (row: T) => void; cancel: (row: T) => void; }): JSX.Element {
     const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({

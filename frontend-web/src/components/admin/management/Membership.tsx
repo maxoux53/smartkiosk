@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { membership } from "../../../type";
 import "./management.css";
 
-export default function Membership({
-    data,
-    actionButton
-}: {
-    data?: membership;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Membership({ data, actionButton }: { data?: membership; actionButton: () => void; }): JSX.Element {
     const [membership, setMembership] = useState<membership>(
         data ? data : (
             {

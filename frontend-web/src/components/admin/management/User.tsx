@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { user } from "../../../type";
 import "./management.css";
 
-export default function User({
-    data,
-    actionButton
-}: {
-    data?: user;
-    actionButton: () => void;
-}): JSX.Element {
+export default function User({ data, actionButton }: { data?: user; actionButton: () => void; }): JSX.Element {
     const [user, setUser] = useState<user>(
         data ? data : (
             {

@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { order_line } from "../../../type";
 import "./management.css";
 
-export default function OrderLine({
-    data,
-    actionButton
-}: {
-    data?: order_line;
-    actionButton: () => void;
-}): JSX.Element {
+export default function OrderLine({ data, actionButton }: { data?: order_line; actionButton: () => void; }): JSX.Element {
     const [orderLine, setOrderLine] = useState<order_line>(
         data ? data : (
             {

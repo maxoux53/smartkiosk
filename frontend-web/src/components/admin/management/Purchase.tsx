@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { purchase } from "../../../type";
 import "./management.css";
 
-export default function Purchase({
-    data,
-    actionButton
-}: {
-    data?: purchase;
-    actionButton: () => void;
-}): JSX.Element {
+export default function Purchase({ data, actionButton }: { data?: purchase; actionButton: () => void; }): JSX.Element {
     const [purchase, setPurchase] = useState<purchase>(
         data ? data : (
             {

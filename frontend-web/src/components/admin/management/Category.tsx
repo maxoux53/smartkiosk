@@ -92,27 +92,25 @@ export default function Category({ data, actionButton }: { data?: category; acti
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editCategory(
                                     "deletion_date",
-                                    e.target.checked ?
-                                        new Date()
-                                    :   null
+                                    e.target.checked ? new Date() : null
                                 )
                             }
                         />
                         <input
                             type="date"
                             value={
-                                category.deletion_date
-                                    ? category.deletion_date
-                                          .toISOString()
-                                          .split("T")[0]
-                                    : ""
+                                category.deletion_date ?
+                                    category.deletion_date
+                                        .toISOString()
+                                        .split("T")[0]
+                                :   ""
                             }
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editCategory(
                                     "deletion_date",
-                                    e.target.value
-                                        ? new Date(e.target.value)
-                                        : null
+                                    e.target.value ?
+                                        new Date(e.target.value)
+                                    :   null
                                 )
                             }
                             disabled={category.deletion_date === null}

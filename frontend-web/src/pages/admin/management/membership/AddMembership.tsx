@@ -6,5 +6,5 @@ export default function Membership(): JSX.Element {
         <MembershipComponent
             actionButton={() => console.log("Modification BDD")}
         />
-    )
+    );
 }

@@ -6,5 +6,5 @@ export default function Purchase(): JSX.Element {
         <PurchaseComponent
             actionButton={() => console.log("Modification BDD")}
         />
-    )
+    );
 }

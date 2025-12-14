@@ -6,5 +6,5 @@ export default function Product(): JSX.Element {
         <ProductComponent
             actionButton={() => console.log("Modification BDD")}
         />
-    )
+    );
 }

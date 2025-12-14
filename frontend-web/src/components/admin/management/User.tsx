@@ -127,27 +127,25 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editUser(
                                     "deletion_date",
-                                    e.target.checked ?
-                                        new Date()
-                                    :   null
+                                    e.target.checked ? new Date() : null
                                 )
                             }
                         />
                         <input
                             type="date"
                             value={
-                                user.deletion_date
-                                    ? user.deletion_date
-                                          .toISOString()
-                                          .split("T")[0]
-                                    : ""
+                                user.deletion_date ?
+                                    user.deletion_date
+                                        .toISOString()
+                                        .split("T")[0]
+                                :   ""
                             }
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editUser(
                                     "deletion_date",
-                                    e.target.value
-                                        ? new Date(e.target.value)
-                                        : null
+                                    e.target.value ?
+                                        new Date(e.target.value)
+                                    :   null
                                 )
                             }
                             disabled={user.deletion_date === null}

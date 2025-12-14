@@ -13,7 +13,7 @@ const sections: Record<string, JSX.Element> = {
     [TABLES.USERS]: <UserTable />,
     [TABLES.MEMBERSHIPS]: <MembershipTable />,
     [TABLES.EVENTS]: <EventTable />,
-    [TABLES.PURCHASES]:  <PurchaseTable />,
+    [TABLES.PURCHASES]: <PurchaseTable />,
     [TABLES.ORDER_LINES]: <OrderLineTable />,
     [TABLES.PRODUCTS]: <ProductTable />,
     [TABLES.CATEGORIES]: <CategoryTable />,

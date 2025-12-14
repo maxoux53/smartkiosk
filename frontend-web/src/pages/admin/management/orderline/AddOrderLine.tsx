@@ -6,5 +6,5 @@ export default function OrderLine(): JSX.Element {
         <OrderLineComponent
             actionButton={() => console.log("Modification BDD")}
         />
-    )
+    );
 }

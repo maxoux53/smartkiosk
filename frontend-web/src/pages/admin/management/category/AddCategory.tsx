@@ -6,5 +6,5 @@ export default function Category(): JSX.Element {
         <CategoryComponent
             actionButton={() => console.log("Modification BDD")}
         />
-    )
+    );
 }

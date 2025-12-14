@@ -21,8 +21,7 @@ const productUpdateSchema = vine.object({
     category_id: vine.number().optional()
 });
 
-const productsListSchema = vine.object({
-    // optionnal if admin
+const productsListByEventSchema = vine.object({
     event_id: vine.number().optional()
 });
 
@@ -31,5 +30,5 @@ export const
     productCreation = vine.compile(productCreationSchema),
     productUpdate = vine.compile(productUpdateSchema),
     productDeletion = vine.compile(productIdSchema),
-    productList = vine.compile(productsListSchema)
+    productListByEvent = vine.compile(productsListByEventSchema)
 ;

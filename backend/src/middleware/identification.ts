@@ -30,3 +30,4 @@ export const self = (req: Request, res: Response, next: NextFunction) : void => 
     req.body.id = req.session.id;
     next();
 }
+

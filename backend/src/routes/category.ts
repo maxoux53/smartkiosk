@@ -7,12 +7,13 @@ import {
     updateCategory,
     deleteCategory
 } from "../controller/category.ts";
+import { categoryVal } from '../middleware/validation/validator.ts';
 const router = Router();
 
-router.get('/:id', getCategory);
+router.get('/:id', categoryVal.get, getCategory);
 router.get('/', getAllCategories);
-router.post('/', createCategory);
-router.patch('/:id', replaceCategoryPicture, updateCategory);
-router.delete('/:id', deleteCategory);
+router.post('/', categoryVal.create, createCategory);
+router.patch('/:id', categoryVal.update, replaceCategoryPicture, updateCategory);
+router.delete('/:id', categoryVal.delete, deleteCategory);
 
 export default router;

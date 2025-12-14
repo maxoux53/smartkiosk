@@ -22,8 +22,8 @@ const userUpdatedSchema = vine.object({
 });
 
 export const
-    userSearch = vine.create(userIdSchema),
-    userCreation = vine.create(userCreatedSchema),
-    userUpdate = vine.create(userUpdatedSchema),
-    userDeletion = vine.create(userIdSchema)
+    userSearch = vine.compile(userIdSchema),
+    userCreation = vine.compile(userCreatedSchema),
+    userUpdate = vine.compile(userUpdatedSchema),
+    userDeletion = vine.compile(userIdSchema)
 ;

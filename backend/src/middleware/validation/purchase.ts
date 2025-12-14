@@ -8,14 +8,13 @@ const purchaseCreationSchema = vine.object({
     user_id: vine.number()
 });
 
-const purchaseListSchema = vine.object({
-    // optionnal if admin
-    user_id: vine.number().optional()
+const purchaseListForUserSchema = vine.object({
+    user_id: vine.number()
 })
 
 export const
     purchaseSearch = vine.compile(purchaseIdSchema),
     purchaseCreation = vine.compile(purchaseCreationSchema),
     purchaseDeletion = vine.compile(purchaseIdSchema),
-    purchaseList = vine.compile(purchaseListSchema)
+    purchaseListForUser = vine.compile(purchaseListForUserSchema)
 ;

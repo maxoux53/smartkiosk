@@ -5,7 +5,8 @@ import {
     getAllProducts,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getAllProductsOfAnEvent
 } from "../controller/product.ts";
 
 import { checkJWT, isAdmin } from "../middleware/identification.ts";
@@ -49,8 +50,9 @@ const router = Router();
 */
 router.get('/:id', productVal.get, getProduct);
 
-router.get('/', getAllProducts);
+router.get('/', checkJWT, isAdmin, getAllProducts);
 
+router.get('/:event_id', productVal.list, getAllProductsOfAnEvent);
 /**
  * @swagger
  * /product:
@@ -79,7 +81,7 @@ router.get('/', getAllProducts);
  *       500:
  *         description: Server error
 */
-router.post('/', checkJWT, isAdmin, productVal.create, createProduct);
+router.post('/', checkJWT, productVal.create, createProduct);
 
 /**
  * @swagger

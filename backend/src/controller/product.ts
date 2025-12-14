@@ -45,6 +45,13 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
             where: {
                 id: req.body.id,
                 deletion_date: null
+            },
+            include: {
+                category: {
+                    include: {
+                        vat: true
+                    }
+                }
             }
         });
 
@@ -64,7 +71,14 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             const products = await prisma.product.findMany({
                 where: {
                     deletion_date: null
+                },
+                include: {
+                category: {
+                    include: {
+                        vat: true
+                    }
                 }
+            }
             });
 
         res.status(200).send(products);
@@ -80,7 +94,14 @@ export const getAllProductsOfAnEvent = async (req : Request, res : Response) : P
                 where: {
                     deletion_date: null,
                     event_id: req.body.event_id
+                },
+                include: {
+                category: {
+                    include: {
+                        vat: true
+                    }
                 }
+            }
             });
         res.status(200).send(products);
     } catch (e) {

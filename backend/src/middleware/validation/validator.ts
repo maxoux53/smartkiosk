@@ -55,7 +55,7 @@ export const productVal = {
     },
     list: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await productSchemas.productList.validate(req.params);
+            req.body = await productSchemas.productListByEvent.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -203,7 +203,7 @@ export const purchaseVal = {
     },
     list: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await purchaseSchemas.purchaseList.validate(req.params);
+            req.body = await purchaseSchemas.purchaseListForUser.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

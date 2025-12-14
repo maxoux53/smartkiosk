@@ -69,7 +69,13 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
                 location,
                 is_active,
                 iban,
-                image
+                image,
+                membership: {
+                    create: {
+                        user_id: req.body.id,
+                        role: "host"
+                    }
+                }
             },
             select: {id: true}
         });
@@ -105,11 +111,21 @@ export const updateEvent = async (req : Request, res : Response) : Promise<void>
 
 export const deleteEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
+        await prisma.product.updateMany({
+            where: {
+                event_id: req.body.id,
+                deletion_date: null
+            },
+            data: {
+                deletion_date: new Date()
+            }
+        })
         await prisma.event.delete({
             where: { 
-                id: req.body.id 
+                id: req.body.id
             }
         });
+        
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

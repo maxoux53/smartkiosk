@@ -20,7 +20,7 @@ export default function Vat({
         )
     );
 
-    const editVat = (key: string, value: string | number | null) => {
+    const editVat = (key: string, value: string | number | Date | null) => {
         setVat((prev: vat) => ({ ...prev, [key]: value }));
     };
 
@@ -76,7 +76,7 @@ export default function Vat({
                                 editVat(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date().toISOString()
+                                        new Date(e.target.value)
                                     :   null
                                 )
                             }
@@ -84,7 +84,7 @@ export default function Vat({
                         {vat.deletion_date !== null ?
                             <input
                                 type="date"
-                                value={vat.deletion_date}
+                                value={vat.deletion_date.toDateString()}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     editVat("deletion_date", e.target.value)
                                 }

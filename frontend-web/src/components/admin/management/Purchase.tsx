@@ -20,7 +20,7 @@ export default function Purchase({
         )
     );
 
-    const editPurchase = (key: string, value: string | number) => {
+    const editPurchase = (key: string, value: string | Date | number) => {
         setPurchase((prev: purchase) => ({ ...prev, [key]: value }));
     };
 
@@ -54,7 +54,7 @@ export default function Purchase({
                             type="date"
                             value={purchase.date}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editPurchase("date", e.target.value)
+                                editPurchase("date", new Date(e.target.value))
                             }
                             required
                         />

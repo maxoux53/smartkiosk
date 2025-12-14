@@ -27,7 +27,7 @@ export default function Product({
 
     const editProduct = (
         key: string,
-        value: string | number | boolean | null
+        value: string | number | boolean | Date | null
     ) => {
         setProduct((prev: product) => ({ ...prev, [key]: value }));
     };
@@ -144,7 +144,7 @@ export default function Product({
                                 editProduct(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date().toISOString()
+                                        new Date(e.target.value)
                                     :   null
                                 )
                             }
@@ -152,7 +152,7 @@ export default function Product({
                         {product.deletion_date !== null ?
                             <input
                                 type="date"
-                                value={product.deletion_date}
+                                value={product.deletion_date.toDateString()}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     editProduct("deletion_date", e.target.value)
                                 }

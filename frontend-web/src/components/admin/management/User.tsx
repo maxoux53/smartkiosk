@@ -25,7 +25,7 @@ export default function User({
         )
     );
 
-    const editUser = (key: string, value: string | boolean | null) => {
+    const editUser = (key: string, value: string | boolean | Date | null) => {
         setUser((prev: user) => ({ ...prev, [key]: value }));
     };
 
@@ -134,7 +134,7 @@ export default function User({
                                 editUser(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date().toISOString()
+                                        new Date(e.target.value)
                                     :   null
                                 )
                             }
@@ -142,7 +142,7 @@ export default function User({
                         {user.deletion_date !== null ?
                             <input
                                 type="date"
-                                value={user.deletion_date}
+                                value={user.deletion_date.toDateString()}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     editUser("deletion_date", e.target.value)
                                 }

@@ -22,7 +22,7 @@ export default function Category({
         )
     );
 
-    const editCategory = (key: string, value: string | null) => {
+    const editCategory = (key: string, value: string | Date | null) => {
         setCategory((prev: category) => ({ ...prev, [key]: value }));
     };
 
@@ -99,7 +99,7 @@ export default function Category({
                                 editCategory(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date().toISOString()
+                                        new Date(e.target.value)
                                     :   null
                                 )
                             }
@@ -107,7 +107,7 @@ export default function Category({
                         {category.deletion_date !== null ?
                             <input
                                 type="date"
-                                value={category.deletion_date}
+                                value={category.deletion_date.toDateString()}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     editCategory(
                                         "deletion_date",

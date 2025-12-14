@@ -9,21 +9,16 @@ import ProductTable from "../../components/admin/table/Product";
 import CategoryTable from "../../components/admin/table/Category";
 import VatTable from "../../components/admin/table/Vat";
 
-type Section = {
-    key: string;
-    component: JSX.Element;
+const sections: Record<string, JSX.Element> = {
+    [TABLES.USERS]: <UserTable />,
+    [TABLES.MEMBERSHIPS]: <MembershipTable />,
+    [TABLES.EVENTS]: <EventTable />,
+    [TABLES.PURCHASES]:  <PurchaseTable />,
+    [TABLES.ORDER_LINES]: <OrderLineTable />,
+    [TABLES.PRODUCTS]: <ProductTable />,
+    [TABLES.CATEGORIES]: <CategoryTable />,
+    [TABLES.VATS]: <VatTable />
 };
-
-const sections: Section[] = [
-    { key: TABLES.USERS, component: <UserTable /> },
-    { key: TABLES.MEMBERSHIPS, component: <MembershipTable /> },
-    { key: TABLES.EVENTS, component: <EventTable /> },
-    { key: TABLES.PURCHASES, component: <PurchaseTable /> },
-    { key: TABLES.ORDER_LINES, component: <OrderLineTable /> },
-    { key: TABLES.PRODUCTS, component: <ProductTable /> },
-    { key: TABLES.CATEGORIES, component: <CategoryTable /> },
-    { key: TABLES.VATS, component: <VatTable /> }
-];
 
 export default function Admin(): JSX.Element {
     const [element, setElement] = useState<JSX.Element>(<></>);
@@ -34,17 +29,17 @@ export default function Admin(): JSX.Element {
             <h1>Administrateur</h1>
 
             <div role="group">
-                {sections.map((section) => (
+                {Object.entries(sections).map(([key, component]) => (
                     <button
-                        key={section.key}
+                        key={key}
                         type="button"
-                        disabled={currentSection === section.key}
+                        disabled={currentSection === key}
                         onClick={(): void => {
-                            setElement(section.component);
-                            setCurrentSection(section.key);
+                            setElement(component);
+                            setCurrentSection(key);
                         }}
                     >
-                        {section.key}
+                        {key}
                     </button>
                 ))}
             </div>

@@ -13,9 +13,7 @@ export default function MembershipTable(): JSX.Element {
     };
 
     const edit = (row: membership) => {
-        navigate(`/admin/membership/edit`, {
-            state: { membership: row }
-        });
+        navigate(`/admin/membership/edit/${row.user_id}/${row.event_id}`);
     };
 
     const remove = () => {};

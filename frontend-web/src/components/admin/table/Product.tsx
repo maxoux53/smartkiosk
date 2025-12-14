@@ -13,9 +13,7 @@ export default function ProductTable(): JSX.Element {
     };
 
     const edit = (row: product) => {
-        navigate(`/admin/product/edit`, {
-            state: { product: row }
-        });
+        navigate(`/admin/product/edit/${row.id}`);
     };
 
     const remove = () => {};

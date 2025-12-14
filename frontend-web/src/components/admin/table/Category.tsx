@@ -13,9 +13,7 @@ export default function CategoryTable(): JSX.Element {
     };
 
     const edit = (row: category) => {
-        navigate(`/admin/category/edit`, {
-            state: { category: row }
-        });
+        navigate(`/admin/category/edit/${row.id}`);
     };
 
     const remove = () => {};

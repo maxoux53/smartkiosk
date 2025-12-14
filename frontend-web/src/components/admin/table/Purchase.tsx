@@ -13,9 +13,7 @@ export default function PurchaseTable(): JSX.Element {
     };
 
     const edit = (row: purchase) => {
-        navigate(`/admin/purchase/edit`, {
-            state: { purchase: row }
-        });
+        navigate(`/admin/purchase/edit/${row.id}`);
     };
 
     const remove = () => {};

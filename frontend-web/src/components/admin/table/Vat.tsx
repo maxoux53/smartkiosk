@@ -13,9 +13,7 @@ export default function VatTable(): JSX.Element {
     };
 
     const edit = (row: vat) => {
-        navigate(`/admin/vat/edit`, {
-            state: { vat: row }
-        });
+        navigate(`/admin/vat/edit/${row.type}`);
     };
 
     const remove = () => {};

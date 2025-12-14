@@ -1,12 +1,20 @@
 import Admin from "../pages/admin/Admin";
-import Category from "../pages/admin/management/Category";
-import Event from "../pages/admin/management/Event";
-import Membership from "../pages/admin/management/membership";
-import OrderLine from "../pages/admin/management/orderline";
-import Product from "../pages/admin/management/product";
-import Purchase from "../pages/admin/management/purchase";
-import User from "../pages/admin/management/user";
-import Vat from "../pages/admin/management/vat";
+import AddCategory from "../pages/admin/management/category/AddCategory";
+import EditCategory from "../pages/admin/management/category/EditCategory";
+import AddEvent from "../pages/admin/management/event/AddEvent";
+import EditEvent from "../pages/admin/management/event/EditEvent";
+import AddMembership from "../pages/admin/management/membership/AddMembership";
+import EditMembership from "../pages/admin/management/membership/EditMembership";
+import AddOrderLine from "../pages/admin/management/orderline/AddOrderLine";
+import EditOrderLine from "../pages/admin/management/orderline/EditOrderLine";
+import AddProduct from "../pages/admin/management/product/AddProduct";
+import EditProduct from "../pages/admin/management/product/EditProduct";
+import AddPurchase from "../pages/admin/management/purchase/AddPurchase";
+import EditPurchase from "../pages/admin/management/purchase/EditPurchase";
+import AddUser from "../pages/admin/management/user/AddUser";
+import EditUser from "../pages/admin/management/user/EditUser";
+import AddVat from "../pages/admin/management/vat/AddVat";
+import EditVat from "../pages/admin/management/vat/EditVat";
 
 const adminRoutes = [
     {
@@ -15,67 +23,67 @@ const adminRoutes = [
     },
     {
         path: "/admin/user/add",
-        element: <User />
+        element: <AddUser />
     },
     {
-        path: "/admin/user/edit",
-        element: <User />
+        path: "/admin/user/edit/:id",
+        element: <EditUser />
     },
     {
         path: "/admin/membership/add",
-        element: <Membership />
+        element: <AddMembership />
     },
     {
-        path: "/admin/membership/edit",
-        element: <Membership />
+        path: "/admin/membership/edit/:userId/:eventId",
+        element: <EditMembership />
     },
     {
         path: "/admin/event/add",
-        element: <Event />
+        element: <AddEvent />
     },
     {
-        path: "/admin/event/edit",
-        element: <Event />
+        path: "/admin/event/edit/:id",
+        element: <EditEvent />
     },
     {
         path: "/admin/purchase/add",
-        element: <Purchase />
+        element: <AddPurchase />
     },
     {
-        path: "/admin/purchase/edit",
-        element: <Purchase />
+        path: "/admin/purchase/edit/:id",
+        element: <EditPurchase />
     },
     {
         path: "/admin/orderline/add",
-        element: <OrderLine />
+        element: <AddOrderLine />
     },
     {
-        path: "/admin/orderline/edit",
-        element: <OrderLine />
+        path: "/admin/orderline/edit/:purchaseId/:productId",
+        element: <EditOrderLine />
     },
     {
         path: "/admin/product/add",
-        element: <Product />
+        element: <AddProduct />
     },
     {
-        path: "/admin/product/edit",
-        element: <Product />
+        path: "/admin/product/edit/:id",
+        element: <EditProduct />
     },
     {
         path: "/admin/category/add",
-        element: <Category />
+        element: <AddCategory />
     },
     {
-        path: "/admin/category/edit",
-        element: <Category />
+        path: "/admin/category/edit/:id",
+        element: <EditCategory />
     },
     {
         path: "/admin/vat/add",
-        element: <Vat />
+        element: <AddVat />
     },
     {
-        path: "/admin/vat/edit",
-        element: <Vat />
+        path: "/admin/vat/edit/:id",
+        element: <EditVat />
     }
 ];
 

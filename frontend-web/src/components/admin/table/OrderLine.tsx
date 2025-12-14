@@ -13,9 +13,7 @@ export default function OrderLineTable(): JSX.Element {
     };
 
     const edit = (row: order_line) => {
-        navigate(`/admin/orderline/edit`, {
-            state: { orderLine: row }
-        });
+        navigate(`/admin/orderline/edit/${row.purchase_id}/${row.product_id}`);
     };
 
     const remove = () => {};

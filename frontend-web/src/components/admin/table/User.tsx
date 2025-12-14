@@ -13,9 +13,7 @@ export default function UserTable(): JSX.Element {
     };
 
     const edit = (row: user) => {
-        navigate(`/admin/user/edit/`, {
-            state: { user: row }
-        });
+        navigate(`/admin/user/edit/${row.id}`);
     };
 
     const remove = () => {

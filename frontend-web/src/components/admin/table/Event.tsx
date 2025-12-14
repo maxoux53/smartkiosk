@@ -13,9 +13,7 @@ export default function EventTable(): JSX.Element {
     };
 
     const edit = (row: event) => {
-        navigate(`/admin/event/edit`, {
-            state: { event: row }
-        });
+        navigate(`/admin/event/edit/${row.id}`);
     };
 
     const remove = () => {};

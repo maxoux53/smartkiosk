@@ -55,12 +55,12 @@ export default function Vat({
                         Taux (%)
                         <input
                             type="number"
-                            step="0.1"
+                            step="1"
                             value={vat.rate}
                             placeholder="Exemple: 20.0"
                             min="0"
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editVat("rate", parseFloat(e.target.value))
+                                editVat("rate", e.target.value)
                             }
                             required
                         />

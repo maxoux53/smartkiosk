@@ -22,22 +22,22 @@ export default function VatTable(): JSX.Element {
         () => [
             {
                 type: "Standard",
-                rate: 20.0,
+                rate: 20,
                 deletion_date: null
             },
             {
                 type: "Reduced",
-                rate: 5.5,
+                rate: 5,
                 deletion_date: null
             },
             {
                 type: "Intermediate",
-                rate: 10.0,
+                rate: 10,
                 deletion_date: null
             },
             {
                 type: "Super Reduced",
-                rate: 2.1,
+                rate: 2,
                 deletion_date: new Date("2023-01-01")
             }
         ],

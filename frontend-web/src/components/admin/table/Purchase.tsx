@@ -22,27 +22,27 @@ export default function PurchaseTable(): JSX.Element {
         () => [
             {
                 id: 1,
-                date: "2023-10-25",
+                date: new Date("2023-10-25"),
                 user_id: 1
             },
             {
                 id: 2,
-                date: "2023-10-26",
+                date: new Date("2023-10-26"),
                 user_id: 2
             },
             {
                 id: 3,
-                date: "2023-10-27",
+                date: new Date("2023-10-27"),
                 user_id: 1
             },
             {
                 id: 4,
-                date: "2023-10-28",
+                date: new Date("2023-10-28"),
                 user_id: 3
             },
             {
                 id: 5,
-                date: "2023-10-29",
+                date: new Date("2023-10-29"),
                 user_id: 4
             }
         ],

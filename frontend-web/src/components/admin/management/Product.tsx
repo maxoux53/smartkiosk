@@ -144,20 +144,30 @@ export default function Product({
                                 editProduct(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date(e.target.value)
+                                        new Date()
                                     :   null
                                 )
                             }
                         />
-                        {product.deletion_date !== null ?
-                            <input
-                                type="date"
-                                value={product.deletion_date.toDateString()}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    editProduct("deletion_date", e.target.value)
-                                }
-                            />
-                        :   <></>}
+                        <input
+                            type="date"
+                            value={
+                                product.deletion_date
+                                    ? product.deletion_date
+                                          .toISOString()
+                                          .split("T")[0]
+                                    : ""
+                            }
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editProduct(
+                                    "deletion_date",
+                                    e.target.value
+                                        ? new Date(e.target.value)
+                                        : null
+                                )
+                            }
+                            disabled={product.deletion_date === null}
+                        />
                     </label>
                 </fieldset>
                 <button type="submit" onClick={actionButton}>

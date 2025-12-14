@@ -76,20 +76,30 @@ export default function Vat({
                                 editVat(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date(e.target.value)
+                                        new Date()
                                     :   null
                                 )
                             }
                         />
-                        {vat.deletion_date !== null ?
-                            <input
-                                type="date"
-                                value={vat.deletion_date.toDateString()}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    editVat("deletion_date", e.target.value)
-                                }
-                            />
-                        :   <></>}
+                        <input
+                            type="date"
+                            value={
+                                vat.deletion_date
+                                    ? vat.deletion_date
+                                          .toISOString()
+                                          .split("T")[0]
+                                    : ""
+                            }
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editVat(
+                                    "deletion_date",
+                                    e.target.value
+                                        ? new Date(e.target.value)
+                                        : null
+                                )
+                            }
+                            disabled={vat.deletion_date === null}
+                        />
                     </label>
                 </fieldset>
                 <button type="submit" onClick={actionButton}>

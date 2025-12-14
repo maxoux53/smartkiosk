@@ -38,7 +38,7 @@ export default function VatTable(): JSX.Element {
             {
                 type: "Super Reduced",
                 rate: 2.1,
-                deletion_date: "2023-01-01"
+                deletion_date: new Date("2023-01-01")
             }
         ],
         []
@@ -59,7 +59,7 @@ export default function VatTable(): JSX.Element {
                 header: "Date de suppression",
                 accessorFn: (row) =>
                     row.deletion_date ?
-                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                        row.deletion_date.toLocaleDateString("fr-FR")
                     :   ""
             }
         ],

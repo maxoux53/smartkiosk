@@ -134,20 +134,30 @@ export default function User({
                                 editUser(
                                     "deletion_date",
                                     e.target.checked ?
-                                        new Date(e.target.value)
+                                        new Date()
                                     :   null
                                 )
                             }
                         />
-                        {user.deletion_date !== null ?
-                            <input
-                                type="date"
-                                value={user.deletion_date.toDateString()}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    editUser("deletion_date", e.target.value)
-                                }
-                            />
-                        :   <></>}
+                        <input
+                            type="date"
+                            value={
+                                user.deletion_date
+                                    ? user.deletion_date
+                                          .toISOString()
+                                          .split("T")[0]
+                                    : ""
+                            }
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                editUser(
+                                    "deletion_date",
+                                    e.target.value
+                                        ? new Date(e.target.value)
+                                        : null
+                                )
+                            }
+                            disabled={user.deletion_date === null}
+                        />
                     </label>
                 </fieldset>
                 <button type="submit" onClick={actionButton}>

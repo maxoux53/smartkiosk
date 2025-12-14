@@ -26,7 +26,7 @@ export type event = {
 
 export type purchase = {
     id: number;
-    date: string;
+    date: Date;
     user_id: number;
 };
 

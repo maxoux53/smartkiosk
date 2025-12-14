@@ -14,7 +14,7 @@ export default function Purchase({
         data ? data : (
             {
                 id: -1,
-                date: "",
+                date: new Date(),
                 user_id: 0
             }
         )
@@ -52,7 +52,7 @@ export default function Purchase({
                         Date
                         <input
                             type="date"
-                            value={purchase.date}
+                            value={purchase.date.toISOString().split("T")[0]}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editPurchase("date", new Date(e.target.value))
                             }

@@ -38,7 +38,7 @@ export default function CategoryTable(): JSX.Element {
                 id: 3,
                 label: "Snacks",
                 vat_type: "20%",
-                deletion_date: "2023-09-15",
+                deletion_date: new Date("2023-09-15"),
                 picture: "snacks.png"
             },
             {
@@ -86,7 +86,7 @@ export default function CategoryTable(): JSX.Element {
                 header: "Date de suppression",
                 accessorFn: (row) =>
                     row.deletion_date ?
-                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                        row.deletion_date.toLocaleDateString("fr-FR")
                     :   ""
             }
         ],

@@ -45,7 +45,7 @@ export default function ProductTable(): JSX.Element {
                 label: "Chips",
                 is_available: false,
                 excl_vat_price: "1.50",
-                deletion_date: "2023-11-01",
+                deletion_date: new Date("2023-11-01"),
                 picture: null,
                 category_id: 3,
                 event_id: null
@@ -114,7 +114,7 @@ export default function ProductTable(): JSX.Element {
                 header: "Date de suppression",
                 accessorFn: (row) =>
                     row.deletion_date ?
-                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                        row.deletion_date.toLocaleDateString("fr-FR")
                     :   ""
             }
         ],

@@ -40,7 +40,7 @@ export default function UserTable(): JSX.Element {
                 password: "securepass",
                 avatar: null,
                 is_admin: false,
-                deletion_date: "2023-10-01"
+                deletion_date: new Date("2023-10-01")
             },
             {
                 id: 3,
@@ -70,7 +70,7 @@ export default function UserTable(): JSX.Element {
                 password: "password456",
                 avatar: "avatar5.jpg",
                 is_admin: false,
-                deletion_date: "2023-11-15"
+                deletion_date: new Date("2023-11-15")
             },
             {
                 id: 6,
@@ -100,7 +100,7 @@ export default function UserTable(): JSX.Element {
                 password: "henripass",
                 avatar: null,
                 is_admin: false,
-                deletion_date: "2023-12-01"
+                deletion_date: new Date("2023-12-01")
             },
             {
                 id: 9,
@@ -166,7 +166,7 @@ export default function UserTable(): JSX.Element {
                 header: "Date de suppression",
                 accessorFn: (row) =>
                     row.deletion_date ?
-                        new Date(row.deletion_date).toLocaleDateString("fr-FR")
+                        row.deletion_date.toLocaleDateString("fr-FR")
                     :   ""
             }
         ],

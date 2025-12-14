@@ -94,7 +94,7 @@ export default function Category({
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={category.deletion_date ? true : false}
+                            checked={category.deletion_date !== null}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editCategory(
                                     "deletion_date",

@@ -71,7 +71,7 @@ export default function Vat({
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={vat.deletion_date ? true : false}
+                            checked={vat.deletion_date !== null}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editVat(
                                     "deletion_date",

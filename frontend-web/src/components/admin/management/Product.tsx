@@ -139,7 +139,7 @@ export default function Product({
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={product.deletion_date ? true : false}
+                            checked={product.deletion_date !== null}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 editProduct(
                                     "deletion_date",

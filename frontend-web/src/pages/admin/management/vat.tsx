@@ -1,12 +1,12 @@
 import { type JSX } from "react";
 import VatComponent from "../../../components/admin/management/Vat";
-import { useLocation, type Location } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { vat } from "../../../type";
 
 export default function Vat(): JSX.Element {
-    const location: Location = useLocation();
+    const params = useParams();
 
-    const vat: vat = location.state?.vat;
+    const vat: vat | null = null; // requête à l'api avec l'id
 
     return vat ?
             <VatComponent

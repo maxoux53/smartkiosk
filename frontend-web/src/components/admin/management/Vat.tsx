@@ -4,7 +4,6 @@ import type { vat } from "../../../type";
 import "./management.css";
 
 export default function Vat({data, actionButton}: {data?: vat; actionButton: (vat?: vat) => void;}): JSX.Element {
-    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -14,7 +13,6 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
         const newVat: vat = {
             type: formData.get("type") as string,
             rate: Number(formData.get("rate")),
-            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null
         };
 
         actionButton(newVat);
@@ -55,27 +53,6 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
                             placeholder="Exemple: 20.0"
                             min="0"
                             required
-                        />
-                    </label>
-                    <label>
-                        Date de suppression
-                        <input
-                            className="switch"
-                            type="checkbox"
-                            role="switch"
-                            checked={isDeleted}
-                            onChange={(e) => setIsDeleted(e.target.checked)}
-                        />
-                        <input
-                            name="deletion_date"
-                            type="date"
-                            defaultValue={
-                                data?.deletion_date ?
-                                    data.deletion_date
-                                        .toDateString()
-                                :   ""
-                            }
-                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>

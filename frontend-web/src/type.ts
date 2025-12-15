@@ -6,7 +6,6 @@ export type user = {
     password: string;
     avatar: string | null;
     is_admin: boolean;
-    deletion_date: Date | null;
 };
 
 export type membership = {
@@ -42,7 +41,6 @@ export type product = {
     label: string;
     is_available: boolean;
     excl_vat_price: string;
-    deletion_date: Date | null;
     picture: string | null;
     category_id: number;
     event_id: number | null;
@@ -52,14 +50,12 @@ export type category = {
     id: number;
     label: string;
     vat_type: string;
-    deletion_date: Date | null;
     picture: string;
 };
 
 export type vat = {
     type: string;
     rate: number;
-    deletion_date: Date | null;
 };
 
 export type pagination = {

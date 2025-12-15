@@ -25,7 +25,6 @@ export default function ProductTable(): JSX.Element {
                 label: "Coca-Cola",
                 is_available: true,
                 excl_vat_price: "2.50",
-                deletion_date: null,
                 picture: "coca.jpg",
                 category_id: 1,
                 event_id: null
@@ -35,7 +34,6 @@ export default function ProductTable(): JSX.Element {
                 label: "Sandwich Jambon",
                 is_available: true,
                 excl_vat_price: "4.00",
-                deletion_date: null,
                 picture: "sandwich.jpg",
                 category_id: 2,
                 event_id: 1
@@ -45,7 +43,6 @@ export default function ProductTable(): JSX.Element {
                 label: "Chips",
                 is_available: false,
                 excl_vat_price: "1.50",
-                deletion_date: new Date("2023-11-01"),
                 picture: null,
                 category_id: 3,
                 event_id: null
@@ -55,7 +52,6 @@ export default function ProductTable(): JSX.Element {
                 label: "Eau Minérale",
                 is_available: true,
                 excl_vat_price: "1.00",
-                deletion_date: null,
                 picture: "water.png",
                 category_id: 1,
                 event_id: 2
@@ -65,7 +61,6 @@ export default function ProductTable(): JSX.Element {
                 label: "Bière",
                 is_available: true,
                 excl_vat_price: "3.50",
-                deletion_date: null,
                 picture: "beer.jpg",
                 category_id: 1,
                 event_id: 1
@@ -108,14 +103,6 @@ export default function ProductTable(): JSX.Element {
             {
                 accessorKey: "event_id",
                 header: "ID Événement"
-            },
-            {
-                accessorKey: "deletion_date",
-                header: "Date de suppression",
-                accessorFn: (row) =>
-                    row.deletion_date ?
-                        row.deletion_date.toLocaleDateString("fr-FR")
-                    :   ""
             }
         ],
         []

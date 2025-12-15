@@ -24,35 +24,30 @@ export default function CategoryTable(): JSX.Element {
                 id: 1,
                 label: "Boissons",
                 vat_type: "20%",
-                deletion_date: null,
                 picture: "drinks.jpg"
             },
             {
                 id: 2,
                 label: "Nourriture",
                 vat_type: "5.5%",
-                deletion_date: null,
                 picture: "food.jpg"
             },
             {
                 id: 3,
                 label: "Snacks",
                 vat_type: "20%",
-                deletion_date: new Date("2023-09-15"),
                 picture: "snacks.png"
             },
             {
                 id: 4,
                 label: "Desserts",
                 vat_type: "10%",
-                deletion_date: null,
                 picture: "desserts.jpg"
             },
             {
                 id: 5,
                 label: "Alcools",
                 vat_type: "20%",
-                deletion_date: null,
                 picture: "alcohol.jpg"
             }
         ],
@@ -80,14 +75,6 @@ export default function CategoryTable(): JSX.Element {
                     const value = getValue() as string | null;
                     return !value ? null : <a>{value}</a>;
                 }
-            },
-            {
-                accessorKey: "deletion_date",
-                header: "Date de suppression",
-                accessorFn: (row) =>
-                    row.deletion_date ?
-                        row.deletion_date.toLocaleDateString("fr-FR")
-                    :   ""
             }
         ],
         []

@@ -30,7 +30,6 @@ export default function UserTable(): JSX.Element {
                 password: "password123",
                 avatar: "avatar1.jpg",
                 is_admin: true,
-                deletion_date: null
             },
             {
                 id: 2,
@@ -40,7 +39,6 @@ export default function UserTable(): JSX.Element {
                 password: "securepass",
                 avatar: null,
                 is_admin: false,
-                deletion_date: new Date("2023-10-01")
             },
             {
                 id: 3,
@@ -50,7 +48,6 @@ export default function UserTable(): JSX.Element {
                 password: "mypassword",
                 avatar: "avatar3.png",
                 is_admin: false,
-                deletion_date: null
             },
             {
                 id: 4,
@@ -60,7 +57,6 @@ export default function UserTable(): JSX.Element {
                 password: "testpass",
                 avatar: null,
                 is_admin: true,
-                deletion_date: null
             },
             {
                 id: 5,
@@ -70,7 +66,6 @@ export default function UserTable(): JSX.Element {
                 password: "password456",
                 avatar: "avatar5.jpg",
                 is_admin: false,
-                deletion_date: new Date("2023-11-15")
             },
             {
                 id: 6,
@@ -80,7 +75,6 @@ export default function UserTable(): JSX.Element {
                 password: "newpass789",
                 avatar: "avatar6.jpg",
                 is_admin: false,
-                deletion_date: null
             },
             {
                 id: 7,
@@ -90,7 +84,6 @@ export default function UserTable(): JSX.Element {
                 password: "pass1234",
                 avatar: "avatar7.jpg",
                 is_admin: true,
-                deletion_date: null
             },
             {
                 id: 8,
@@ -100,7 +93,6 @@ export default function UserTable(): JSX.Element {
                 password: "henripass",
                 avatar: null,
                 is_admin: false,
-                deletion_date: new Date("2023-12-01")
             },
             {
                 id: 9,
@@ -110,7 +102,6 @@ export default function UserTable(): JSX.Element {
                 password: "isapass",
                 avatar: "avatar9.png",
                 is_admin: false,
-                deletion_date: null
             },
             {
                 id: 10,
@@ -120,7 +111,6 @@ export default function UserTable(): JSX.Element {
                 password: "jeanpass",
                 avatar: "avatar10.jpg",
                 is_admin: true,
-                deletion_date: null
             }
         ],
         []
@@ -160,14 +150,6 @@ export default function UserTable(): JSX.Element {
                 accessorKey: "is_admin",
                 header: "Administrateur",
                 accessorFn: (row) => (row.is_admin ? "Oui" : "Non")
-            },
-            {
-                accessorKey: "deletion_date",
-                header: "Date de suppression",
-                accessorFn: (row) =>
-                    row.deletion_date ?
-                        row.deletion_date.toLocaleDateString("fr-FR")
-                    :   ""
             }
         ],
         []

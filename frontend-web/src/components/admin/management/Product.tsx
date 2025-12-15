@@ -4,7 +4,6 @@ import type { product } from "../../../type";
 import "./management.css";
 
 export default function Product({ data, actionButton }: { data?: product; actionButton: (product?: product) => void; }): JSX.Element {
-    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,7 +15,6 @@ export default function Product({ data, actionButton }: { data?: product; action
             label: formData.get("label") as string,
             is_available: formData.get("is_available") === "on",
             excl_vat_price: formData.get("excl_vat_price") as string,
-            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null,
             picture: null,
             category_id: Number(formData.get("category_id")),
             event_id: Number(formData.get("event_id"))
@@ -106,27 +104,6 @@ export default function Product({ data, actionButton }: { data?: product; action
                             type="checkbox"
                             role="switch"
                             defaultChecked={data?.is_available}
-                        />
-                    </label>
-                    <label>
-                        Date de suppression
-                        <input
-                            className="switch"
-                            type="checkbox"
-                            role="switch"
-                            checked={isDeleted}
-                            onChange={(e) => setIsDeleted(e.target.checked)}
-                        />
-                        <input
-                            name="deletion_date"
-                            type="date"
-                            defaultValue={
-                                data?.deletion_date ?
-                                    data.deletion_date
-                                        .toDateString()
-                                :   ""
-                            }
-                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>

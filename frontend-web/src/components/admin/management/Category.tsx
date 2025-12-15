@@ -1,11 +1,9 @@
-import { useState, type FormEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { category } from "../../../type";
 import "./management.css";
 
 export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
-    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
-
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
@@ -15,7 +13,6 @@ export default function Category({ data, actionButton }: { data?: category; acti
             id: data?.id ?? -1,
             label: formData.get("label") as string,
             vat_type: formData.get("vat_type") as string,
-            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null,
             picture: "" // appelle API
         };
 
@@ -78,27 +75,6 @@ export default function Category({ data, actionButton }: { data?: category; acti
                         Image
                         <input
                             type="file" // Mettre en place cloudflare lorsqu'on sera connecté à l'API
-                        />
-                    </label>
-                    <label>
-                        Date de suppression
-                        <input
-                            className="switch"
-                            type="checkbox"
-                            role="switch"
-                            checked={isDeleted}
-                            onChange={(e) => setIsDeleted(e.target.checked)}
-                        />
-                        <input
-                            name="deletion_date"
-                            type="date"
-                            defaultValue={
-                                data?.deletion_date ?
-                                    data.deletion_date
-                                        .toDateString()
-                                :   ""
-                            }
-                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>

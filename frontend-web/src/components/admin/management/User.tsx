@@ -4,7 +4,6 @@ import type { user } from "../../../type";
 import "./management.css";
 
 export default function User({ data, actionButton }: { data?: user; actionButton: (user?: user) => void; }): JSX.Element {
-    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,7 +18,6 @@ export default function User({ data, actionButton }: { data?: user; actionButton
             password: formData.get("password") as string,
             avatar: null,
             is_admin: formData.get("is_admin") === "on",
-            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null
         };
 
         actionButton(newUser);
@@ -106,26 +104,6 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                             type="checkbox"
                             role="switch"
                             defaultChecked={data?.is_admin}
-                        />
-                    </label>
-                    <label>
-                        Date de suppression
-                        <input
-                            type="checkbox"
-                            role="switch"
-                            checked={isDeleted}
-                            onChange={(e) => setIsDeleted(e.target.checked)}
-                        />
-                        <input
-                            name="deletion_date"
-                            type="date"
-                            defaultValue={
-                                data?.deletion_date ?
-                                    data.deletion_date
-                                        .toDateString()
-                                :   ""
-                            }
-                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>

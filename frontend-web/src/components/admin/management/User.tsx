@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { user } from "../../../type";
 import "./management.css";

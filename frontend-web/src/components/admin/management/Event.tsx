@@ -1,24 +1,25 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { event } from "../../../type";
 import "./management.css";
 
-export default function Event({ data, actionButton }: { data?: event; actionButton: () => void; }): JSX.Element {
-    const [event, setEvent] = useState<event>(
-        data ? data : (
-            {
-                id: -1,
-                name: "",
-                location: "",
-                is_active: false,
-                image: null,
-                iban: ""
-            }
-        )
-    );
+export default function Event({ data, actionButton }: { data?: event; actionButton: (event?: event) => void; }): JSX.Element {
+    
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+        
+        const newEvent: event = {
+            id: data?.id ?? -1,
+            name: formData.get("name") as string,
+            location: formData.get("location") as string,
+            is_active: formData.get("is_active") === "on",
+            image: null, // appelle API pour le code
+            iban: formData.get("iban") as string
+        };
 
-    const editEvent = (key: string, value: string | boolean) => {
-        setEvent((prev: event) => ({ ...prev, [key]: value }));
+        actionButton(newEvent);
     };
 
     const navigate = useNavigate();
@@ -36,13 +37,13 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                     {data ? "Modifier un Événement" : "Ajouter un Événement"}
                 </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID
                         <input
                             type="text"
-                            value={event.id === -1 ? "" : event.id}
+                            defaultValue={data?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -50,37 +51,31 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                     <label>
                         Nom
                         <input
+                            name="name"
                             type="text"
-                            value={event.name}
+                            defaultValue={data?.name}
                             placeholder="Exemple: Summer Festival"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editEvent("name", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Lieu
                         <input
+                            name="location"
                             type="text"
-                            value={event.location}
+                            defaultValue={data?.location}
                             placeholder="Exemple: Paris"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editEvent("location", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Actif
                         <input
+                            name="is_active"
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={event.is_active}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editEvent("is_active", e.target.checked)
-                            }
+                            defaultChecked={data?.is_active}
                         />
                     </label>
                     <label>
@@ -92,17 +87,15 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                     <label>
                         IBAN
                         <input
+                            name="iban"
                             type="text"
-                            value={event.iban}
+                            defaultValue={data?.iban}
                             placeholder="Exemple: BE7612345678901234567890123"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editEvent("iban", e.target.value)
-                            }
                             required
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

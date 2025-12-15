@@ -1,21 +1,22 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { membership } from "../../../type";
 import "./management.css";
 
-export default function Membership({ data, actionButton }: { data?: membership; actionButton: () => void; }): JSX.Element {
-    const [membership, setMembership] = useState<membership>(
-        data ? data : (
-            {
-                user_id: 0,
-                event_id: 0,
-                role: ""
-            }
-        )
-    );
+export default function Membership({ data, actionButton }: { data?: membership; actionButton: (membership?: membership) => void; }): JSX.Element {
+    
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+        
+        const newMembership: membership = {
+            user_id: Number(formData.get("user_id")),
+            event_id: Number(formData.get("event_id")),
+            role: formData.get("role") as string
+        };
 
-    const editMembership = (key: string, value: string | number) => {
-        setMembership((prev: membership) => ({ ...prev, [key]: value }));
+        actionButton(newMembership);
     };
 
     const navigate = useNavigate();
@@ -35,47 +36,35 @@ export default function Membership({ data, actionButton }: { data?: membership; 
                     :   "Ajouter une Participation"}
                 </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID utilisateur
                         <input
+                            name="user_id"
                             type="number"
-                            value={membership.user_id}
+                            defaultValue={data?.user_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editMembership(
-                                    "user_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         ID évènement
                         <input
+                            name="event_id"
                             type="number"
-                            value={membership.event_id}
+                            defaultValue={data?.event_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editMembership(
-                                    "event_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         Rôle
                         <select
-                            value={membership.role}
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                                editMembership("role", e.target.value)
-                            }
+                            name="role"
+                            defaultValue={data?.role ?? ""}
                             required
                         >
                             <option disabled value="">
@@ -87,7 +76,7 @@ export default function Membership({ data, actionButton }: { data?: membership; 
                         </select>
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

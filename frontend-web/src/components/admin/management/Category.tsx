@@ -1,23 +1,25 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { category } from "../../../type";
 import "./management.css";
 
-export default function Category({ data, actionButton }: { data?: category; actionButton: () => void; }): JSX.Element {
-    const [category, setCategory] = useState<category>(
-        data ? data : (
-            {
-                id: -1,
-                label: "",
-                vat_type: "",
-                deletion_date: null,
-                picture: ""
-            }
-        )
-    );
+export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
+    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
-    const editCategory = (key: string, value: string | Date | null) => {
-        setCategory((prev: category) => ({ ...prev, [key]: value }));
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+        
+        const newCategory: category = {
+            id: data?.id ?? -1,
+            label: formData.get("label") as string,
+            vat_type: formData.get("vat_type") as string,
+            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null,
+            picture: "" // appelle API
+        };
+
+        actionButton(newCategory);
     };
 
     const navigate = useNavigate();
@@ -35,13 +37,13 @@ export default function Category({ data, actionButton }: { data?: category; acti
                     {data ? "Modifier une Catégorie" : "Ajouter une Catégorie"}
                 </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID
                         <input
                             type="text"
-                            value={category.id === -1 ? "" : category.id}
+                            defaultValue={data?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -49,22 +51,18 @@ export default function Category({ data, actionButton }: { data?: category; acti
                     <label>
                         Libellé
                         <input
+                            name="label"
                             type="text"
-                            value={category.label}
+                            defaultValue={data?.label}
                             placeholder="Exemple: Boissons"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editCategory("label", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Type TVA
                         <select
-                            value={category.vat_type}
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                                editCategory("vat_type", e.target.value)
-                            }
+                            name="vat_type"
+                            defaultValue={data?.vat_type ?? ""}
                             required
                         >
                             <option disabled value="">
@@ -88,36 +86,23 @@ export default function Category({ data, actionButton }: { data?: category; acti
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={category.deletion_date !== null}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editCategory(
-                                    "deletion_date",
-                                    e.target.checked ? new Date() : null
-                                )
-                            }
+                            checked={isDeleted}
+                            onChange={(e) => setIsDeleted(e.target.checked)}
                         />
                         <input
+                            name="deletion_date"
                             type="date"
-                            value={
-                                category.deletion_date ?
-                                    category.deletion_date
-                                        .toISOString()
-                                        .split("T")[0]
+                            defaultValue={
+                                data?.deletion_date ?
+                                    data.deletion_date
+                                        .toDateString()
                                 :   ""
                             }
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editCategory(
-                                    "deletion_date",
-                                    e.target.value ?
-                                        new Date(e.target.value)
-                                    :   null
-                                )
-                            }
-                            disabled={category.deletion_date === null}
+                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

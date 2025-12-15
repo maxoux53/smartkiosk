@@ -1,21 +1,23 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { vat } from "../../../type";
 import "./management.css";
 
-export default function Vat({data, actionButton}: {data?: vat; actionButton: () => void;}): JSX.Element {
-    const [vat, setVat] = useState<vat>(
-        data ? data : (
-            {
-                type: "",
-                rate: 0,
-                deletion_date: null
-            }
-        )
-    );
+export default function Vat({data, actionButton}: {data?: vat; actionButton: (vat?: vat) => void;}): JSX.Element {
+    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
-    const editVat = (key: string, value: string | number | Date | null) => {
-        setVat((prev: vat) => ({ ...prev, [key]: value }));
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+
+        const newVat: vat = {
+            type: formData.get("type") as string,
+            rate: Number(formData.get("rate")),
+            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null
+        };
+
+        actionButton(newVat);
     };
 
     const navigate = useNavigate();
@@ -31,31 +33,27 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: () 
                 </button>
                 <h1>{data ? "Modifier une TVA" : "Ajouter une TVA"}</h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         Type
                         <input
+                            name="type"
                             type="text"
-                            value={vat.type}
+                            defaultValue={data?.type}
                             placeholder="Exemple: Standard"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editVat("type", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Taux (%)
                         <input
+                            name="rate"
                             type="number"
                             step="1"
-                            value={vat.rate}
+                            defaultValue={data?.rate}
                             placeholder="Exemple: 20.0"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editVat("rate", e.target.value)
-                            }
                             required
                         />
                     </label>
@@ -65,36 +63,23 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: () 
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={vat.deletion_date !== null}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editVat(
-                                    "deletion_date",
-                                    e.target.checked ? new Date() : null
-                                )
-                            }
+                            checked={isDeleted}
+                            onChange={(e) => setIsDeleted(e.target.checked)}
                         />
                         <input
+                            name="deletion_date"
                             type="date"
-                            value={
-                                vat.deletion_date ?
-                                    vat.deletion_date
-                                        .toISOString()
-                                        .split("T")[0]
+                            defaultValue={
+                                data?.deletion_date ?
+                                    data.deletion_date
+                                        .toDateString()
                                 :   ""
                             }
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editVat(
-                                    "deletion_date",
-                                    e.target.value ?
-                                        new Date(e.target.value)
-                                    :   null
-                                )
-                            }
-                            disabled={vat.deletion_date === null}
+                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

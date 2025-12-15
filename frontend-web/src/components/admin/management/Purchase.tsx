@@ -1,21 +1,22 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { purchase } from "../../../type";
 import "./management.css";
 
-export default function Purchase({ data, actionButton }: { data?: purchase; actionButton: () => void; }): JSX.Element {
-    const [purchase, setPurchase] = useState<purchase>(
-        data ? data : (
-            {
-                id: -1,
-                date: new Date(),
-                user_id: 0
-            }
-        )
-    );
+export default function Purchase({ data, actionButton }: { data?: purchase; actionButton: (purchase?: purchase) => void; }): JSX.Element {
 
-    const editPurchase = (key: string, value: string | Date | number) => {
-        setPurchase((prev: purchase) => ({ ...prev, [key]: value }));
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+        
+        const newPurchase: purchase = {
+            id: data?.id ?? -1,
+            date: new Date(formData.get("date") as string),
+            user_id: Number(formData.get("user_id"))
+        };
+
+        actionButton(newPurchase);
     };
 
     const navigate = useNavigate();
@@ -31,46 +32,39 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
                 </button>
                 <h1>{data ? "Modifier un Achat" : "Ajouter un Achat"}</h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID
                         <input
                             type="text"
-                            value={purchase.id === -1 ? "" : purchase.id}
+                            value={data?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
                     </label>
                     <label>
-                        Date
+                        Date 
                         <input
+                            name="date"
                             type="date"
-                            value={purchase.date.toISOString().split("T")[0]}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editPurchase("date", new Date(e.target.value))
-                            }
+                            value={data?.date.toISOString().split("T")[0]}
                             required
                         />
                     </label>
                     <label>
                         ID Utilisateur
                         <input
+                            name="user_id"
                             type="number"
-                            value={purchase.user_id}
+                            value={data?.user_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editPurchase(
-                                    "user_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

@@ -1,26 +1,28 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { user } from "../../../type";
 import "./management.css";
 
-export default function User({ data, actionButton }: { data?: user; actionButton: () => void; }): JSX.Element {
-    const [user, setUser] = useState<user>(
-        data ? data : (
-            {
-                id: -1,
-                first_name: "",
-                last_name: "",
-                email: "",
-                password: "",
-                avatar: null,
-                is_admin: false,
-                deletion_date: null
-            }
-        )
-    );
+export default function User({ data, actionButton }: { data?: user; actionButton: (user?: user) => void; }): JSX.Element {
+    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
-    const editUser = (key: string, value: string | boolean | Date | null) => {
-        setUser((prev: user) => ({ ...prev, [key]: value }));
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+
+        const newUser: user = {
+            id: data?.id ?? -1,
+            first_name: formData.get("first_name") as string,
+            last_name: formData.get("last_name") as string,
+            email: formData.get("email") as string,
+            password: formData.get("password") as string,
+            avatar: null,
+            is_admin: formData.get("is_admin") === "on",
+            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null
+        };
+
+        actionButton(newUser);
     };
 
     const navigate = useNavigate();
@@ -40,13 +42,13 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                     :   "Ajouter un utilisateur"}
                 </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID
                         <input
                             type="text"
-                            value={user.id === -1 ? "" : user.id}
+                            defaultValue={data?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -54,48 +56,40 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                     <label>
                         Prénom
                         <input
+                            name="first_name"
                             type="text"
-                            value={user.first_name}
+                            defaultValue={data?.first_name}
                             placeholder="Exemple: Jean"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser("first_name", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Nom de famille
                         <input
+                            name="last_name"
                             type="text"
-                            value={user.last_name}
+                            defaultValue={data?.last_name}
                             placeholder="Exemple: Dupont"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser("last_name", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Email
                         <input
+                            name="email"
                             type="email"
-                            value={user.email}
+                            defaultValue={data?.email}
                             placeholder="Exemple: jean.dupont@mail.com"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser("email", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Mot de passe
                         <input
+                            name="password"
                             type="text"
-                            value={user.password}
+                            defaultValue={data?.password}
                             placeholder="Exemple: JeanJean12345"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser("password", e.target.value)
-                            }
                             required
                         />
                     </label>
@@ -105,54 +99,37 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                             type="file" // Mettre en place cloudflare lorsqu'on sera connecté à l'API
                         />
                     </label>
-                    <label id="switch">
+                    <label>
                         Administrateur
                         <input
-                            className="switch"
+                            name="is_admin"
                             type="checkbox"
                             role="switch"
-                            checked={user.is_admin}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser("is_admin", e.target.checked)
-                            }
+                            defaultChecked={data?.is_admin}
                         />
                     </label>
-                    <label id="switch">
+                    <label>
                         Date de suppression
                         <input
-                            className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={user.deletion_date !== null}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser(
-                                    "deletion_date",
-                                    e.target.checked ? new Date() : null
-                                )
-                            }
+                            checked={isDeleted}
+                            onChange={(e) => setIsDeleted(e.target.checked)}
                         />
                         <input
+                            name="deletion_date"
                             type="date"
-                            value={
-                                user.deletion_date ?
-                                    user.deletion_date
-                                        .toISOString()
-                                        .split("T")[0]
+                            defaultValue={
+                                data?.deletion_date ?
+                                    data.deletion_date
+                                        .toDateString()
                                 :   ""
                             }
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editUser(
-                                    "deletion_date",
-                                    e.target.value ?
-                                        new Date(e.target.value)
-                                    :   null
-                                )
-                            }
-                            disabled={user.deletion_date === null}
+                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

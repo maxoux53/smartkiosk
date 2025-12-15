@@ -1,26 +1,28 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { product } from "../../../type";
 import "./management.css";
 
-export default function Product({ data, actionButton }: { data?: product; actionButton: () => void; }): JSX.Element {
-    const [product, setProduct] = useState<product>(
-        data ? data : (
-            {
-                id: -1,
-                label: "",
-                is_available: false,
-                excl_vat_price: "",
-                deletion_date: null,
-                picture: null,
-                category_id: 0,
-                event_id: null
-            }
-        )
-    );
+export default function Product({ data, actionButton }: { data?: product; actionButton: (product?: product) => void; }): JSX.Element {
+    const [isDeleted, setIsDeleted] = useState<boolean>(data ? (data.deletion_date !== null) : false);
 
-    const editProduct = (key: string, value: string | number | boolean | Date | null) => {
-        setProduct((prev: product) => ({ ...prev, [key]: value }));
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+
+        const newProduct: product = {
+            id: data?.id ?? -1,
+            label: formData.get("label") as string,
+            is_available: formData.get("is_available") === "on",
+            excl_vat_price: formData.get("excl_vat_price") as string,
+            deletion_date: formData.get("deletion_date") ? new Date(formData.get("deletion_date") as string) : null,
+            picture: null,
+            category_id: Number(formData.get("category_id")),
+            event_id: Number(formData.get("event_id"))
+        };
+
+        actionButton(newProduct);
     };
 
     const navigate = useNavigate();
@@ -36,13 +38,13 @@ export default function Product({ data, actionButton }: { data?: product; action
                 </button>
                 <h1>{data ? "Modifier un Produit" : "Ajouter un Produit"}</h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID
                         <input
                             type="text"
-                            value={product.id === -1 ? "" : product.id}
+                            defaultValue={data?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -50,26 +52,22 @@ export default function Product({ data, actionButton }: { data?: product; action
                     <label>
                         Libellé
                         <input
+                            name="label"
                             type="text"
-                            value={product.label}
+                            defaultValue={data?.label}
                             placeholder="Exemple: Coca-Cola"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct("label", e.target.value)
-                            }
                             required
                         />
                     </label>
                     <label>
                         Prix HTVA
                         <input
+                            name="excl_vat_price"
                             type="number"
-                            value={product.excl_vat_price}
+                            defaultValue={data?.excl_vat_price}
                             placeholder="Exemple: 2.50"
                             min="0.01"
                             step="0.01"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct("excl_vat_price", e.target.value)
-                            }
                             required
                         />
                     </label>
@@ -82,46 +80,32 @@ export default function Product({ data, actionButton }: { data?: product; action
                     <label>
                         ID Catégorie
                         <input
+                            name="category_id"
                             type="number"
-                            value={product.category_id}
+                            defaultValue={data?.category_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct(
-                                    "category_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         ID Événement
                         <input
+                            name="event_id"
                             type="number"
-                            value={product.event_id || ""}
+                            defaultValue={data?.event_id ?? ""}
                             placeholder="Exemple: 1 (optionnel)"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct(
-                                    "event_id",
-                                    e.target.value ?
-                                        parseInt(e.target.value)
-                                    :   null
-                                )
-                            }
                         />
                     </label>
                     <label>
                         Disponible
                         <input
+                            name="is_available"
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={product.is_available}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct("is_available", e.target.checked)
-                            }
+                            defaultChecked={data?.is_available}
                         />
                     </label>
                     <label>
@@ -130,36 +114,23 @@ export default function Product({ data, actionButton }: { data?: product; action
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            checked={product.deletion_date !== null}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct(
-                                    "deletion_date",
-                                    e.target.checked ? new Date() : null
-                                )
-                            }
+                            checked={isDeleted}
+                            onChange={(e) => setIsDeleted(e.target.checked)}
                         />
                         <input
+                            name="deletion_date"
                             type="date"
-                            value={
-                                product.deletion_date ?
-                                    product.deletion_date
-                                        .toISOString()
-                                        .split("T")[0]
+                            defaultValue={
+                                data?.deletion_date ?
+                                    data.deletion_date
+                                        .toDateString()
                                 :   ""
                             }
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editProduct(
-                                    "deletion_date",
-                                    e.target.value ?
-                                        new Date(e.target.value)
-                                    :   null
-                                )
-                            }
-                            disabled={product.deletion_date === null}
+                            disabled={!isDeleted}
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

@@ -1,22 +1,23 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { order_line } from "../../../type";
 import "./management.css";
 
-export default function OrderLine({ data, actionButton }: { data?: order_line; actionButton: () => void; }): JSX.Element {
-    const [orderLine, setOrderLine] = useState<order_line>(
-        data ? data : (
-            {
-                product_id: 0,
-                purchase_id: 0,
-                quantity: 0,
-                price: 0
-            }
-        )
-    );
+export default function OrderLine({ data, actionButton }: { data?: order_line; actionButton: (orderLine?: order_line) => void; }): JSX.Element {
+    
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.currentTarget);
+        
+        const newOrderLine: order_line = {
+            product_id: Number(formData.get("product_id")),
+            purchase_id: Number(formData.get("purchase_id")),
+            quantity: Number(formData.get("quantity")),
+            price: Number(formData.get("price"))
+        };
 
-    const editOrderLine = (key: string, value: number) => {
-        setOrderLine((prev: order_line) => ({ ...prev, [key]: value }));
+        actionButton(newOrderLine);
     };
 
     const navigate = useNavigate();
@@ -36,75 +37,55 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
                     :   "Ajouter une Ligne de Commande"}
                 </h1>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
                         ID Produit
                         <input
+                            name="product_id"
                             type="number"
-                            value={orderLine.product_id}
+                            defaultValue={data?.product_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine(
-                                    "product_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         ID Achat
                         <input
+                            name="purchase_id"
                             type="number"
-                            value={orderLine.purchase_id}
+                            defaultValue={data?.purchase_id}
                             placeholder="Exemple: 1"
                             min="0"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine(
-                                    "purchase_id",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         Quantité
                         <input
+                            name="quantity"
                             type="number"
-                            value={orderLine.quantity}
+                            defaultValue={data?.quantity}
                             placeholder="Exemple: 2"
                             min="1"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine(
-                                    "quantity",
-                                    parseInt(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                     <label>
                         Prix
                         <input
+                            name="price"
                             type="number"
                             step="0.01"
-                            value={orderLine.price}
+                            defaultValue={data?.price}
                             placeholder="Exemple: 10.50"
                             min="0.01"
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                editOrderLine(
-                                    "price",
-                                    parseFloat(e.target.value)
-                                )
-                            }
                             required
                         />
                     </label>
                 </fieldset>
-                <button type="submit" onClick={actionButton}>
+                <button type="submit">
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>

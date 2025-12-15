@@ -1,48 +1,46 @@
-import { useState, type JSX, type ChangeEvent } from "react";
+import { type JSX, useRef, type FormEvent } from "react";
+
+import "./login.css";
 
 function Login(): JSX.Element {
-    const [mail, setMail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [connectionMessage, setConnectionMessage] = useState<string>("");
+    const mailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
-    function login(): void {
-        console.log("test");
-        if (mail === "test" && password === "mdp") {
-            setConnectionMessage("Connexion réussie");
-        } else {
-            setConnectionMessage("Connexion échouée");
-        }
-    }
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault(); // Éviter le comportement par défaut de submit
+        const mail = mailRef.current?.value;
+        const password = passwordRef.current?.value;
+        // appelle API
+        console.log(`${mail} / ${password}`);
+    };
 
     return (
-        <main className="login">
+        <main id="login">
             <h1>Login</h1>
-            <form>
-                <label>
-                    Email
-                    <input
-                        type="email"
-                        placeholder="Entrez une adresse email"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            setMail(e.target.value);
-                        }}
-                    />
-                </label>
-                <label>
-                    Mot de passe
-                    <input
-                        type="password"
-                        placeholder="Entrez un mot de passe"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                            setPassword(e.target.value);
-                        }}
-                    />
-                </label>
+            <form onSubmit={handleSubmit}>
+                <fieldset>
+                    <label>
+                        Email
+                        <input
+                            type="email"
+                            placeholder="Entrez une adresse email"
+                            required
+                            ref={mailRef}
+                        />
+                    </label>
+                    <label>
+                        Mot de passe
+                        <input
+                            type="password"
+                            placeholder="Entrez un mot de passe"
+                            required
+                            ref={passwordRef}
+                        />
+                    </label>
 
-                <input type="submit" value="Se connecter" />
+                    <input type="submit" value="Se connecter" />
+                </fieldset>
             </form>
-
-            {connectionMessage}
         </main>
     );
 }

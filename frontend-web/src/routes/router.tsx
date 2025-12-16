@@ -4,7 +4,7 @@ import Login from "../pages/other/Login";
 import EventListing from "../pages/other/EventListing";
 
 import adminRoutes from "./AdminRouter";
-import managerRoutes from "./ManagerRouter";
+import hostRoutes from "./HostRouter";
 import Cashier from "../pages/cashier/Cashier";
 
 const router = createBrowserRouter([
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
 
     ...adminRoutes,
 
-    ...managerRoutes
+    ...hostRoutes
 
 ]);
 

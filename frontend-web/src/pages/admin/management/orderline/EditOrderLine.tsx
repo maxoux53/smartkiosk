@@ -1,9 +1,9 @@
 import { type JSX } from "react";
-import OrderLineComponent from "../../../../components/management/common/OrderLine";
+import OrderLine from "../../../../components/management/common/OrderLine";
 //import { useParams } from "react-router-dom";
 import type { order_line } from "../../../../type";
 
-export default function OrderLine(): JSX.Element {
+export default function EditOrderLine(): JSX.Element {
     //const params = useParams();
 
     const orderLine: order_line | null = null; // voir plus tard avec la requête à l'api avec l'id
@@ -11,7 +11,7 @@ export default function OrderLine(): JSX.Element {
     return (
         <main>
             {orderLine ? (
-                <OrderLineComponent
+                <OrderLine
                     data={orderLine}
                     actionButton={() => console.log("Modification BDD")}
                 />

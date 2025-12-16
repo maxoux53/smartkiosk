@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type purchase } from "../../../type";
 
-export default function PurchaseTable(): JSX.Element {
+export default function Purchase(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

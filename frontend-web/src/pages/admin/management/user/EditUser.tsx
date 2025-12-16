@@ -1,9 +1,9 @@
 import { type JSX } from "react";
-import UserComponent from "../../../../components/management/admin/User";
+import User from "../../../../components/management/admin/User";
 //import { useParams } from "react-router-dom";
 import type { user } from "../../../../type";
 
-export default function User(): JSX.Element {
+export default function EditUser(): JSX.Element {
     //const params = useParams();
 
     const user: user | null = null; // voir plus tard avec la requête à l'api avec l'id
@@ -11,7 +11,7 @@ export default function User(): JSX.Element {
     return (
         <main>
             {user ? (
-                <UserComponent
+                <User
                     data={user}
                     actionButton={() => console.log("Modification BDD")}
                 />

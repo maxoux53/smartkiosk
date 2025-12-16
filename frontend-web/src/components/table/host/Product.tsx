@@ -3,7 +3,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
-import { type productForManager as product } from "../../../type";
+import { type product } from "../../../type";
 
 export default function Product(): JSX.Element {
     const navigate = useNavigate();
@@ -27,6 +27,7 @@ export default function Product(): JSX.Element {
                 excl_vat_price: "2.50",
                 picture: "coca.jpg",
                 category_id: 1,
+                event_id: 1
             },
             {
                 id: 2,
@@ -35,6 +36,7 @@ export default function Product(): JSX.Element {
                 excl_vat_price: "4.00",
                 picture: "sandwich.jpg",
                 category_id: 2,
+                event_id: 1
             },
             {
                 id: 3,
@@ -43,6 +45,7 @@ export default function Product(): JSX.Element {
                 excl_vat_price: "1.50",
                 picture: null,
                 category_id: 3,
+                event_id: 1
             },
             {
                 id: 4,
@@ -51,6 +54,7 @@ export default function Product(): JSX.Element {
                 excl_vat_price: "1.00",
                 picture: "water.png",
                 category_id: 1,
+                event_id: 1
             },
             {
                 id: 5,
@@ -59,6 +63,7 @@ export default function Product(): JSX.Element {
                 excl_vat_price: "3.50",
                 picture: "beer.jpg",
                 category_id: 1,
+                event_id: 1
             }
         ],
         []

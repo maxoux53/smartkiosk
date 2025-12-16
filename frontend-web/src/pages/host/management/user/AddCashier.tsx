@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import Cashier from "../../../../components/management/manager/Cashier";
+import Cashier from "../../../../components/management/host/Cashier";
 
 export default function AddCashier(): JSX.Element {
     return (

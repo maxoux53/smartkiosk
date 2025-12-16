@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type order_line } from "../../../type";
 
-export default function OrderLineTable(): JSX.Element {
+export default function OrderLine(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

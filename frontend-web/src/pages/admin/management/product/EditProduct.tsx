@@ -1,9 +1,9 @@
 import { type JSX } from "react";
-import ProductComponent from "../../../../components/management/common/Product";
+import Product from "../../../../components/management/common/Product";
 //import { useParams } from "react-router-dom";
 import type { product } from "../../../../type";
 
-export default function Product(): JSX.Element {
+export default function EditProduct(): JSX.Element {
     //const params = useParams();
 
     const product: product | null = null; // voir plus tard avec la requête à l'api avec l'id
@@ -11,7 +11,7 @@ export default function Product(): JSX.Element {
     return (
         <main>
             {product ? (
-                <ProductComponent
+                <Product
                     data={product}
                     actionButton={() => console.log("Modification BDD")}
                     isAdmin={true}

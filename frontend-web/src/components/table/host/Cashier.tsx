@@ -3,7 +3,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
-import { type cashier, type cashier as product } from "../../../type";
+import { type cashier } from "../../../type";
 
 export default function Cashier(): JSX.Element {
     const navigate = useNavigate();

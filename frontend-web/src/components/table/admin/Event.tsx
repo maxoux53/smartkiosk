@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type event } from "../../../type";
 
-export default function EventTable(): JSX.Element {
+export default function Event(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

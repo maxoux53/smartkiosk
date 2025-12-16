@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type membership } from "../../../type";
 
-export default function MembershipTable(): JSX.Element {
+export default function Membership(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

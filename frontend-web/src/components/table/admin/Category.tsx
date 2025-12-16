@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type category } from "../../../type";
 
-export default function CategoryTable(): JSX.Element {
+export default function Category(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

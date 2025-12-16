@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import EventComponent from "../../../../components/management/common/Event";
+import Event from "../../../../components/management/common/Event";
 
-export default function Event(): JSX.Element {
+export default function AddEvent(): JSX.Element {
     return (
         <main>
-            <EventComponent
+            <Event
                 actionButton={() => console.log("Modification BDD")}
             />
         </main>

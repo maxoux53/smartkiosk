@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import OrderLineComponent from "../../../../components/management/common/OrderLine";
+import OrderLine from "../../../../components/management/common/OrderLine";
 
-export default function OrderLine(): JSX.Element {
+export default function AddOrderLine(): JSX.Element {
     return (
         <main>
-            <OrderLineComponent
+            <OrderLine
                 actionButton={() => console.log("Modification BDD")}
             />
         </main>

@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import UserComponent from "../../../../components/management/admin/User";
+import User from "../../../../components/management/admin/User";
 
-export default function User(): JSX.Element {
+export default function AddUser(): JSX.Element {
     return (
         <main>
-            <UserComponent
+            <User
                 actionButton={() => console.log("Modification BDD")}
             />
         </main>

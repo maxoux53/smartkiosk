@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import VatComponent from "../../../../components/management/admin/Vat";
+import Vat from "../../../../components/management/admin/Vat";
 
-export default function Vat(): JSX.Element {
+export default function AddVat(): JSX.Element {
     return (
         <main>
-            <VatComponent
+            <Vat
                 actionButton={() => console.log("Modification BDD")}
             />
         </main>

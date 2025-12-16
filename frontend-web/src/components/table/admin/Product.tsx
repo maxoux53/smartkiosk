@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type product } from "../../../type";
 
-export default function ProductTable(): JSX.Element {
+export default function Product(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

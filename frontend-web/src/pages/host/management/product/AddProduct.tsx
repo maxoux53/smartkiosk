@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import ProductMnagement from "../../../../components/management/common/Product";
+import Product from "../../../../components/management/common/Product";
 
 export default function AddProduct(): JSX.Element {
     return (
         <main>
-            <ProductMnagement
+            <Product
                 actionButton={() => console.log("Modification BDD")}
                 isAdmin={false}
             />

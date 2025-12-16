@@ -1,9 +1,9 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { product, productForManager } from "../../../type";
+import type { product } from "../../../type";
 import "../management.css";
 
-export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product | productForManager) => void; isAdmin: boolean;}): JSX.Element {
+export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product) => void; isAdmin: boolean;}): JSX.Element {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

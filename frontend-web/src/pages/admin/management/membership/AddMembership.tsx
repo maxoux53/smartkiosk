@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import MembershipComponent from "../../../../components/management/common/Membership";
+import Membership from "../../../../components/management/common/Membership";
 
-export default function Membership(): JSX.Element {
+export default function AddMembership(): JSX.Element {
     return (
         <main>
-            <MembershipComponent
+            <Membership
                 actionButton={() => console.log("Modification BDD")}
             />
         </main>

@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import EventManagement from "../common/Event";
 import type { event } from "../../../type";
 
 export default function Event(): JSX.Element {

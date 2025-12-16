@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Edit from "../../table/Edit";
 import { type vat } from "../../../type";
 
-export default function VatTable(): JSX.Element {
+export default function Vat(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {

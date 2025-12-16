@@ -1,9 +1,9 @@
 import { type JSX } from "react";
-import CategoryComponent from "../../../../components/management/admin/Category";
+import Category from "../../../../components/management/admin/Category";
 //import { useParams } from "react-router-dom";
 import type { category } from "../../../../type";
 
-export default function Category(): JSX.Element {
+export default function EditCategory(): JSX.Element {
     //const params = useParams();
 
     const category: category | null = null; // voir plus tard avec la requête à l'api avec l'id
@@ -11,7 +11,7 @@ export default function Category(): JSX.Element {
     return (
         <main>
             {category ? (
-                <CategoryComponent
+                <Category
                     data={category}
                     actionButton={() => console.log("Modification BDD")}
                 />

@@ -1,15 +1,21 @@
 import type { JSX } from "react";
+import "./event.css";
+import { useNavigate } from "react-router-dom";
 
-function Event({ name, imagePath }: { name: string; imagePath: string; }): JSX.Element {
+function Event({ name, imagePath, roleName, eventId }: { name: string; imagePath: string; roleName: string; eventId: number}): JSX.Element {
+    const navigate = useNavigate();
+    
     return (
-        <div
+        <article
+            className="event-card"
             onClick={() => {
-                console.log("test");
+                navigate(`/${roleName}/event/${eventId}`)
             }}
         >
-            <img src={imagePath} alt={name} />
-            <p>{name}</p>
-        </div>
+            <img className="event-logo" src={imagePath} alt={name} />
+            <p className="event-name">{name}</p>
+            <p className="event-role">{roleName}</p>
+        </article>
     );
 }
 

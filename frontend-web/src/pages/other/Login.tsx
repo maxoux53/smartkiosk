@@ -1,8 +1,10 @@
 import { type JSX, useRef, type FormEvent } from "react";
 
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login(): JSX.Element {
+    const navigate = useNavigate();
     const mailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -12,6 +14,7 @@ function Login(): JSX.Element {
         const password = passwordRef.current?.value;
         // appelle API
         console.log(`${mail} / ${password}`);
+        navigate("/");
     };
 
     return (

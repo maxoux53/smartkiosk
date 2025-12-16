@@ -8,7 +8,7 @@ function EventListing(): JSX.Element {
                 <h1>Évènements</h1>
             </div>
             <div>
-                <Event name="Test" imagePath="../../public/vite.svg"></Event>
+                <Event name="Test" imagePath="../../public/vite.svg" roleName="cashier" eventId={1}></Event>
             </div>
         </main>
     );

@@ -1,0 +1,22 @@
+.event-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.event-logo {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+}
+
+.event-name {
+    text-align: center;
+    margin: 12px;
+}
+
+.event-role {
+    text-align: right;
+    color: #666;
+    margin: 12px;
+}

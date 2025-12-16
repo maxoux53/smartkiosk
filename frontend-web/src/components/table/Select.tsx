@@ -8,19 +8,21 @@ import {
     type ColumnDef,
     type Table
 } from "@tanstack/react-table";
-import type { pagination } from "../../type";
+import type { pagination, purchase } from "../../type";
 
-export default function Select<T>({ columns, data, confirm, cancel }:
-     { columns: Array<ColumnDef<T>>; data: Array<T>; confirm: (row: T) => void; cancel: (row: T) => void; }): JSX.Element {
-    const [selectedRow, setSelectedRow] = useState<T | null>();
+export default function Select({ columns, data, confirm, cancel }:
+     { columns: Array<ColumnDef<purchase>>; data: Array<purchase>; confirm: (row: purchase) => void; cancel: (row: purchase) => void; }): JSX.Element {
+    const [selectedRow, setSelectedRow] = useState<purchase | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({
         pageIndex: 0,
         pageSize: 7
     });
     const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
+    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
-    const table: Table<T> = useReactTable({
+
+    const table: Table<purchase> = useReactTable({
         data,
         columns,
         state: {
@@ -68,6 +70,33 @@ export default function Select<T>({ columns, data, confirm, cancel }:
                     </article>
                 </dialog>
             :   <></>}
+
+            {showDetailModal ?
+                <dialog open>
+                    <article>
+                        <header>
+                            <p>
+                                <strong>Détail de la commande</strong>
+                            </p>
+                        </header>
+                        <ul>
+                            <li>test</li>
+                        </ul>
+                        <footer>
+                            <button
+                                type="button"
+                                onClick={(): void => {
+                                    if (selectedRow) cancel(selectedRow);
+                                    setShowDetailModal(false);
+                                }}
+                            >
+                                Fermer
+                            </button>
+                        </footer>
+                    </article>
+                </dialog>
+            :   <></>}
+
             <div id="header">
                 <input
                     id="search"
@@ -133,16 +162,25 @@ export default function Select<T>({ columns, data, confirm, cancel }:
                     <button
                         type="button"
                         onClick={(): void => {
-                            if (selectedRow) confirm(selectedRow);
+                            if (selectedRow) setShowDetailModal(true);
                         }}
                         disabled={!selectedRow}
                     >
-                        confirmer
+                        Détail
                     </button>
                     <button
                         type="button"
                         onClick={(): void => {
-                            if (selectedRow) cancel(selectedRow);
+                            if (selectedRow) confirm(selectedRow);
+                        }}
+                        disabled={!selectedRow}
+                    >
+                        Confirmer
+                    </button>
+                    <button
+                        type="button"
+                        onClick={(): void => {
+                            if (selectedRow) setShowCancelModal(true);
                         }}
                         disabled={!selectedRow}
                     >

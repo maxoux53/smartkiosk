@@ -8,7 +8,7 @@ import OrderLineTable from "../../components/table/admin/OrderLine";
 import ProductTable from "../../components/table/admin/Product";
 import CategoryTable from "../../components/table/admin/Category";
 import VatTable from "../../components/table/admin/Vat";
-import TabBar from "../../components/TabBar"
+import TabBar from "../../components/other/TabBar"
 
 const sections: Record<string, JSX.Element> = {
     [TABLES.USERS]: <UserTable />,

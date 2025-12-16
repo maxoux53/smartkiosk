@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import Event from "../components/Event";
+import Event from "../../components/other/Event";
 
 function EventListing(): JSX.Element {
     return (

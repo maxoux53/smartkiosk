@@ -8,10 +8,17 @@ export default function User(): JSX.Element {
 
     const user: user | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return user ?
-            <UserComponent
-                data={user}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {user ? (
+                <UserComponent
+                    data={user}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

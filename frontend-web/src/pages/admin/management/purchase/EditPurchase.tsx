@@ -8,10 +8,16 @@ export default function Purchase(): JSX.Element {
 
     const purchase: purchase | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return purchase ?
-            <PurchaseComponent
-                data={purchase}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {purchase ? (
+                <PurchaseComponent
+                    data={purchase}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }

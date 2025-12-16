@@ -5,7 +5,7 @@ export default function Admin({sections}: {sections: Record<string, JSX.Element>
     const [currentSection, setCurrentSection] = useState<string>("");
 
     return (
-        <main>
+        <>
             <div role="group">
                 {Object.entries(sections).map(([key, component]) => (
                     <button
@@ -23,6 +23,6 @@ export default function Admin({sections}: {sections: Record<string, JSX.Element>
             </div>
 
             {element}
-        </main>
+        </>
     );
 }

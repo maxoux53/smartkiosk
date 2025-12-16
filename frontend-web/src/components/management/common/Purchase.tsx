@@ -22,7 +22,7 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
     const navigate = useNavigate();
 
     return (
-        <main>
+        <>
             <div id="title">
                 <button
                     type="button"
@@ -68,6 +68,6 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>
-        </main>
+        </>
     );
 }

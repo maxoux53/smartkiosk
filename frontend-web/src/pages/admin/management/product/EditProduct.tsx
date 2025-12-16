@@ -8,11 +8,18 @@ export default function Product(): JSX.Element {
 
     const product: product | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return product ?
-            <ProductComponent
-                data={product}
-                actionButton={() => console.log("Modification BDD")}
-                isAdmin={true}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {product ? (
+                <ProductComponent
+                    data={product}
+                    actionButton={() => console.log("Modification BDD")}
+                    isAdmin={true}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

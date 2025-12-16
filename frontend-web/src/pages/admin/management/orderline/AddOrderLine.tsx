@@ -3,8 +3,11 @@ import OrderLineComponent from "../../../../components/management/common/OrderLi
 
 export default function OrderLine(): JSX.Element {
     return (
-        <OrderLineComponent
-            actionButton={() => console.log("Modification BDD")}
-        />
+        <main>
+            <OrderLineComponent
+                actionButton={() => console.log("Modification BDD")}
+            />
+        </main>
     );
 }
+

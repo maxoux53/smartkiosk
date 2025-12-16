@@ -7,6 +7,14 @@ export type user = {
     is_admin: boolean;
 };
 
+export type cashier = {
+    id: number,
+    first_name: string;
+    last_name: string;
+    email: string;
+    avatar: string | null;
+}
+
 export type membership = {
     user_id: number;
     event_id: number;

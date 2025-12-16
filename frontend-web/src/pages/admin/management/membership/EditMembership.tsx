@@ -8,10 +8,17 @@ export default function Membership(): JSX.Element {
 
     const membership: membership | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return membership ?
-            <MembershipComponent
-                data={membership}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {membership ? (
+                <MembershipComponent
+                    data={membership}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

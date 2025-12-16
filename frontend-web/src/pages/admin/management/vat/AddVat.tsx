@@ -3,6 +3,11 @@ import VatComponent from "../../../../components/management/admin/Vat";
 
 export default function Vat(): JSX.Element {
     return (
-        <VatComponent actionButton={() => console.log("Modification BDD")} />
+        <main>
+            <VatComponent
+                actionButton={() => console.log("Modification BDD")}
+            />
+        </main>
     );
 }
+

@@ -6,9 +6,11 @@ export default function EditProduct(): JSX.Element {
     // récupérer data avec l'api
 
     return (
-        <ProductMnagement
-            actionButton={() => console.log("Modification BDD")}
-            isAdmin={false}
-        />
+        <main>
+            <ProductMnagement
+                actionButton={() => console.log("Modification BDD")}
+                isAdmin={false}
+            />
+        </main>
     );
 }

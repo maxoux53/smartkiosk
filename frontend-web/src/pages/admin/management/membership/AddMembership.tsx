@@ -3,8 +3,11 @@ import MembershipComponent from "../../../../components/management/common/Member
 
 export default function Membership(): JSX.Element {
     return (
-        <MembershipComponent
-            actionButton={() => console.log("Modification BDD")}
-        />
+        <main>
+            <MembershipComponent
+                actionButton={() => console.log("Modification BDD")}
+            />
+        </main>
     );
 }
+

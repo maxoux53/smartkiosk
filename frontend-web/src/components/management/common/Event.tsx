@@ -25,7 +25,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
     const navigate = useNavigate();
 
     return (
-        <main>
+        <>
             <div id="title">
                 <button
                     type="button"
@@ -99,6 +99,6 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>
-        </main>
+        </>
     );
 }

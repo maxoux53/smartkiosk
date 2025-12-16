@@ -22,7 +22,7 @@ export default function Membership({ data, actionButton }: { data?: membership; 
     const navigate = useNavigate();
 
     return (
-        <main>
+        <>
             <div id="title">
                 <button
                     type="button"
@@ -80,6 +80,6 @@ export default function Membership({ data, actionButton }: { data?: membership; 
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>
-        </main>
+        </>
     );
 }

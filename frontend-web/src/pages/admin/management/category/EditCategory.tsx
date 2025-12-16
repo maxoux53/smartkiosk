@@ -8,10 +8,17 @@ export default function Category(): JSX.Element {
 
     const category: category | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return category ?
-            <CategoryComponent
-                data={category}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {category ? (
+                <CategoryComponent
+                    data={category}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

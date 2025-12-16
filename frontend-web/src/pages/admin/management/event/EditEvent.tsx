@@ -8,10 +8,17 @@ export default function Event(): JSX.Element {
 
     const event: event | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return event ?
-            <EventComponent
-                data={event}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {event ? (
+                <EventComponent
+                    data={event}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

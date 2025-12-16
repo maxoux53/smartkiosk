@@ -8,10 +8,17 @@ export default function Vat(): JSX.Element {
 
     const vat: vat | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return vat ?
-            <VatComponent
-                data={vat}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {vat ? (
+                <VatComponent
+                    data={vat}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

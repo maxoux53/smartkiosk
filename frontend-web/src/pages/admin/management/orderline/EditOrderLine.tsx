@@ -8,10 +8,17 @@ export default function OrderLine(): JSX.Element {
 
     const orderLine: order_line | null = null; // voir plus tard avec la requête à l'api avec l'id
 
-    return orderLine ?
-            <OrderLineComponent
-                data={orderLine}
-                actionButton={() => console.log("Modification BDD")}
-            />
-        :   <></>; // voir pour l'erreur avec l'api
+    return (
+        <main>
+            {orderLine ? (
+                <OrderLineComponent
+                    data={orderLine}
+                    actionButton={() => console.log("Modification BDD")}
+                />
+            ) : (
+                <></>
+            )}
+        </main>
+    );
 }
+

@@ -12,7 +12,7 @@ import type { pagination } from "../../type";
 import "./Edit.css";
 
 export default function Edit<T>({ columns, data, add, edit, remove }:
-     { columns: Array<ColumnDef<T>>; data: Array<T>; add: () => void; edit: (row: T) => void; remove: (row: T) => void; }): JSX.Element {
+     { columns: Array<ColumnDef<T>>; data: Array<T>; add: () => void; edit?: (row: T) => void; remove: (row: T) => void; }): JSX.Element {
     const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({
@@ -134,15 +134,20 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                     <button type="button" onClick={add}>
                         Ajouter
                     </button>
-                    <button
-                        type="button"
-                        onClick={(): void => {
-                            if (selectedRow) edit(selectedRow);
-                        }}
-                        disabled={!selectedRow}
-                    >
-                        Modifier
-                    </button>
+                    {
+                        edit ?
+                        <button
+                            type="button"
+                            onClick={(): void => {
+                                if (selectedRow) edit(selectedRow);
+                            }}
+                            disabled={!selectedRow}
+                        >
+                            Modifier
+                        </button>
+                        :
+                        <></>
+                    }
                     <button
                         type="button"
                         onClick={(): void => setShowDeleteModal(true)}

@@ -26,7 +26,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
     const navigate = useNavigate();
 
     return (
-        <main>
+        <>
             <div id="title">
                 <button
                     type="button"
@@ -113,6 +113,6 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>
-        </main>
+        </>
     );
 }

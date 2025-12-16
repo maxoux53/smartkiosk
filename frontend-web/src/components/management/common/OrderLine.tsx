@@ -23,7 +23,7 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
     const navigate = useNavigate();
 
     return (
-        <main>
+        <>
             <div id="title">
                 <button
                     type="button"
@@ -89,6 +89,6 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
                     {data ? "Modifier" : "Ajouter"}
                 </button>
             </form>
-        </main>
+        </>
     );
 }

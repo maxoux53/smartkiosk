@@ -7,11 +7,15 @@ meta {
 post {
   url: http://localhost:3001/v1/interact/purchase/
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
-    "user_id": 14
+    "id": 1
   }
 }

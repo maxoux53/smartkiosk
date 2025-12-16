@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:3001/v1/interact/event/
+  url: http://localhost:3001/v1/interact/me/event/
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
@@ -16,6 +20,6 @@ body:json {
     "location": "Tournai",
     "iban": "BE71096123456769",
     "is_active": true,
-    "image": "https://example.com/event.png"
+    "image": "abc"
   }
 }

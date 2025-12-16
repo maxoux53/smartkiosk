@@ -9,7 +9,13 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
                 id: req.body.id,
             },
             include: {
-                order_line: true
+                order_line: {
+                    select: {
+                        product_id: true,
+                        quantity: true,
+                        price: true
+                    }
+                }
             }
         });
 

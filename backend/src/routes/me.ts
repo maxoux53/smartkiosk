@@ -9,8 +9,14 @@ import {
     getPurchasesByUser,
     createPurchase
 } from '../controller/purchase.ts';
-import { getEventsByUser } from '../controller/event.ts';
-import { createMembership, deleteMembership } from '../controller/membership.ts';
+import { 
+    getEventsByUser,
+    createEvent 
+} from '../controller/event.ts';
+import {
+    createMembership,
+    deleteMembership
+} from '../controller/membership.ts';
 
 import { replaceUserAvatar } from '../middleware/image-replacement.ts';
 import { userVal } from '../middleware/validation/validator.ts';
@@ -23,6 +29,7 @@ router.get('/', getUser);
 router.patch('/', userVal.update, replaceUserAvatar, updateUser);
 router.delete('/', deleteUser);
 
+router.post('/event', eventVal.create, createEvent);
 router.get('/events', eventVal.getByUser, getEventsByUser);
 router.get('/purchases', getPurchasesByUser);
 router.post('/purchase', createPurchase);

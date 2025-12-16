@@ -2,7 +2,6 @@ import { type JSX } from "react";
 import Product from "../../../../components/management/common/Product";
 
 export default function EditProduct(): JSX.Element {
-
     // récupérer data avec l'api
 
     return (

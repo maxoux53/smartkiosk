@@ -6,9 +6,9 @@ import "../management.css";
 export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
-        
+
         const newCategory: category = {
             id: data?.id ?? -1,
             label: formData.get("label") as string,
@@ -78,9 +78,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </main>
     );

@@ -7,12 +7,12 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
 
         const newVat: vat = {
             type: formData.get("type") as string,
-            rate: Number(formData.get("rate")),
+            rate: Number(formData.get("rate"))
         };
 
         actionButton(newVat);
@@ -56,9 +56,7 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </main>
     );

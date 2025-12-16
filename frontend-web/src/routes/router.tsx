@@ -24,13 +24,12 @@ const router = createBrowserRouter([
 
     {
         path: "/cashier/event/:eventId",
-        element: <Cashier/>
+        element: <Cashier />
     },
 
     ...adminRoutes,
 
     ...hostRoutes
-
 ]);
 
 export default router;

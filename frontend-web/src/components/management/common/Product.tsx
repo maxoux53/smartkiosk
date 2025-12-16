@@ -7,7 +7,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
 
         const newProduct = {
@@ -18,7 +18,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
             picture: null,
             category_id: Number(formData.get("category_id")),
             event_id: Number(formData.get("event_id"))
-        }
+        };
 
         actionButton(newProduct);
     };
@@ -86,18 +86,18 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                             required
                         />
                     </label>
-                        <label>
-                            ID Événement
-                            <input
-                                name="event_id"
-                                type="number"
-                                defaultValue={data?.event_id ?? ""}
-                                placeholder="Exemple: 1"
-                                min="0"
-                                required
-                                disabled={!isAdmin}
-                            />
-                        </label>
+                    <label>
+                        ID Événement
+                        <input
+                            name="event_id"
+                            type="number"
+                            defaultValue={data?.event_id ?? ""}
+                            placeholder="Exemple: 1"
+                            min="0"
+                            required
+                            disabled={!isAdmin}
+                        />
+                    </label>
                     <label>
                         Disponible
                         <input
@@ -109,9 +109,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </>
     );

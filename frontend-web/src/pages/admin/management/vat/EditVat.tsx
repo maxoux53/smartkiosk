@@ -10,15 +10,12 @@ export default function EditVat(): JSX.Element {
 
     return (
         <main>
-            {vat ? (
+            {vat ?
                 <Vat
                     data={vat}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

@@ -10,15 +10,12 @@ export default function EditEvent(): JSX.Element {
 
     return (
         <main>
-            {event ? (
+            {event ?
                 <Event
                     data={event}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

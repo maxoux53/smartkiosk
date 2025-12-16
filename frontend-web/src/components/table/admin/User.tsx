@@ -28,7 +28,7 @@ export default function User(): JSX.Element {
                 last_name: "Dupont",
                 email: "alice.dupont@example.com",
                 avatar: "avatar1.jpg",
-                is_admin: true,
+                is_admin: true
             },
             {
                 id: 2,
@@ -36,7 +36,7 @@ export default function User(): JSX.Element {
                 last_name: "Martin",
                 email: "bob.martin@example.com",
                 avatar: null,
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 3,
@@ -44,7 +44,7 @@ export default function User(): JSX.Element {
                 last_name: "Leroy",
                 email: "claire.leroy@example.com",
                 avatar: "avatar3.png",
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 4,
@@ -52,7 +52,7 @@ export default function User(): JSX.Element {
                 last_name: "Bernard",
                 email: "david.bernard@example.com",
                 avatar: null,
-                is_admin: true,
+                is_admin: true
             },
             {
                 id: 5,
@@ -60,7 +60,7 @@ export default function User(): JSX.Element {
                 last_name: "Petit",
                 email: "emma.petit@example.com",
                 avatar: "avatar5.jpg",
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 6,
@@ -68,7 +68,7 @@ export default function User(): JSX.Element {
                 last_name: "Dubois",
                 email: "francois.dubois@example.com",
                 avatar: "avatar6.jpg",
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 7,
@@ -76,7 +76,7 @@ export default function User(): JSX.Element {
                 last_name: "Moreau",
                 email: "gabrielle.moreau@example.com",
                 avatar: "avatar7.jpg",
-                is_admin: true,
+                is_admin: true
             },
             {
                 id: 8,
@@ -84,7 +84,7 @@ export default function User(): JSX.Element {
                 last_name: "Simon",
                 email: "henri.simon@example.com",
                 avatar: null,
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 9,
@@ -92,7 +92,7 @@ export default function User(): JSX.Element {
                 last_name: "Michel",
                 email: "isabelle.michel@example.com",
                 avatar: "avatar9.png",
-                is_admin: false,
+                is_admin: false
             },
             {
                 id: 10,
@@ -100,7 +100,7 @@ export default function User(): JSX.Element {
                 last_name: "Lefebvre",
                 email: "jean.lefebvre@example.com",
                 avatar: "avatar10.jpg",
-                is_admin: true,
+                is_admin: true
             }
         ],
         []

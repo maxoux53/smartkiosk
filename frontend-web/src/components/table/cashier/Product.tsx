@@ -92,10 +92,7 @@ export default function Product(): JSX.Element {
 
     return (
         <>
-            <ViewOnly
-                columns={columns}
-                data={data}
-            ></ViewOnly>
+            <ViewOnly columns={columns} data={data}></ViewOnly>
         </>
     );
 }

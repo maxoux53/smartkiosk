@@ -10,15 +10,12 @@ export default function EditUser(): JSX.Element {
 
     return (
         <main>
-            {user ? (
+            {user ?
                 <User
                     data={user}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

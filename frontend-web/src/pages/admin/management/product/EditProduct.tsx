@@ -10,16 +10,13 @@ export default function EditProduct(): JSX.Element {
 
     return (
         <main>
-            {product ? (
+            {product ?
                 <Product
                     data={product}
                     actionButton={() => console.log("Modification BDD")}
                     isAdmin={true}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

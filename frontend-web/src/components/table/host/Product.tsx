@@ -99,7 +99,7 @@ export default function Product(): JSX.Element {
             {
                 accessorKey: "category_id",
                 header: "ID Catégorie"
-            },
+            }
         ],
         []
     );

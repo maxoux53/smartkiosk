@@ -19,7 +19,7 @@ import EditVat from "../pages/admin/management/vat/EditVat";
 const adminRoutes = [
     {
         path: "admin",
-        element: <Admin />,
+        element: <Admin />
     },
     {
         path: "/admin/user/add",

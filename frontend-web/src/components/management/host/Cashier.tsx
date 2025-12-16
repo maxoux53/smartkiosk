@@ -1,6 +1,6 @@
 import type { FormEvent, JSX } from "react";
 import { useNavigate } from "react-router-dom";
-import '../management.css'
+import "../management.css";
 
 export default function Cashier(): JSX.Element {
     const navigate = useNavigate();
@@ -14,11 +14,13 @@ export default function Cashier(): JSX.Element {
                 >
                     &#60;
                 </button>
-                <h1>
-                    Ajouter un Serveur
-                </h1>
+                <h1>Ajouter un Serveur</h1>
             </div>
-            <form onSubmit={(e: FormEvent<HTMLFormElement>) => {console.log(e)}}>
+            <form
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                    console.log(e);
+                }}
+            >
                 <fieldset>
                     <label>
                         Adresse email
@@ -32,5 +34,5 @@ export default function Cashier(): JSX.Element {
                 </fieldset>
             </form>
         </>
-    )
+    );
 }

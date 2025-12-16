@@ -4,10 +4,9 @@ import Purchase from "../../components/table/common/Purchase";
 import Product from "../../components/table/cashier/Product";
 
 export default function Cashier(): JSX.Element {
-
     const sections: Record<string, JSX.Element> = {
-        "Produits": <Product/>,
-        "Achats": <Purchase />
+        Produits: <Product />,
+        Achats: <Purchase />
     };
 
     return (
@@ -15,5 +14,5 @@ export default function Cashier(): JSX.Element {
             <h1>Serveur</h1>
             <TabBar sections={sections} />
         </main>
-    )
+    );
 }

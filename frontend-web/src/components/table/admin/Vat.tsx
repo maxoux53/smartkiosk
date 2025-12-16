@@ -22,19 +22,19 @@ export default function Vat(): JSX.Element {
         () => [
             {
                 type: "Standard",
-                rate: 20,
+                rate: 20
             },
             {
                 type: "Reduced",
-                rate: 5,
+                rate: 5
             },
             {
                 type: "Intermediate",
-                rate: 10,
+                rate: 10
             },
             {
                 type: "Super Reduced",
-                rate: 2,
+                rate: 2
             }
         ],
         []

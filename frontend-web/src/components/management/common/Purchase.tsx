@@ -7,9 +7,9 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
-        
+
         const newPurchase: purchase = {
             id: data?.id ?? -1,
             date: new Date(formData.get("date") as string),
@@ -44,7 +44,7 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
                         />
                     </label>
                     <label>
-                        Date 
+                        Date
                         <input
                             name="date"
                             type="date"
@@ -64,9 +64,7 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </>
     );

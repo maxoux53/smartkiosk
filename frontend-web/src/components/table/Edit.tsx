@@ -134,8 +134,7 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                     <button type="button" onClick={add}>
                         Ajouter
                     </button>
-                    {
-                        edit ?
+                    {edit ?
                         <button
                             type="button"
                             onClick={(): void => {
@@ -145,9 +144,7 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                         >
                             Modifier
                         </button>
-                        :
-                        <></>
-                    }
+                    :   <></>}
                     <button
                         type="button"
                         onClick={(): void => setShowDeleteModal(true)}

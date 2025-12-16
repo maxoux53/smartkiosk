@@ -7,9 +7,9 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
     
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
-        
+
         const newOrderLine: order_line = {
             product_id: Number(formData.get("product_id")),
             purchase_id: Number(formData.get("purchase_id")),
@@ -85,9 +85,7 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </>
     );

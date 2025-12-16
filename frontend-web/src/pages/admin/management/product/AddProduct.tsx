@@ -11,4 +11,3 @@ export default function AddProduct(): JSX.Element {
         </main>
     );
 }
-

@@ -10,14 +10,12 @@ export default function AddPurchase(): JSX.Element {
 
     return (
         <main>
-            {purchase ? (
+            {purchase ?
                 <Purchase
                     data={purchase}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }

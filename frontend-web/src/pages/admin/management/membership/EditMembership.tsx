@@ -10,15 +10,12 @@ export default function EditMembership(): JSX.Element {
 
     return (
         <main>
-            {membership ? (
+            {membership ?
                 <Membership
                     data={membership}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

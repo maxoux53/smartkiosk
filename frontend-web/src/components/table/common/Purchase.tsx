@@ -39,7 +39,12 @@ export default function Purchase(): JSX.Element {
 
     return (
         <>
-            <Select columns={columns} data={data} confirm={confirm} cancel={cancel} />
+            <Select
+                columns={columns}
+                data={data}
+                confirm={confirm}
+                cancel={cancel}
+            />
         </>
     );
 }

@@ -10,15 +10,12 @@ export default function EditCategory(): JSX.Element {
 
     return (
         <main>
-            {category ? (
+            {category ?
                 <Category
                     data={category}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

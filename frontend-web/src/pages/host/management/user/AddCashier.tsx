@@ -4,7 +4,7 @@ import Cashier from "../../../../components/management/host/Cashier";
 export default function AddCashier(): JSX.Element {
     return (
         <main>
-            <Cashier/>
+            <Cashier />
         </main>
-    )
+    );
 }

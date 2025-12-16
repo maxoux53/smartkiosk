@@ -10,15 +10,12 @@ export default function EditOrderLine(): JSX.Element {
 
     return (
         <main>
-            {orderLine ? (
+            {orderLine ?
                 <OrderLine
                     data={orderLine}
                     actionButton={() => console.log("Modification BDD")}
                 />
-            ) : (
-                <></>
-            )}
+            :   <></>}
         </main>
     );
 }
-

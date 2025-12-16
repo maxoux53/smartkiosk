@@ -2,13 +2,14 @@ import type { JSX } from "react";
 import type { event } from "../../../type";
 
 export default function Event(): JSX.Element {
-    const event: event = { // appel API
+    const event: event = {
+        // appel API
         id: 42,
         name: "Festival SmartKiosk 2025",
         location: "Liège",
         is_active: true,
         image: null,
-        iban: "BE71096123456769",
+        iban: "BE71096123456769"
     };
 
     const handleSubmit = (): void => {
@@ -74,9 +75,7 @@ export default function Event(): JSX.Element {
                     />
                 </label>
             </fieldset>
-            <button type="submit">
-                Modifier
-            </button>
+            <button type="submit">Modifier</button>
         </form>
-    )
+    );
 }

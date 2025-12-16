@@ -5,14 +5,12 @@ import Cashier from "../../components/table/host/Cashier";
 import Event from "../../components/management/host/Event";
 import Purchase from "../../components/table/common/Purchase";
 
-
 export default function Host(): JSX.Element {
-
     const sections: Record<string, JSX.Element> = {
-        "Évènement": <Event/>,
-        "Produits": <Product />,
-        "Serveur": <Cashier/>,
-        "Achats": <Purchase/>
+        Évènement: <Event />,
+        Produits: <Product />,
+        Serveur: <Cashier />,
+        Achats: <Purchase />
     };
 
     return (
@@ -20,5 +18,5 @@ export default function Host(): JSX.Element {
             <h1>Gérant</h1>
             <TabBar sections={sections} />
         </main>
-    )
+    );
 }

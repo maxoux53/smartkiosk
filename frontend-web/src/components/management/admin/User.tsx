@@ -7,7 +7,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
 
         const newUser: user = {
@@ -16,7 +16,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
             last_name: formData.get("last_name") as string,
             email: formData.get("email") as string,
             avatar: null,
-            is_admin: formData.get("is_admin") === "on",
+            is_admin: formData.get("is_admin") === "on"
         };
 
         actionButton(newUser);
@@ -105,9 +105,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </main>
     );

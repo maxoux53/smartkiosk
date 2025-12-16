@@ -7,9 +7,9 @@ export default function Membership({ data, actionButton }: { data?: membership; 
     
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
-        
+
         const newMembership: membership = {
             user_id: Number(formData.get("user_id")),
             event_id: Number(formData.get("event_id")),
@@ -76,9 +76,7 @@ export default function Membership({ data, actionButton }: { data?: membership; 
                         </select>
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </>
     );

@@ -21,7 +21,6 @@ export default function Select({ columns, data, confirm, cancel }:
     const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
-
     const table: Table<purchase> = useReactTable({
         data,
         columns,

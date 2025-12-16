@@ -20,6 +20,6 @@ const hostRoutes = [
         path: "/host/event/:eventId/add/cashier",
         element: <AddCashier />
     }
-]
+];
 
-export default hostRoutes
+export default hostRoutes;

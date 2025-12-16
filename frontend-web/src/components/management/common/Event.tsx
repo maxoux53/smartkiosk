@@ -7,9 +7,9 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
     
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
-        
+
         const newEvent: event = {
             id: data?.id ?? -1,
             name: formData.get("name") as string,
@@ -95,9 +95,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                         />
                     </label>
                 </fieldset>
-                <button type="submit">
-                    {data ? "Modifier" : "Ajouter"}
-                </button>
+                <button type="submit">{data ? "Modifier" : "Ajouter"}</button>
             </form>
         </>
     );

@@ -14,12 +14,7 @@ export default function Cashier(): JSX.Element {
 
     const remove = () => {};
 
-    const data: cashier[] = useMemo(
-        () => [
-            
-        ],
-        []
-    );
+    const data: cashier[] = useMemo(() => [], []);
 
     const columns = useMemo<ColumnDef<cashier>[]>(
         () => [
@@ -46,7 +41,7 @@ export default function Cashier(): JSX.Element {
                     const value = getValue() as string | null;
                     return !value ? null : <a>{value}</a>;
                 }
-            },
+            }
         ],
         []
     );

@@ -15,7 +15,6 @@ import AddUser from "../pages/admin/management/user/AddUser";
 import EditUser from "../pages/admin/management/user/EditUser";
 import AddVat from "../pages/admin/management/vat/AddVat";
 import EditVat from "../pages/admin/management/vat/EditVat";
-import User from "../components/table/admin/User";
 
 const adminRoutes = [
     {

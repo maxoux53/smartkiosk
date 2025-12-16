@@ -18,7 +18,7 @@ export default function Cashier(): JSX.Element {
                     Ajouter un Serveur
                 </h1>
             </div>
-            <form onSubmit={(e: FormEvent<HTMLFormElement>) => {/*voir avec l'API*/}}>
+            <form onSubmit={(e: FormEvent<HTMLFormElement>) => {console.log(e)}}>
                 <fieldset>
                     <label>
                         Adresse email

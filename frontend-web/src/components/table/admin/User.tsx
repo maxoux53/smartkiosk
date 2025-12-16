@@ -9,11 +9,11 @@ export default function UserTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/user/add");
+        navigate("user/add");
     };
 
     const edit = (row: user) => {
-        navigate(`/admin/user/edit/${row.id}`);
+        navigate(`user/edit/${row.id}`);
     };
 
     const remove = () => {
@@ -27,7 +27,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Alice",
                 last_name: "Dupont",
                 email: "alice.dupont@example.com",
-                password: "password123",
                 avatar: "avatar1.jpg",
                 is_admin: true,
             },
@@ -36,7 +35,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Bob",
                 last_name: "Martin",
                 email: "bob.martin@example.com",
-                password: "securepass",
                 avatar: null,
                 is_admin: false,
             },
@@ -45,7 +43,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Claire",
                 last_name: "Leroy",
                 email: "claire.leroy@example.com",
-                password: "mypassword",
                 avatar: "avatar3.png",
                 is_admin: false,
             },
@@ -54,7 +51,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "David",
                 last_name: "Bernard",
                 email: "david.bernard@example.com",
-                password: "testpass",
                 avatar: null,
                 is_admin: true,
             },
@@ -63,7 +59,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Emma",
                 last_name: "Petit",
                 email: "emma.petit@example.com",
-                password: "password456",
                 avatar: "avatar5.jpg",
                 is_admin: false,
             },
@@ -72,7 +67,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "François",
                 last_name: "Dubois",
                 email: "francois.dubois@example.com",
-                password: "newpass789",
                 avatar: "avatar6.jpg",
                 is_admin: false,
             },
@@ -81,7 +75,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Gabrielle",
                 last_name: "Moreau",
                 email: "gabrielle.moreau@example.com",
-                password: "pass1234",
                 avatar: "avatar7.jpg",
                 is_admin: true,
             },
@@ -90,7 +83,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Henri",
                 last_name: "Simon",
                 email: "henri.simon@example.com",
-                password: "henripass",
                 avatar: null,
                 is_admin: false,
             },
@@ -99,7 +91,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Isabelle",
                 last_name: "Michel",
                 email: "isabelle.michel@example.com",
-                password: "isapass",
                 avatar: "avatar9.png",
                 is_admin: false,
             },
@@ -108,7 +99,6 @@ export default function UserTable(): JSX.Element {
                 first_name: "Jean",
                 last_name: "Lefebvre",
                 email: "jean.lefebvre@example.com",
-                password: "jeanpass",
                 avatar: "avatar10.jpg",
                 is_admin: true,
             }
@@ -133,10 +123,6 @@ export default function UserTable(): JSX.Element {
             {
                 accessorKey: "email",
                 header: "Email"
-            },
-            {
-                accessorKey: "password",
-                header: "Mot de passe"
             },
             {
                 accessorKey: "avatar",

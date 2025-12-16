@@ -9,11 +9,11 @@ export default function PurchaseTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/purchase/add");
+        navigate("purchase/add");
     };
 
     const edit = (row: purchase) => {
-        navigate(`/admin/purchase/edit/${row.id}`);
+        navigate(`purchase/edit/${row.id}`);
     };
 
     const remove = () => {};

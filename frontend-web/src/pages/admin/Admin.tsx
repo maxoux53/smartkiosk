@@ -1,14 +1,14 @@
 import { type JSX } from "react";
 import { TABLES } from "../../constant";
-import UserTable from "../../components/admin/table/User";
-import MembershipTable from "../../components/admin/table/Membership";
-import EventTable from "../../components/admin/table/Event";
-import PurchaseTable from "../../components/admin/table/Purchase";
-import OrderLineTable from "../../components/admin/table/OrderLine";
-import ProductTable from "../../components/admin/table/Product";
-import CategoryTable from "../../components/admin/table/Category";
-import VatTable from "../../components/admin/table/Vat";
-import TabBar from "../TabBar"
+import UserTable from "../../components/table/admin/User";
+import MembershipTable from "../../components/table/admin/Membership";
+import EventTable from "../../components/table/admin/Event";
+import PurchaseTable from "../../components/table/admin/Purchase";
+import OrderLineTable from "../../components/table/admin/OrderLine";
+import ProductTable from "../../components/table/admin/Product";
+import CategoryTable from "../../components/table/admin/Category";
+import VatTable from "../../components/table/admin/Vat";
+import TabBar from "../../components/TabBar"
 
 const sections: Record<string, JSX.Element> = {
     [TABLES.USERS]: <UserTable />,
@@ -25,8 +25,9 @@ export default function Admin(): JSX.Element {
     
 
     return (
-        <>
+        <main>
+            <h1>Administrateur</h1>
             <TabBar sections={sections}/>
-        </>
+        </main>
     );
 }

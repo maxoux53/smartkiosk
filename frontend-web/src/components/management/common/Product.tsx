@@ -1,16 +1,16 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
-import type { product } from "../../../type";
-import "./management.css";
+import { useNavigate, useParams } from "react-router-dom";
+import type { product, productForManager } from "../../../type";
+import "../management.css";
 
-export default function Product({ data, actionButton }: { data?: product; actionButton: (product?: product) => void; }): JSX.Element {
+export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product | productForManager) => void; isAdmin: boolean;}): JSX.Element {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         const formData = new FormData(e.currentTarget);
 
-        const newProduct: product = {
+        const newProduct = {
             id: data?.id ?? -1,
             label: formData.get("label") as string,
             is_available: formData.get("is_available") === "on",
@@ -18,7 +18,7 @@ export default function Product({ data, actionButton }: { data?: product; action
             picture: null,
             category_id: Number(formData.get("category_id")),
             event_id: Number(formData.get("event_id"))
-        };
+        }
 
         actionButton(newProduct);
     };
@@ -30,7 +30,7 @@ export default function Product({ data, actionButton }: { data?: product; action
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>
@@ -86,16 +86,18 @@ export default function Product({ data, actionButton }: { data?: product; action
                             required
                         />
                     </label>
-                    <label>
-                        ID Événement
-                        <input
-                            name="event_id"
-                            type="number"
-                            defaultValue={data?.event_id ?? ""}
-                            placeholder="Exemple: 1 (optionnel)"
-                            min="0"
-                        />
-                    </label>
+                        <label>
+                            ID Événement
+                            <input
+                                name="event_id"
+                                type="number"
+                                defaultValue={data?.event_id ?? ""}
+                                placeholder="Exemple: 1"
+                                min="0"
+                                required
+                                disabled={!isAdmin}
+                            />
+                        </label>
                     <label>
                         Disponible
                         <input

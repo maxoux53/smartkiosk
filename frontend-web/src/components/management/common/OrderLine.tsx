@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { order_line } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function OrderLine({ data, actionButton }: { data?: order_line; actionButton: (orderLine?: order_line) => void; }): JSX.Element {
     
@@ -27,7 +27,7 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

@@ -3,17 +3,17 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
-import { type product } from "../../../type";
+import { type productForManager as product } from "../../../type";
 
-export default function ProductTable(): JSX.Element {
+export default function Product(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/product/add");
+        navigate("add/product");
     };
 
     const edit = (row: product) => {
-        navigate(`/admin/product/edit/${row.id}`);
+        navigate(`edit/product/${row.id}`);
     };
 
     const remove = () => {};
@@ -27,7 +27,6 @@ export default function ProductTable(): JSX.Element {
                 excl_vat_price: "2.50",
                 picture: "coca.jpg",
                 category_id: 1,
-                event_id: null
             },
             {
                 id: 2,
@@ -36,7 +35,6 @@ export default function ProductTable(): JSX.Element {
                 excl_vat_price: "4.00",
                 picture: "sandwich.jpg",
                 category_id: 2,
-                event_id: 1
             },
             {
                 id: 3,
@@ -45,7 +43,6 @@ export default function ProductTable(): JSX.Element {
                 excl_vat_price: "1.50",
                 picture: null,
                 category_id: 3,
-                event_id: null
             },
             {
                 id: 4,
@@ -54,7 +51,6 @@ export default function ProductTable(): JSX.Element {
                 excl_vat_price: "1.00",
                 picture: "water.png",
                 category_id: 1,
-                event_id: 2
             },
             {
                 id: 5,
@@ -63,7 +59,6 @@ export default function ProductTable(): JSX.Element {
                 excl_vat_price: "3.50",
                 picture: "beer.jpg",
                 category_id: 1,
-                event_id: 1
             }
         ],
         []
@@ -100,10 +95,6 @@ export default function ProductTable(): JSX.Element {
                 accessorKey: "category_id",
                 header: "ID Catégorie"
             },
-            {
-                accessorKey: "event_id",
-                header: "ID Événement"
-            }
         ],
         []
     );

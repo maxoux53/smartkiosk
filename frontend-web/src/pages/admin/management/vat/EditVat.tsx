@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import VatComponent from "../../../../components/admin/management/Vat";
+import VatComponent from "../../../../components/management/admin/Vat";
 //import { useParams } from "react-router-dom";
 import type { vat } from "../../../../type";
 

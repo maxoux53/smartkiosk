@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import PurchaseComponent from "../../../../components/admin/management/Purchase";
+import PurchaseComponent from "../../../../components/management/common/Purchase";
 //import { useParams } from "react-router-dom";
 import type { purchase } from "../../../../type";
 

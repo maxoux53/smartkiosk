@@ -9,11 +9,11 @@ export default function CategoryTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/category/add");
+        navigate("category/add");
     };
 
     const edit = (row: category) => {
-        navigate(`/admin/category/edit/${row.id}`);
+        navigate(`category/edit/${row.id}`);
     };
 
     const remove = () => {};

@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import OrderLineComponent from "../../../../components/admin/management/OrderLine";
+import OrderLineComponent from "../../../../components/management/common/OrderLine";
 //import { useParams } from "react-router-dom";
 import type { order_line } from "../../../../type";
 

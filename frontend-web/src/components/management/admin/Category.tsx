@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { category } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -26,7 +26,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

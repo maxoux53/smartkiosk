@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { purchase } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function Purchase({ data, actionButton }: { data?: purchase; actionButton: (purchase?: purchase) => void; }): JSX.Element {
 
@@ -26,7 +26,7 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

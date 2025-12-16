@@ -9,11 +9,11 @@ export default function OrderLineTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/orderline/add");
+        navigate("orderline/add");
     };
 
     const edit = (row: order_line) => {
-        navigate(`/admin/orderline/edit/${row.purchase_id}/${row.product_id}`);
+        navigate(`orderline/edit/${row.purchase_id}/${row.product_id}`);
     };
 
     const remove = () => {};

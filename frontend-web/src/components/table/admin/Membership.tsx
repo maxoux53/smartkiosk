@@ -9,11 +9,11 @@ export default function MembershipTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/membership/add");
+        navigate("membership/add");
     };
 
     const edit = (row: membership) => {
-        navigate(`/admin/membership/edit/${row.user_id}/${row.event_id}`);
+        navigate(`membership/edit/${row.user_id}/${row.event_id}`);
     };
 
     const remove = () => {};

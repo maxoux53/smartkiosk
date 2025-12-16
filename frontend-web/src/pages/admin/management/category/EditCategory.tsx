@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import CategoryComponent from "../../../../components/admin/management/Category";
+import CategoryComponent from "../../../../components/management/admin/Category";
 //import { useParams } from "react-router-dom";
 import type { category } from "../../../../type";
 

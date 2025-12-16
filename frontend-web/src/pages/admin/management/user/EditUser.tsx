@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import UserComponent from "../../../../components/admin/management/User";
+import UserComponent from "../../../../components/management/admin/User";
 //import { useParams } from "react-router-dom";
 import type { user } from "../../../../type";
 

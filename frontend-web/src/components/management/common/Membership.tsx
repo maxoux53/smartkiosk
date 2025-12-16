@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { membership } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function Membership({ data, actionButton }: { data?: membership; actionButton: (membership?: membership) => void; }): JSX.Element {
     
@@ -26,7 +26,7 @@ export default function Membership({ data, actionButton }: { data?: membership; 
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

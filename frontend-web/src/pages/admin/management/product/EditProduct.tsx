@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import ProductComponent from "../../../../components/admin/management/Product";
+import ProductComponent from "../../../../components/management/common/Product";
 //import { useParams } from "react-router-dom";
 import type { product } from "../../../../type";
 
@@ -12,6 +12,7 @@ export default function Product(): JSX.Element {
             <ProductComponent
                 data={product}
                 actionButton={() => console.log("Modification BDD")}
+                isAdmin={true}
             />
         :   <></>; // voir pour l'erreur avec l'api
 }

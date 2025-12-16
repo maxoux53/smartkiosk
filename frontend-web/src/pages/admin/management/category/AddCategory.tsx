@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import CategoryComponent from "../../../../components/admin/management/Category";
+import CategoryComponent from "../../../../components/management/admin/Category";
 
 export default function Category(): JSX.Element {
     return (

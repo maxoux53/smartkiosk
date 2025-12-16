@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { user } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function User({ data, actionButton }: { data?: user; actionButton: (user?: user) => void; }): JSX.Element {
 
@@ -15,7 +15,6 @@ export default function User({ data, actionButton }: { data?: user; actionButton
             first_name: formData.get("first_name") as string,
             last_name: formData.get("last_name") as string,
             email: formData.get("email") as string,
-            password: formData.get("password") as string,
             avatar: null,
             is_admin: formData.get("is_admin") === "on",
         };
@@ -30,7 +29,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &lt;
                 </button>
@@ -86,7 +85,6 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         <input
                             name="password"
                             type="text"
-                            defaultValue={data?.password}
                             placeholder="Exemple: JeanJean12345"
                             required
                         />

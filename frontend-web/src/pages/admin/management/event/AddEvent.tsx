@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import EventComponent from "../../../../components/admin/management/Event";
+import EventComponent from "../../../../components/management/common/Event";
 
 export default function Event(): JSX.Element {
     return (

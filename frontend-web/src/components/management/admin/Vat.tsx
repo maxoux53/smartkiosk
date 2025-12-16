@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { vat } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function Vat({data, actionButton}: {data?: vat; actionButton: (vat?: vat) => void;}): JSX.Element {
 
@@ -25,7 +25,7 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import MembershipComponent from "../../../../components/admin/management/Membership";
+import MembershipComponent from "../../../../components/management/common/Membership";
 //import { useParams } from "react-router-dom";
 import type { membership } from "../../../../type";
 

@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import VatComponent from "../../../../components/admin/management/Vat";
+import VatComponent from "../../../../components/management/admin/Vat";
 
 export default function Vat(): JSX.Element {
     return (

@@ -9,11 +9,11 @@ export default function VatTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/vat/add");
+        navigate("vat/add");
     };
 
     const edit = (row: vat) => {
-        navigate(`/admin/vat/edit/${row.type}`);
+        navigate(`vat/edit/${row.type}`);
     };
 
     const remove = () => {};

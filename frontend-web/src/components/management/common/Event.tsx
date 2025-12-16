@@ -1,7 +1,7 @@
 import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { event } from "../../../type";
-import "./management.css";
+import "../management.css";
 
 export default function Event({ data, actionButton }: { data?: event; actionButton: (event?: event) => void; }): JSX.Element {
     
@@ -29,7 +29,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
             <div id="title">
                 <button
                     type="button"
-                    onClick={(): void | Promise<void> => navigate("/admin")}
+                    onClick={(): void | Promise<void> => navigate(-1)}
                 >
                     &#60;
                 </button>

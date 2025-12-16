@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import PurchaseComponent from "../../../../components/admin/management/Purchase";
+import PurchaseComponent from "../../../../components/management/common/Purchase";
 
 export default function Purchase(): JSX.Element {
     return (

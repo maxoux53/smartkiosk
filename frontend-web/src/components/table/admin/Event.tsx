@@ -9,11 +9,11 @@ export default function EventTable(): JSX.Element {
     const navigate = useNavigate();
 
     const add = () => {
-        navigate("/admin/event/add");
+        navigate("event/add");
     };
 
     const edit = (row: event) => {
-        navigate(`/admin/event/edit/${row.id}`);
+        navigate(`event/edit/${row.id}`);
     };
 
     const remove = () => {};

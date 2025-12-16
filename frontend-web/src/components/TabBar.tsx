@@ -6,8 +6,6 @@ export default function Admin({sections}: {sections: Record<string, JSX.Element>
 
     return (
         <main>
-            <h1>Administrateur</h1>
-
             <div role="group">
                 {Object.entries(sections).map(([key, component]) => (
                     <button

@@ -1,0 +1,18 @@
+meta {
+  name: creation tva
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3001/v1/interact/vat/
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "type": "D",
+    "rate": 36
+  }
+}

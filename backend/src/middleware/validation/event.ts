@@ -1,34 +1,44 @@
 import vine from '@vinejs/vine'
 
+import * as c from '../../../../shared/constraint.constants.ts';
+
+const event_id = vine.number();
+const name = vine.string().minLength(1).maxLength(c.EVENT.NAME_MAX);
+const location = vine.string().minLength(1).maxLength(c.EVENT.LOCATION_MAX);
+const image = vine.string().optional();
+const is_active = vine.boolean().optional();
+const iban = vine.string().minLength(1).maxLength(c.EVENT.IBAN_MAX);
+const user_id = vine.number().optional();
+
 const eventIdSchema = vine.object({
-    event_id: vine.number()
+    event_id
 });
 
 const eventCreatedSchema = vine.object({
-    name: vine.string().minLength(1).maxLength(100),
-    location: vine.string().minLength(1).maxLength(80),
-    image: vine.string().optional(),
-    is_active: vine.boolean().optional(),
-    iban: vine.string().minLength(35).maxLength(35),
+    name,
+    location,
+    image,
+    is_active,
+    iban,
 });
 
 const eventUpdatedSchema = vine.object({
     id: vine.number(),
-    name: vine.string().minLength(1).maxLength(100).optional(),
-    location: vine.string().minLength(1).maxLength(80).optional(),
-    image: vine.string().optional(),
-    is_active: vine.boolean().optional(),
-    iban: vine.string().minLength(35).maxLength(35).optional(),
+    name: name.optional(),
+    location: location.optional(),
+    image,
+    is_active,
+    iban: iban.optional(),
 });
 
-const eventByUserListSchema = vine.object({
-    user_id: vine.number().optional()
+const eventsByUserSchema = vine.object({
+    user_id
 })
 
 export const
-    eventSearch = vine.compile(eventIdSchema),
-    eventCreation = vine.compile(eventCreatedSchema),
-    eventUpdate = vine.compile(eventUpdatedSchema),
-    eventDeletion = vine.compile(eventIdSchema),
-    eventByUserList = vine.compile(eventByUserListSchema)
+    eventSearch = vine.create(eventIdSchema),
+    eventCreation = vine.create(eventCreatedSchema),
+    eventUpdate = vine.create(eventUpdatedSchema),
+    eventDeletion = vine.create(eventIdSchema),
+    eventsByUser = vine.create(eventsByUserSchema)
 ;

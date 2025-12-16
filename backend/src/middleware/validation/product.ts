@@ -1,34 +1,45 @@
 import vine from '@vinejs/vine'
 
+import * as c from '../../../../shared/constraint.constants.ts';
+
+const id = vine.number();
+const label = vine.string().minLength(1).maxLength(c.PRODUCT.LABEL_MAX);
+const is_available = vine.boolean().optional();
+const excl_vat_price = vine.number().min(c.PRODUCT.EXCL_VAT_PRICE_MIN);
+const picture = vine.string().optional();
+const category_id = vine.number();
+const event_id = vine.number();
+
 const productIdSchema = vine.object({
-    id: vine.number()
+    id
 });
 
 const productCreationSchema = vine.object({
-    label: vine.string().minLength(1).maxLength(80),
-    is_available: vine.boolean().optional(),
-    excl_vat_price: vine.number().min(0),
-    category_id: vine.number(),
-    event_id: vine.number()
+    label,
+    is_available,
+    excl_vat_price,
+    category_id,
+    picture,
+    event_id
 });
 
 const productUpdateSchema = vine.object({
-    id: vine.number(),
-    label: vine.string().minLength(1).maxLength(80).optional(),
-    is_available: vine.boolean().optional(),
-    excl_vat_price: vine.number().min(0).optional(),
-    deletion_date: vine.date().optional(),
-    category_id: vine.number().optional()
+    id,
+    label: label.optional(),
+    is_available: is_available,
+    excl_vat_price: excl_vat_price.optional(),
+    category_id: category_id.optional(),
+    picture
 });
 
-const productsListByEventSchema = vine.object({
-    event_id: vine.number().optional()
+const productsByEventSchema = vine.object({
+    event_id
 });
 
 export const
-    productSearch = vine.compile(productIdSchema),
-    productCreation = vine.compile(productCreationSchema),
-    productUpdate = vine.compile(productUpdateSchema),
-    productDeletion = vine.compile(productIdSchema),
-    productListByEvent = vine.compile(productsListByEventSchema)
+    productSearch = vine.create(productIdSchema),
+    productCreation = vine.create(productCreationSchema),
+    productUpdate = vine.create(productUpdateSchema),
+    productDeletion = vine.create(productIdSchema),
+    productsByEvent = vine.create(productsByEventSchema)
 ;

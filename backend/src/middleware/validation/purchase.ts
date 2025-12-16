@@ -1,20 +1,23 @@
 import vine from '@vinejs/vine'
 
+const id = vine.number();
+const user_id = vine.number();
+
 const purchaseIdSchema = vine.object({
-    id: vine.number()
+    id
 });
 
 const purchaseCreationSchema = vine.object({
-    user_id: vine.number()
+    user_id
 });
 
 const purchaseListForUserSchema = vine.object({
-    user_id: vine.number()
+    user_id
 })
 
 export const
-    purchaseSearch = vine.compile(purchaseIdSchema),
-    purchaseCreation = vine.compile(purchaseCreationSchema),
-    purchaseDeletion = vine.compile(purchaseIdSchema),
-    purchaseListForUser = vine.compile(purchaseListForUserSchema)
+    purchaseSearch = vine.create(purchaseIdSchema),
+    purchaseCreation = vine.create(purchaseCreationSchema),
+    purchaseDeletion = vine.create(purchaseIdSchema),
+    purchaseListForUser = vine.create(purchaseListForUserSchema)
 ;

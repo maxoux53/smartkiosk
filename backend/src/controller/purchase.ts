@@ -24,7 +24,7 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-export const getAllPurchase = async (req : Request, res :Response) : Promise<void> => {
+export const getAllPurchases = async (req : Request, res :Response) : Promise<void> => {
     try {
         const purchases = await prisma.purchase.findMany({
             include: {
@@ -46,7 +46,7 @@ export const getAllPurchase = async (req : Request, res :Response) : Promise<voi
     }
 };
 
-export const getAllPurchaseOfUser = async (req : Request, res :Response) : Promise<void> => {
+export const getPurchasesByUser = async (req : Request, res :Response) : Promise<void> => {
     try {
         const purchases = await prisma.purchase.findMany({
             where: {
@@ -72,12 +72,11 @@ export const getAllPurchaseOfUser = async (req : Request, res :Response) : Promi
 }
 
 export const createPurchase = async (req: Request, res: Response): Promise<void> => {
-    const { id, user_id, date } : purchase = req.body;
     try {
         const newPurchase = await prisma.purchase.create({
             data: {
-                user_id,
-                date
+                user_id : req.body.id,
+                date: new Date()
             },
             select: {
                 id: true

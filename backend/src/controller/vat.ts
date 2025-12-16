@@ -1,11 +1,12 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 
 export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
         const vat = await prisma.vat.findUnique({
             where: {
-                type: req.params.id,
+                type: req.body.type,
                 deletion_date: null
             }
         });
@@ -32,7 +33,8 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
                 rate: true
             }
         });
-        res.sendStatus(404);
+
+        res.status(200).send(vats);
     } catch(e) {
         console.error(e);
         res.sendStatus(500);
@@ -41,13 +43,14 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
 
 export const createVat = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const newVat = await prisma.vat.create({
+        await prisma.vat.create({
             data: {
                 type: req.body.type,
                 rate: req.body.rate
             }
         })
-        res.status(201).send(newVat);
+
+        res.sendStatus(201);
         
         // Erreur pas claire si type deja existant 
     } catch(e) {
@@ -66,6 +69,8 @@ export const updateVat = async (req : Request, res : Response) : Promise<void> =
                 rate: req.body.rate
             }
         })
+
+        res.sendStatus(204);
     } catch(e) {
         console.error(e);
         res.sendStatus(500);
@@ -76,14 +81,17 @@ export const deleteVat = async (req : Request, res : Response) : Promise<void> =
     try {
         await prisma.vat.update({
             where: {
-                type: req.body.type
+                type: req.body.type,
+                deletion_date: null
             },
             data: {
                 deletion_date: new Date()
             }
         })
+
+        res.sendStatus(204);
     } catch(e) {
         console.error(e);
-        res.sendStatus(500);
+        res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
     }
 }

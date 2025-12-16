@@ -1,0 +1,19 @@
+meta {
+  name: creation categorie
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3001/v1/interact/category/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "label": "Boissons",
+    "vat_type": "NORMAL",
+    "picture": "https://example.com/category.png"
+  }
+}

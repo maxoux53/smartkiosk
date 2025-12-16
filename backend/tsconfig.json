@@ -2,10 +2,11 @@
     "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": "..",
         "moduleResolution": "nodenext",
         "module": "NodeNext",
+        "resolveJsonModule": true,
         "composite": true
     },
-    "include": ["src"]
+    "include": ["./src", "../shared/**/*.ts", "./spec.json"]
 }

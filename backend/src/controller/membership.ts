@@ -1,9 +1,8 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { membership } from "../generated/prisma/client.ts";
 
 export const getMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_id, event_id } : membership = req.body;
+    const { user_id, event_id } = req.body;
     try {
         const membership = await prisma.membership.findUnique({
             where: {
@@ -26,14 +25,14 @@ export const getMembership = async (req : Request, res : Response) : Promise<voi
 }
 
 export const createMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_id, event_id, role } : membership = req.body;
+    const { user_email, event_id, role } = req.body;
 
     try {
-        const newMembership = await prisma.membership.create({
+        await prisma.membership.create({
             data: {
-                user_id,
+                user_id : req.session.id,
                 event_id,
-                role // checked by validator
+                role
             },
             select: {
                 user_id: true,
@@ -41,7 +40,7 @@ export const createMembership = async (req : Request, res : Response) : Promise<
             }
         });
         
-        res.status(201).send(newMembership);
+        res.sendStatus(201);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
@@ -49,7 +48,7 @@ export const createMembership = async (req : Request, res : Response) : Promise<
 }
 
 export const updateMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_id, event_id, role } : membership = req.body;
+    const { user_id, event_id, role } = req.body;
 
     try {
         await prisma.membership.update({
@@ -72,13 +71,13 @@ export const updateMembership = async (req : Request, res : Response) : Promise<
 }
 
 export const deleteMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_id, event_id } : membership = req.body;
+    const { event_id } = req.body;
 
     try {
         await prisma.membership.delete({
             where: {
                 user_id_event_id: {
-                    user_id,
+                    user_id: req.session.id,
                     event_id
                 }
             }

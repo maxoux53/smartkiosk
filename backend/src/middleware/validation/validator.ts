@@ -4,7 +4,6 @@ import * as categorySchemas from './category.ts';
 import * as productSchemas from './product.ts';
 import * as eventSchemas from './event.ts';
 import * as membershipSchemas from './membership.ts';
-import * as orderLineSchemas from './order_line.ts';
 import * as purchaseSchemas from './purchase.ts';
 import * as userSchemas from './user.ts';
 import * as vatSchemas from './vat.ts';
@@ -53,9 +52,9 @@ export const productVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
-    list: async (req: Request, res: Response, next: NextFunction) => {
+    getByEvent: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await productSchemas.productListByEvent.validate(req.params);
+            req.body = await productSchemas.productsByEvent.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -63,6 +62,7 @@ export const productVal = {
     },
     create: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.event_id = req.params.event_id;
             req.body = await productSchemas.productCreation.validate(req.body);
             next();
         } catch (e) {
@@ -96,9 +96,9 @@ export const eventVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
-    list: async (req: Request, res: Response, next: NextFunction) => {
+    getByUser: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await eventSchemas.eventByUserList.validate(req.params);
+            req.body = await eventSchemas.eventsByUser.validate(req.params);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -131,60 +131,19 @@ export const eventVal = {
 };
 
 export const membershipVal = {
-    get: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await membershipSchemas.membershipSearch.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
     create: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.event_id = req.params.event_id;
             req.body = await membershipSchemas.membershipCreation.validate(req.body);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
         }
     },
-    update: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await membershipSchemas.membershipUpdate.validate(req.body);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.body = await membershipSchemas.membershipDeletion.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    }
-};
-
-export const orderLineVal = {
-    get: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await orderLineSchemas.orderLineSearch.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    create: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await orderLineSchemas.orderLineCreation.validate(req.body);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    delete: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await orderLineSchemas.orderLineDeletion.validate(req.params);
+            req.body.event_id = req.params.event_id;
+            req.body = await membershipSchemas.membershipDeletion.validate(req.body);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -255,6 +214,14 @@ export const userVal = {
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await userSchemas.userDeletion.validate(req.params);
+            next();
+        } catch (e) {
+            res.status(400).send((e as ValidationError).message);
+        }
+    },
+    login: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            req.body = await userSchemas.userLogin.validate(req.body);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

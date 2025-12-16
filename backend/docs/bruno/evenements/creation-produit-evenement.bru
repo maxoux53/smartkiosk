@@ -1,0 +1,21 @@
+meta {
+  name: creation produit evenement
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3001/v1/interact/event/1/product
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "label": "Produit via event",
+    "is_available": true,
+    "excl_vat_price": 2.5,
+    "category_id": 1,
+    "picture": "https://example.com/product.png"
+  }
+}

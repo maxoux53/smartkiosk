@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { event } from "../generated/prisma/client.ts";
 
 export const getEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -31,6 +30,7 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
                 product: true   
             }
         });
+
         res.status(200).send(events);
     } catch (e) {
         console.error(e);
@@ -38,7 +38,7 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
     }
 }
 
-export const getAllEventsByUser = async (req : Request, res : Response) : Promise<void> => {
+export const getEventsByUser = async (req : Request, res : Response) : Promise<void> => {
     try {
          const events = await prisma.event.findMany({
             where: {
@@ -53,6 +53,8 @@ export const getAllEventsByUser = async (req : Request, res : Response) : Promis
                 product: true
             }
         });
+
+        res.status(200).send(events);
     } catch(e) {
         console.error(e)
         res.sendStatus(500)
@@ -60,7 +62,7 @@ export const getAllEventsByUser = async (req : Request, res : Response) : Promis
 }
 
 export const createEvent = async (req : Request, res : Response) : Promise<void> => {
-    const { name, location, is_active, iban, image } : event = req.body;
+    const { name, location, is_active, iban, image } = req.body;
 
     try {
         const newEvent = await prisma.event.create({
@@ -88,7 +90,7 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
 }
 
 export const updateEvent = async (req : Request, res : Response) : Promise<void> => {
-    const { id, name, location, is_active, iban, image } : event = req.body;
+    const { id, name, location, is_active, iban, image } = req.body;
 
     try {
         await prisma.event.update({

@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { category } from "../generated/prisma/client.ts";
 
 export const getCategory = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -44,8 +43,8 @@ export const getAllLabelCategory = async (req : Request, res : Response) : Promi
                 deletion_date: null
             },
             select: {
-                id:true,
-                label:true
+                id: true,
+                label: true
             }
         })
         res.status(200).send(labels);
@@ -56,7 +55,7 @@ export const getAllLabelCategory = async (req : Request, res : Response) : Promi
 }
 
 export const createCategory = async (req : Request, res : Response) : Promise<void> => {
-    const { label, vat_type, picture } : category = req.body;
+    const { label, vat_type, picture } = req.body;
 
     try {
         const newCategory = await prisma.category.create({
@@ -78,7 +77,7 @@ export const createCategory = async (req : Request, res : Response) : Promise<vo
 }
 
 export const updateCategory = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, vat_type, picture }: category = req.body;
+    const { id, label, vat_type, picture } = req.body;
 
     try {
         await prisma.category.update({

@@ -1,34 +1,22 @@
 import { Router, type Request, type Response } from "express";
+import swaggerSpec from "../../spec.json" with { type: "json" };
 
-import { default as productRouter } from "./product.ts";
-import { default as categoryRouter } from "./category.ts";
-import { default as eventRouter } from "./event.ts";
-import { default as imageRouter } from "./image.ts";
-import { default as purchaseRouter } from "./purchase.ts";
-import { default as userRouter } from "./user.ts";
-import { default as vatRouter } from "./vat.ts";
-import { default as personalRouter } from "./me.ts";
-
-import { self, checkJWT, isAdmin } from "../middleware/identification.ts";
-import { login, createUser } from "../controller/user.ts";
+import { default as v1Router } from "./v1.ts";
 
 const router = Router();
 
-router.post("/login", login);
-router.post("/signup", createUser);
+router.use("/v1", v1Router);
 
-router.use("/product", productRouter);
-router.use("/category", categoryRouter);
-router.use("/event", eventRouter);
-router.use("/images", checkJWT, imageRouter);
-router.use("/purchase", purchaseRouter);
-router.use("/user", userRouter);
-router.use("/vat", vatRouter);
-router.use("/me", checkJWT, self, personalRouter);
+router.get(
+    "/swagger.json",
+    (req : Request, res : Response) : Response => {
+        return res.status(200).json(swaggerSpec);
+    }
+);
 
 router.use((req : Request, res : Response) : Response => {
     console.error(`Bad URL: ${req.path}`);
-    return res.status(404).send("Il ne s'agit pas d'une URL prise en charge par l'application");
+    return res.status(404).send("Il ne s'agit pas d'une URL prise en charge par l'application.");
 });
 
 export default router;

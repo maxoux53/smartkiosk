@@ -1,15 +1,14 @@
 import { Router } from 'express';
-import { replaceProductPicture } from '../middleware/image-replacement.ts';
+
 import {
     getProduct,
     getAllProducts,
-    createProduct,
     updateProduct,
-    deleteProduct,
-    getAllProductsOfAnEvent
+    deleteProduct
 } from "../controller/product.ts";
 
-import { checkJWT, isAdmin } from "../middleware/identification.ts";
+import { replaceProductPicture } from '../middleware/image-replacement.ts';
+import { isAdmin, isHost } from "../middleware/identification.ts";
 import { productVal } from '../middleware/validation/validator.ts';
 
 const router = Router();
@@ -50,38 +49,7 @@ const router = Router();
 */
 router.get('/:id', productVal.get, getProduct);
 
-router.get('/', checkJWT, isAdmin, getAllProducts);
-
-router.get('/:event_id', productVal.list, getAllProductsOfAnEvent);
-/**
- * @swagger
- * /product:
- *   post:
- *     summary: Create a new product
- *     security:
- *       - bearerAuth: []
- *     tags:
- *       - Product
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/ProductToAdd'
- *     responses:
- *       201:
- *         $ref: '#/components/responses/ProductAdded'
- *       400:
- *         description: Described error
- *         content:
- *           text/plain:
- *             schema:
- *               type: string
- *       401:
- *         $ref: '#/components/responses/UnauthorizedError'
- *       500:
- *         description: Server error
-*/
-router.post('/', checkJWT, productVal.create, createProduct);
+router.get('/', isAdmin, getAllProducts);
 
 /**
  * @swagger
@@ -111,7 +79,7 @@ router.post('/', checkJWT, productVal.create, createProduct);
  *       500:
  *         description: Server error
 */
-router.patch('/', checkJWT, isAdmin, productVal.update, replaceProductPicture, updateProduct);
+router.patch('/', isHost, productVal.update, replaceProductPicture, updateProduct);
 
 /**
  * @swagger
@@ -143,6 +111,6 @@ router.patch('/', checkJWT, isAdmin, productVal.update, replaceProductPicture, u
  *       500:
  *         description: Server error
 */
-router.delete('/:id', checkJWT, isAdmin, productVal.delete, deleteProduct);
+router.delete('/:id', isHost, productVal.delete, deleteProduct);
 
 export default router;

@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { product } from "../generated/prisma/client.ts";
 
 /**
  * @swagger
@@ -68,18 +67,18 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
     try { 
-            const products = await prisma.product.findMany({
-                where: {
-                    deletion_date: null
-                },
-                include: {
+        const products = await prisma.product.findMany({
+            where: {
+                deletion_date: null
+            },
+            include: {
                 category: {
                     include: {
                         vat: true
                     }
                 }
             }
-            });
+        });
 
         res.status(200).send(products);
     } catch (e) {
@@ -88,21 +87,21 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
     }
 };
 
-export const getAllProductsOfAnEvent = async (req : Request, res : Response) : Promise<void> => {
+export const getProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
-            const products = await prisma.product.findMany({
-                where: {
-                    deletion_date: null,
-                    event_id: req.body.event_id
-                },
-                include: {
+        const products = await prisma.product.findMany({
+            where: {
+                deletion_date: null,
+                event_id: req.body.event_id
+            },
+            include: {
                 category: {
                     include: {
                         vat: true
                     }
                 }
             }
-            });
+        });
         res.status(200).send(products);
     } catch (e) {
         console.error(e);
@@ -126,7 +125,7 @@ export const getAllProductsOfAnEvent = async (req : Request, res : Response) : P
 */
 export const createProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const { label, is_available, excl_vat_price, picture, category_id, event_id } : product = req.body;
+        const { label, is_available, excl_vat_price, picture, category_id, event_id } = req.body;
 
         const category = await prisma.category.findUnique({
             where: {
@@ -136,10 +135,12 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
                 picture: true
             }
         });
+
         if (!category) {
             res.sendStatus(400);
             return;
         }
+        
         const productPicture = picture || category.picture;
         
         const newProductId = await prisma.product.create({
@@ -164,8 +165,7 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } : product = req.body;
-    // const safeExclVatPriceDecimal = new prisma.Decimal(excl_vat_price);
+    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } = req.body;
     
     try {
         await prisma.product.update({

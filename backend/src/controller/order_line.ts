@@ -1,10 +1,9 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { order_line } from "../generated/prisma/client.ts";
 import { Decimal } from "@prisma/client/runtime/library";
 
 export const getOrderLine = async (req: Request, res: Response): Promise<void> => {
-    const { product_id, purchase_id } : order_line = req.body;
+    const { product_id, purchase_id } = req.body;
 
     try {
         const order_line = await prisma.order_line.findUnique({ 
@@ -28,10 +27,11 @@ export const getOrderLine = async (req: Request, res: Response): Promise<void> =
 };
 
 export const createOrderLine = async (req: Request, res: Response): Promise<void> => {
-    const { product_id, purchase_id, quantity } : order_line = req.body;
+    const { product_id, purchase_id, quantity } = req.body;
+
     const product = await prisma.product.findUnique({
         where: {
-             id: product_id
+            id: product_id
         },
         select: {
             excl_vat_price: true,
@@ -52,7 +52,6 @@ export const createOrderLine = async (req: Request, res: Response): Promise<void
         return;
     }
 
-    //const totalPrice = ((quantity * product.excl_vat_price) * (1 + (product.category.vat.rate / 100)));
     const totalPrice = ((new Decimal(quantity).mul(product.excl_vat_price).mul(new Decimal(1).plus(product.category.vat.rate / 100)))).toDecimalPlaces(2);
 
     try {

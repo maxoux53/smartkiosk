@@ -5,16 +5,16 @@ meta {
 }
 
 patch {
-  url: http://localhost:3001/product/
+  url: http://localhost:3001/v1/interact/product/
   body: json
-  auth: none
+  auth: inherit
 }
 
 body:json {
   {
     "id": 5,
     "label": "un carton (de Tournai)",
-    "excl_vat_price": "300",
+    "excl_vat_price": 300,
     "category_id": 3
   }
 }

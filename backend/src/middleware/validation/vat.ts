@@ -1,22 +1,27 @@
 import vine from '@vinejs/vine'
 
+import * as c from '../../../../shared/constraint.constants.ts';
+
+const type = vine.string().minLength(1).maxLength(c.VAT.TYPE_MAX);
+const rate = vine.number().min(c.VAT.RATE_MIN).max(c.VAT.RATE_MAX);
+
 const vatIdSchema = vine.object({
-    type: vine.string().minLength(1).maxLength(1)
+    type
 });
 
 const vatCreationSchema = vine.object({
-    type: vine.string().minLength(1).maxLength(1),
-    rate: vine.number().min(0).max(100)
+    type,
+    rate
 });
 
 const vatUpdateSchema = vine.object({
-    type: vine.string().minLength(1).maxLength(1),
-    rate: vine.number().min(0).max(100).optional()
+    type,
+    rate
 });
 
 export const
-    vatSearch = vine.compile(vatIdSchema),
-    vatCreation = vine.compile(vatCreationSchema),
-    vatUpdate = vine.compile(vatUpdateSchema),
-    vatDeletion = vine.compile(vatIdSchema)
+    vatSearch = vine.create(vatIdSchema),
+    vatCreation = vine.create(vatCreationSchema),
+    vatUpdate = vine.create(vatUpdateSchema),
+    vatDeletion = vine.create(vatIdSchema)
 ;

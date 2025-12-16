@@ -20,12 +20,13 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
         });
 
         if (user && (await compare(password, user.password_hash))) {
-            const token = sign(
-                { id: user.id, isAdmin: user.is_admin },
-                { expiresIn: '8h' }
-            );
-
-            res.status(200).send({token, user: {id: user.id, is_admin: user.is_admin}});
+            res.status(200).send({
+                token: sign(
+                    { id: user.id, isAdmin: user.is_admin },
+                    { expiresIn: '8h' }
+                ),
+                user: {id: user.id, is_admin: user.is_admin}
+            });
         } else {
             res.sendStatus(401);
         }

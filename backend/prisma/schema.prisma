@@ -70,6 +70,7 @@ model purchase {
   id         Int          @id @default(autoincrement())
   date       DateTime     @default(now()) @db.Timestamp(6)
   user_id    Int
+  is_served  Boolean      @default(false)
   order_line order_line[] 
   user       user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

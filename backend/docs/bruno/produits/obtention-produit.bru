@@ -1,13 +1,17 @@
 meta {
   name: obtention produit
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
-  url: http://localhost:3001/v1/interact/product/1
+  url: http://localhost:3001/v1/interact/product/3
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 settings {

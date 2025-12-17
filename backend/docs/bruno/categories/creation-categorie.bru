@@ -7,13 +7,17 @@ meta {
 post {
   url: http://localhost:3001/v1/interact/category/
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
     "label": "Boissons",
-    "vat_type": "NORMAL",
+    "vat_type": "A",
     "picture": "https://example.com/category.png"
   }
 }

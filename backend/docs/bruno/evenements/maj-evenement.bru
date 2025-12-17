@@ -7,13 +7,16 @@ meta {
 patch {
   url: http://localhost:3001/v1/interact/event/
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
-    "id": 1,
-    "name": "Event de test (maj)",
-    "location": "Tournai"
+    "id": 6,
+    "name": "Event incroyable"
   }
 }

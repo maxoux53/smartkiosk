@@ -45,10 +45,21 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
                 id: req.body.id,
                 deletion_date: null
             },
-            include: {
+            select: {
+                id: true,
+                label: true,
+                is_available: true,
+                excl_vat_price: true,
+                picture: true,
+                event_id: true,
                 category: {
-                    include: {
-                        vat: true
+                    select: {
+                        id: true,
+                        vat:{
+                            select: {
+                                type: true,
+                            }
+                        }
                     }
                 }
             }
@@ -71,10 +82,21 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             where: {
                 deletion_date: null
             },
-            include: {
+            select: {
+                id: true,
+                label: true,
+                is_available: true,
+                excl_vat_price: true,
+                picture: true,
+                event_id: true,
                 category: {
-                    include: {
-                        vat: true
+                    select: {
+                        id: true,
+                        vat:{
+                            select: {
+                                type: true,
+                            }
+                        }
                     }
                 }
             }
@@ -94,10 +116,20 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
                 deletion_date: null,
                 event_id: req.body.event_id
             },
-            include: {
+            select: {
+                label: true,
+                is_available: true,
+                excl_vat_price: true,
+                picture: true,
                 category: {
-                    include: {
-                        vat: true
+                    select: {
+                        label: true,
+                        vat:{
+                            select: {
+                                type: true,
+                                rate: true
+                            }
+                        }
                     }
                 }
             }
@@ -108,6 +140,37 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
         res.sendStatus(500);
     }
 };
+
+// export const getAvailableProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
+//     try {
+//         const products = await prisma.product.findMany({
+//             where: {
+//                 deletion_date: null,
+//                 event_id: req.body.event_id,
+//                 is_available: true
+//             },
+//             select: {
+//                 label: true,
+//                 excl_vat_price: true,
+//                 picture: true,
+//                 category: {
+//                     select: {
+//                         label: true,
+//                         vat:{
+//                             select: {
+//                                 rate: true
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         });
+//         res.status(200).send(products);
+//     } catch (e) {
+//         console.error(e);
+//         res.sendStatus(500);
+//     }
+// };
 
 /**
  * @swagger

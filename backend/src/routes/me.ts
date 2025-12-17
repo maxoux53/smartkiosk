@@ -31,8 +31,11 @@ router.delete('/', deleteUser);
 
 router.post('/event', eventVal.create, createEvent);
 router.get('/events', eventVal.getByUser, getEventsByUser);
+
+
 router.get('/purchases', getPurchasesByUser);
 router.post('/purchase', createPurchase);
+
 router.post('/event/:event_id', membershipVal.create, createMembership);
 router.delete('/event/:event_id', membershipVal.delete, deleteMembership);
 

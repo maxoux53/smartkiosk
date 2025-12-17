@@ -30,10 +30,10 @@ export const isHost = (req: Request, res: Response, next: NextFunction) : void =
     next();
 
     // middleware pour vérifier si l'utilisateur est bien l'organisateur de l'événement qu'il tente d'impacter
-    if (req.session?.isAdmin) {
-        next();
-        return;
-    }
+    // if (req.session?.isAdmin) {
+    //     next();
+    //     return;
+    // }
 }
 
 export const self = (req: Request, res: Response, next: NextFunction) : void => {

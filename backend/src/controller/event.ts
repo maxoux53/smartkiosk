@@ -5,7 +5,7 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
     try {
         const event = await prisma.event.findUnique({
             where: {
-                id: req.body.id
+                id: req.body.event_id
             },
             include: {
                 product: true
@@ -74,8 +74,10 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
                 image,
                 membership: {
                     create: {
-                        user_id: req.body.id,
-                        role: "host"
+                        role: 'host',
+                        user: {
+                            connect: { id: req.session.id }
+                        }
                     }
                 }
             },
@@ -115,7 +117,7 @@ export const deleteEvent = async (req : Request, res : Response) : Promise<void>
     try {
         await prisma.product.updateMany({
             where: {
-                event_id: req.body.id,
+                event_id: req.body.event_id,
                 deletion_date: null
             },
             data: {
@@ -124,10 +126,10 @@ export const deleteEvent = async (req : Request, res : Response) : Promise<void>
         })
         await prisma.event.delete({
             where: { 
-                id: req.body.id
+                id: req.body.event_id
             }
         });
-        
+        res.sendStatus(200);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

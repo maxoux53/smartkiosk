@@ -155,12 +155,9 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 is_admin,
                 avatar
             },
-            select: {
-                id: true
-            }
         });
 
-        res.status(200).send(updatedUser);
+        res.sendStatus(200);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

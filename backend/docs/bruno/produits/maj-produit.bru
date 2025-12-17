@@ -7,12 +7,16 @@ meta {
 patch {
   url: http://localhost:3001/v1/interact/product/
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
-    "id": 5,
+    "id": 3,
     "label": "un carton (de Tournai)",
     "excl_vat_price": 300,
     "category_id": 3

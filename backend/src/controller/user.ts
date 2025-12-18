@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
 import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
+import { eraseStoredImage } from '../util/images.ts';
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = req.body;
@@ -121,15 +122,22 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
 
 export const deleteUser = async (req: Request, res: Response) : Promise<void> => {
     try {
-        await prisma.user.update({
+        const user = await prisma.user.update({
             where: {
                 id: req.body.id,
                 deletion_date: null
             },
             data: {
                 deletion_date: new Date()
+            },
+            select: {
+                avatar: true
             }
         });
+
+        if (user.avatar) {
+            await eraseStoredImage(user.avatar);
+        }
 
         res.sendStatus(200);
     } catch (e) {

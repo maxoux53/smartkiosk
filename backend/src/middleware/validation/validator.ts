@@ -7,6 +7,7 @@ import * as membershipSchemas from './membership.ts';
 import * as purchaseSchemas from './purchase.ts';
 import * as userSchemas from './user.ts';
 import * as vatSchemas from './vat.ts';
+import { create } from 'domain';
 
 export const categoryVal = {
     get: async (req: Request, res: Response, next: NextFunction) => {
@@ -131,9 +132,17 @@ export const eventVal = {
 };
 
 export const membershipVal = {
-    create: async (req: Request, res: Response, next: NextFunction) => {
+    join: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body.event_id = req.params.event_id;
+            req.body = await membershipSchemas.eventJoin.validate(req.body);
+            next();
+        } catch (e) {
+            res.status(400).send((e as ValidationError).message);
+        }
+    },
+    create: async (req: Request, res: Response, next: NextFunction) => {
+        try {
             req.body = await membershipSchemas.membershipCreation.validate(req.body);
             next();
         } catch (e) {

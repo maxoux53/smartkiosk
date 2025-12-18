@@ -54,10 +54,10 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
                 event_id: true,
                 category: {
                     select: {
-                        id: true,
+                        label: true,
                         vat:{
                             select: {
-                                type: true,
+                                rate: true
                             }
                         }
                     }

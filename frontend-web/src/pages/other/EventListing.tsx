@@ -5,7 +5,7 @@ import Header from "../../components/other/Header";
 function EventListing(): JSX.Element {
     return (
         <main>
-            <Header title="Évènements"/>
+            <Header title="Évènements" />
             <div>
                 <Event
                     name="Test"

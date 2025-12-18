@@ -6,7 +6,6 @@ import Event from "../../components/management/host/Event";
 import Purchase from "../../components/table/common/Purchase";
 import Header from "../../components/other/Header";
 
-
 export default function Host(): JSX.Element {
     const sections: Record<string, JSX.Element> = {
         Évènement: <Event />,
@@ -17,7 +16,7 @@ export default function Host(): JSX.Element {
 
     return (
         <main>
-            <Header title="Gérant d'évènement"/>
+            <Header title="Gérant d'évènement" />
             <TabBar sections={sections} />
         </main>
     );

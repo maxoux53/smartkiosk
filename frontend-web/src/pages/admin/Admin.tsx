@@ -25,8 +25,8 @@ const sections: Record<string, JSX.Element> = {
 export default function Admin(): JSX.Element {
     return (
         <main>
-            <Header title="Administrateur"/>
-            
+            <Header title="Administrateur" />
+
             <TabBar sections={sections} />
         </main>
     );

@@ -201,7 +201,7 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
         });
 
         if (!category) {
-            res.sendStatus(400);
+            res.sendStatus(404);
             return;
         }
         

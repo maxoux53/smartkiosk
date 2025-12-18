@@ -7,9 +7,6 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
             where: {
                 id: req.body.event_id
             },
-            include: {
-                product: true
-            }
         });
 
         if (event) {
@@ -25,11 +22,7 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
 
 export const getAllEvents = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const events = await prisma.event.findMany({
-            include: {
-                product: true   
-            }
-        });
+        const events = await prisma.event.findMany({});
 
         res.status(200).send(events);
     } catch (e) {
@@ -48,9 +41,6 @@ export const getEventsByUser = async (req : Request, res : Response) : Promise<v
                         role: "host"
                     }
                 }
-            },
-            include: {
-                product: true
             }
         });
 

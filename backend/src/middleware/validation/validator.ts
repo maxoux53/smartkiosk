@@ -160,6 +160,14 @@ export const purchaseVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
+    getByEvent: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            req.body = await purchaseSchemas.purchasesByEvent.validate(req.params);
+            next();
+        } catch (e) {
+            res.status(400).send((e as ValidationError).message);
+        }
+    },
     list: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await purchaseSchemas.purchaseListForUser.validate(req.params);

@@ -6,6 +6,7 @@ import EventListing from "../pages/other/EventListing";
 import adminRoutes from "./AdminRouter";
 import hostRoutes from "./HostRouter";
 import Cashier from "../pages/cashier/Cashier";
+import CreateEvent from "../pages/other/CreateEvent";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +22,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <EventListing />
     },
-
+    {
+        path: "/createEvent",
+        element: <CreateEvent/>
+    },
     {
         path: "/cashier/event/:eventId",
         element: <Cashier />

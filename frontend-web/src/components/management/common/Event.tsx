@@ -75,7 +75,8 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            defaultChecked={data?.is_active}
+                            defaultChecked={data ? data.is_active : true}
+                            disabled={data === undefined}
                         />
                     </label>
                     <label>

@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import {
     flexRender,
     getCoreRowModel,
@@ -97,13 +97,17 @@ export default function Select({ columns, data, confirm, cancel }:
             :   <></>}
 
             <div id="header">
-                <input
-                    id="search"
-                    placeholder="Rechercher un élément"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setGlobalFilter(e.target.value)
-                    }
-                />
+                <form role="search" onSubmit={(e: FormEvent<HTMLFormElement>) => {e.preventDefault()}}>
+                    <input
+                        id="search"
+                        type="search"
+                        placeholder="Rechercher un élément"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setGlobalFilter(e.target.value)
+                        }
+                    />
+                    <input type="submit" value="Search"/>
+                </form>
             </div>
             <table id="adminTable">
                 <thead>

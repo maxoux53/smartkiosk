@@ -2,4 +2,9 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 25px;
+    align-items: center;
+}
+
+.header h1 {
+    margin-left: 10%;
 }

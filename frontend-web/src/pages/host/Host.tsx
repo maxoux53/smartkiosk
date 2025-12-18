@@ -16,7 +16,7 @@ export default function Host(): JSX.Element {
 
     return (
         <main>
-            <Header title="Gérant d'évènement" />
+            <Header title="Gérant d'évènement" hasBackButton={true} />
             <TabBar sections={sections} />
         </main>
     );

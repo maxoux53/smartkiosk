@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import {
     flexRender,
     getCoreRowModel,
@@ -35,15 +35,17 @@ export default function ViewOnly<T>({ columns, data }: { columns: Array<ColumnDe
 
     return (
         <div>
-            <div id="header">
+            <form role="search" onSubmit={(e: FormEvent<HTMLFormElement>) => {e.preventDefault()}}>
                 <input
                     id="search"
+                    type="search"
                     placeholder="Rechercher un élément"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setGlobalFilter(e.target.value)
                     }
                 />
-            </div>
+                <input type="submit" value="Search"/>
+            </form>
             <table id="adminTable">
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => {

@@ -109,6 +109,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
     }
 };
 
+// Unavailable products are shown but disabled on the frontend
 export const getProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
         const products = await prisma.product.findMany({

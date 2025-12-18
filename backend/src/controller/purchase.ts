@@ -38,6 +38,8 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
                 user_id: req.body.id
             },
             select: {
+                id: true,
+                date: true,
                 order_line: {
                         select: {
                             product_id: true,
@@ -51,6 +53,42 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
                                             label: true
                                         }
                                     }
+                                }
+                            }
+                        }
+                }
+            }
+        });
+            
+        res.status(200).send(purchases);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+}
+
+export const getPurchasesByEvent = async (req : Request, res :Response) : Promise<void> => {
+    try {
+        const purchases = await prisma.purchase.findMany({
+            where: {
+                is_served: false,
+                order_line: {
+                    some: {
+                        product: {
+                            event_id: req.body.event_id
+                        }
+                    }
+                }
+            },
+            select: {
+                // Need purchase attributes ??
+                order_line: {
+                        select: {
+                            quantity: true,
+                            price: true,
+                            product: {
+                                select: {
+                                    label: true,
                                 }
                             }
                         }

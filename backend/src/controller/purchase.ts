@@ -81,7 +81,9 @@ export const getPurchasesByEvent = async (req : Request, res :Response) : Promis
                 }
             },
             select: {
-                // Need purchase attributes ??
+                id: true,
+                date: true,
+                user_id: true,
                 order_line: {
                         select: {
                             quantity: true,

@@ -6,19 +6,10 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
     try {
         const purchase = await prisma.purchase.findUnique({
             where: {
-                id: req.body.id,
-            },
-            include: {
-                order_line: {
-                    select: {
-                        product_id: true,
-                        quantity: true,
-                        price: true
-                    }
-                }
+                id: req.body.id
             }
         });
-
+    
         if (purchase) {
             res.send(purchase);
         } else {
@@ -32,19 +23,7 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
 
 export const getAllPurchases = async (req : Request, res :Response) : Promise<void> => {
     try {
-        const purchases = await prisma.purchase.findMany({
-            include: {
-                order_line: {
-                    include: {
-                        product: {
-                            select: {
-                                label: true
-                            }
-                        }
-                    }
-                }
-            }
-        }); 
+        const purchases = await prisma.purchase.findMany({}); 
         res.status(200).send(purchases);
     } catch (e) {
         console.error(e);
@@ -58,18 +37,27 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
             where: {
                 user_id: req.body.id
             },
-            include: {  
+            select: {
                 order_line: {
-                    include: {
-                        product: {
-                            select: {
-                                label: true
+                        select: {
+                            product_id: true,
+                            quantity: true,
+                            price: true,
+                            product: {
+                                select: {
+                                    label: true,
+                                    category:{
+                                        select: {
+                                            label: true
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }
                 }
             }
-        })
+        });
+            
         res.status(200).send(purchases);
     } catch (e) {
         console.error(e);

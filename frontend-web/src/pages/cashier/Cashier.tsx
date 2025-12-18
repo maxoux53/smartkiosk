@@ -12,7 +12,7 @@ export default function Cashier(): JSX.Element {
 
     return (
         <main>
-            <Header title="Serveur" hasBackButton={true}/>
+            <Header title="Serveur" hasBackButton={true} />
             <TabBar sections={sections} />
         </main>
     );

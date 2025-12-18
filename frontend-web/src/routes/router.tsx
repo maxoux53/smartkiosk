@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/createEvent",
-        element: <CreateEvent/>
+        element: <CreateEvent />
     },
     {
         path: "/cashier/event/:eventId",

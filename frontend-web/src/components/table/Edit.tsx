@@ -70,7 +70,12 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                 </dialog>
             :   <></>}
             <div id="header">
-                <form role="search" onSubmit={(e: FormEvent<HTMLFormElement>) => {e.preventDefault()}}>
+                <form
+                    role="search"
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                        e.preventDefault();
+                    }}
+                >
                     <input
                         id="search"
                         type="search"
@@ -79,7 +84,7 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                             setGlobalFilter(e.target.value)
                         }
                     />
-                    <input type="submit" value="Search"/>
+                    <input type="submit" value="Search" />
                 </form>
             </div>
             <table id="adminTable">

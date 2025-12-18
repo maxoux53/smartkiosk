@@ -35,7 +35,12 @@ export default function ViewOnly<T>({ columns, data }: { columns: Array<ColumnDe
 
     return (
         <div>
-            <form role="search" onSubmit={(e: FormEvent<HTMLFormElement>) => {e.preventDefault()}}>
+            <form
+                role="search"
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                    e.preventDefault();
+                }}
+            >
                 <input
                     id="search"
                     type="search"
@@ -44,7 +49,7 @@ export default function ViewOnly<T>({ columns, data }: { columns: Array<ColumnDe
                         setGlobalFilter(e.target.value)
                     }
                 />
-                <input type="submit" value="Search"/>
+                <input type="submit" value="Search" />
             </form>
             <table id="adminTable">
                 <thead>

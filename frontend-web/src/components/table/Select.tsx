@@ -97,7 +97,12 @@ export default function Select({ columns, data, confirm, cancel }:
             :   <></>}
 
             <div id="header">
-                <form role="search" onSubmit={(e: FormEvent<HTMLFormElement>) => {e.preventDefault()}}>
+                <form
+                    role="search"
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                        e.preventDefault();
+                    }}
+                >
                     <input
                         id="search"
                         type="search"
@@ -106,7 +111,7 @@ export default function Select({ columns, data, confirm, cancel }:
                             setGlobalFilter(e.target.value)
                         }
                     />
-                    <input type="submit" value="Search"/>
+                    <input type="submit" value="Search" />
                 </form>
             </div>
             <table id="adminTable">

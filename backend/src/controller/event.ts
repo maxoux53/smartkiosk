@@ -105,21 +105,24 @@ export const updateEvent = async (req : Request, res : Response) : Promise<void>
 
 export const deleteEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
-        await prisma.product.updateMany({
-            where: {
-                event_id: req.body.event_id,
-                deletion_date: null
-            },
-            data: {
-                deletion_date: new Date()
-            }
-        })
-        await prisma.event.delete({
-            where: { 
-                id: req.body.event_id
-            }
-        });
+        await prisma.$transaction([
+            prisma.product.updateMany({
+                where: {
+                    event_id: req.body.event_id,
+                    deletion_date: null
+                },
+                data: {
+                    deletion_date: new Date()
+                }
+            }),
+            prisma.event.delete({
+                where: { 
+                    id: req.body.event_id
+                }
+            })
+        ])
         res.sendStatus(200);
+        
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

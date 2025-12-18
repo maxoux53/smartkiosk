@@ -4,8 +4,7 @@ import TabBar from "../../components/other/TabBar";
 import Cashier from "../../components/table/host/Cashier";
 import Event from "../../components/management/host/Event";
 import Purchase from "../../components/table/common/Purchase";
-import Disconnect from "../../components/other/Disconnect";
-import "../common/roleHeader.css"
+import Header from "../../components/other/Header";
 
 
 export default function Host(): JSX.Element {
@@ -18,10 +17,7 @@ export default function Host(): JSX.Element {
 
     return (
         <main>
-            <header className="header">
-                <h1>Gérant</h1>
-                <Disconnect/>
-            </header>
+            <Header title="Gérant d'évènement"/>
             <TabBar sections={sections} />
         </main>
     );

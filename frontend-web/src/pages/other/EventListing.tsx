@@ -1,15 +1,11 @@
 import type { JSX } from "react";
 import Event from "../../components/other/Event";
-import Disconnect from "../../components/other/Disconnect";
-import "../common/roleHeader.css"
+import Header from "../../components/other/Header";
 
 function EventListing(): JSX.Element {
     return (
         <main>
-            <header className="header">
-                <h1>Évènements</h1>
-                <Disconnect/>
-            </header>
+            <Header title="Évènements"/>
             <div>
                 <Event
                     name="Test"

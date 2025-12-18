@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { eraseStoredImage } from '../util/images.ts';
 
 export const getCategory = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -100,14 +101,17 @@ export const updateCategory = async (req : Request, res : Response) : Promise<vo
 
 export const deleteCategory = async (req : Request, res : Response) : Promise<void> => {
     try {
-        await prisma.category.update({
+        await eraseStoredImage((await prisma.category.update({
             where: {
                 id: req.body.id
             },
             data: {
                 deletion_date: new Date()
+            },
+            select: {
+                picture: true
             }
-        });
+        })).picture);
 
         res.sendStatus(200);
     } catch (e) {

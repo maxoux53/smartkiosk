@@ -28,15 +28,38 @@ export const createMembership = async (req : Request, res : Response) : Promise<
     const { user_email, event_id, role } = req.body;
 
     try {
+        const user_id =  await prisma.user.findUnique({
+            where: {
+                email: user_email
+            },
+            select: {
+                id: true
+            }
+        });
+
+        await prisma.membership.create({
+            data: {
+                user_id,
+                event_id,
+                role
+            }
+        });
+        
+        res.sendStatus(201);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+}
+
+export const joinEvent = async (req : Request, res : Response) : Promise<void> => {
+    const { event_id } = req.body;
+
+    try {
         await prisma.membership.create({
             data: {
                 user_id : req.session.id,
-                event_id,
-                role
-            },
-            select: {
-                user_id: true,
-                event_id: true
+                event_id
             }
         });
         
@@ -59,7 +82,7 @@ export const updateMembership = async (req : Request, res : Response) : Promise<
                 }
             },
             data: {
-                role // checked by validator    
+                role
             }
         });
 

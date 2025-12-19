@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { user } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function User({ data, actionButton }: { data?: user; actionButton: (user?: user) => void; }): JSX.Element {
 
@@ -26,19 +27,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
 
     return (
         <main>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &lt;
-                </button>
-                <h1>
-                    {data ?
-                        "Modifier un utilisateur"
-                    :   "Ajouter un utilisateur"}
-                </h1>
-            </div>
+            <Header title={data ? "Modifier un utilisateur" : "Ajouter un utilisateur"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
@@ -86,7 +75,6 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                             name="password"
                             type="text"
                             placeholder="Exemple: JeanJean12345"
-                            required
                         />
                     </label>
                     <label>

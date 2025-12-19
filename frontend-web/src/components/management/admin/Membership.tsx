@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { membership } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Membership({ data, actionButton }: { data?: membership; actionButton: (membership?: membership) => void; }): JSX.Element {
     
@@ -23,19 +24,7 @@ export default function Membership({ data, actionButton }: { data?: membership; 
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>
-                    {data ?
-                        "Modifier une Participation"
-                    :   "Ajouter une Participation"}
-                </h1>
-            </div>
+            <Header title={data ? "Modifier une participation" : "Ajouter une participation"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

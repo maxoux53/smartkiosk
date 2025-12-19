@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { event } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Event({ data, actionButton }: { data?: event; actionButton: (event?: event) => void; }): JSX.Element {
     
@@ -26,17 +27,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>
-                    {data ? "Modifier un Événement" : "Ajouter un Événement"}
-                </h1>
-            </div>
+            <Header title={data ? "Modifier un évènement" : "Ajouter un évènement"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

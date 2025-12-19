@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { product } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product) => void; isAdmin: boolean;}): JSX.Element {
 
@@ -27,15 +28,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>{data ? "Modifier un Produit" : "Ajouter un Produit"}</h1>
-            </div>
+            <Header title={data ? "Modifier un produit" : "Ajouter un produit"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

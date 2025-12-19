@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { category } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -23,17 +24,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
 
     return (
         <main>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>
-                    {data ? "Modifier une Catégorie" : "Ajouter une Catégorie"}
-                </h1>
-            </div>
+            <Header title={data ? "Modifier une catégorie" : "Ajouter une catégorie"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

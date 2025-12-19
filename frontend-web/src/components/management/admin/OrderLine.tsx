@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { order_line } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function OrderLine({ data, actionButton }: { data?: order_line; actionButton: (orderLine?: order_line) => void; }): JSX.Element {
     
@@ -24,19 +25,7 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>
-                    {data ?
-                        "Modifier une Ligne de Commande"
-                    :   "Ajouter une Ligne de Commande"}
-                </h1>
-            </div>
+            <Header title={data ? "Modifier une ligne de commande" : "Ajouter une ligne de commande"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

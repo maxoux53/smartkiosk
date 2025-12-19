@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { vat } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Vat({data, actionButton}: {data?: vat; actionButton: (vat?: vat) => void;}): JSX.Element {
 
@@ -22,15 +23,7 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
 
     return (
         <main>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>{data ? "Modifier une TVA" : "Ajouter une TVA"}</h1>
-            </div>
+            <Header title={data ? "Modifier une TVA" : "Ajouter une TVA"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

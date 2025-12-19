@@ -2,6 +2,7 @@ import { type FormEvent, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import type { purchase } from "../../../type";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Purchase({ data, actionButton }: { data?: purchase; actionButton: (purchase?: purchase) => void; }): JSX.Element {
 
@@ -23,15 +24,7 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>{data ? "Modifier un Achat" : "Ajouter un Achat"}</h1>
-            </div>
+            <Header title={data ? "Modifier un achat" : "Ajouter un achat"} hasBackButton={true}/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

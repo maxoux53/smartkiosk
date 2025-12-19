@@ -1,21 +1,14 @@
 import type { FormEvent, JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import "../management.css";
+import Header from "../../other/Header";
 
 export default function Cashier(): JSX.Element {
     const navigate = useNavigate();
 
     return (
         <>
-            <div id="title">
-                <button
-                    type="button"
-                    onClick={(): void | Promise<void> => navigate(-1)}
-                >
-                    &#60;
-                </button>
-                <h1>Ajouter un Serveur</h1>
-            </div>
+            <Header title="Ajouter un serveur" hasBackButton={true}/>
             <form
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                     console.log(e);

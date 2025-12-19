@@ -5,7 +5,6 @@ import { membership_role } from '../../generated/prisma/enums.ts';
 const user_id = vine.number();
 const event_id = vine.number();
 const user_email = vine.string().email();
-const role = vine.enum(Object.values(membership_role)).optional();
 
 const membershipIdSchema = vine.object({
     user_id,

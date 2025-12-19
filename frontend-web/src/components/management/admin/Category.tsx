@@ -1,16 +1,24 @@
-import { type FormEvent, type JSX } from "react";
+import { useEffect, useState, type FormEvent, type JSX } from "react";
 import type { category } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
-export default function Category({ data, actionButton }: { data?: category; actionButton: (category?: category) => void; }): JSX.Element {
+export default function Category({ data, actionButton }: { data?: Promise<category | undefined>; actionButton: (category: category) => void; }): JSX.Element {
+    const [category, setCategory] = useState<category| null>();
+    
+    useEffect(() => {
+        Promise.resolve(data).then((resolvedData) => {
+            setCategory(resolvedData);
+        });
+    }, [data]);
+    
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
 
         const newCategory: category = {
-            id: data?.id ?? -1,
+            id: category?.id ?? -1,
             label: formData.get("label") as string,
             vat_type: formData.get("vat_type") as string,
             picture: "" // appelle API
@@ -18,6 +26,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
 
         actionButton(newCategory);
     };
+
 
     return (
         <main>
@@ -33,7 +42,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
                         ID
                         <input
                             type="text"
-                            defaultValue={data?.id}
+                            defaultValue={category?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -43,7 +52,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
                         <input
                             name="label"
                             type="text"
-                            defaultValue={data?.label}
+                            defaultValue={category?.label}
                             placeholder="Exemple: Boissons"
                             required
                         />
@@ -52,7 +61,7 @@ export default function Category({ data, actionButton }: { data?: category; acti
                         Type TVA
                         <select
                             name="vat_type"
-                            defaultValue={data?.vat_type ?? ""}
+                            defaultValue={category?.vat_type ?? ""}
                             required
                         >
                             <option disabled value="">

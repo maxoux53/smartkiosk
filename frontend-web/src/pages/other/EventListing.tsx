@@ -1,13 +1,18 @@
-import type { JSX } from "react";
+import { useMemo, useState, type JSX } from "react";
 import Event from "../../components/other/Event";
 import Header from "../../components/other/Header";
 import "./eventListing.css";
 import { useNavigate } from "react-router-dom";
+import { checkIsAdmin } from "../../API/auth";
 
 function EventListing(): JSX.Element {
+    const [isAdmin, setIsadmin] = useState<Boolean>(false);
     const navigate = useNavigate();
 
-    const admin: boolean = true;
+    async () => {
+        const adminStatus = await checkIsAdmin();
+        setIsadmin(adminStatus);
+    }    
 
     return (
         <main>
@@ -16,7 +21,7 @@ function EventListing(): JSX.Element {
                 <button type="button" onClick={() => navigate("/createEvent")}>
                     Créer un évènement
                 </button>
-                {admin ?
+                {isAdmin ?
                     <button type="button" onClick={() => navigate("/admin")}>
                         Administrateur
                     </button>

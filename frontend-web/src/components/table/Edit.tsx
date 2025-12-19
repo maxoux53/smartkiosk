@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent, type JSX } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import {
     flexRender,
     getCoreRowModel,
@@ -12,7 +12,7 @@ import type { pagination } from "../../type";
 import "./Edit.css";
 
 export default function Edit<T>({ columns, data, add, edit, remove }:
-     { columns: Array<ColumnDef<T>>; data: Array<T>; add: () => void; edit?: (row: T) => void; remove: (row: T) => void; }): JSX.Element {
+     { columns: Array<ColumnDef<T>>; data: Promise<Array<T>> ; add: () => void; edit?: (row: T) => void; remove: (row: T) => void; }): JSX.Element {
     const [selectedRow, setSelectedRow] = useState<T | null>();
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [pagination, setPagination] = useState<pagination>({
@@ -21,8 +21,16 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
     });
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
+    const [tableData, setTableData] = useState<Array<T>>([]);
+
+    useEffect(() => {
+        Promise.resolve(data).then((resolvedData) => {
+            setTableData(resolvedData);
+        });
+    }, [data]);
+
     const table: Table<T> = useReactTable({
-        data,
+        data: tableData,
         columns,
         state: {
             globalFilter,

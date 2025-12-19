@@ -1,9 +1,16 @@
-import { type FormEvent, type JSX } from "react";
+import { useEffect, useState, type FormEvent, type JSX } from "react";
 import type { user } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
-export default function User({ data, actionButton }: { data?: user; actionButton: (user?: user) => void; }): JSX.Element {
+export default function User({ data, actionButton }: { data?: Promise<user | undefined>; actionButton: (user: user) => Promise<void>; }): JSX.Element {
+    const [user, setUser] = useState<user | null>();
+            
+    useEffect(() => {
+        Promise.resolve(data).then((resolvedData) => {
+            setUser(resolvedData);
+        });
+    }, [data]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -11,12 +18,13 @@ export default function User({ data, actionButton }: { data?: user; actionButton
         const formData = new FormData(e.currentTarget);
 
         const newUser: user = {
-            id: data?.id ?? -1,
+            id: user?.id ?? -1,
             first_name: formData.get("first_name") as string,
             last_name: formData.get("last_name") as string,
             email: formData.get("email") as string,
             avatar: null,
-            is_admin: formData.get("is_admin") === "on"
+            is_admin: formData.get("is_admin") === "on",
+            password: formData.get("password") as string
         };
 
         actionButton(newUser);
@@ -36,7 +44,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         ID
                         <input
                             type="text"
-                            defaultValue={data?.id}
+                            defaultValue={user?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -46,7 +54,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         <input
                             name="first_name"
                             type="text"
-                            defaultValue={data?.first_name}
+                            defaultValue={user?.first_name}
                             placeholder="Exemple: Jean"
                             required
                         />
@@ -56,7 +64,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         <input
                             name="last_name"
                             type="text"
-                            defaultValue={data?.last_name}
+                            defaultValue={user?.last_name}
                             placeholder="Exemple: Dupont"
                             required
                         />
@@ -66,7 +74,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                         <input
                             name="email"
                             type="email"
-                            defaultValue={data?.email}
+                            defaultValue={user?.email}
                             placeholder="Exemple: jean.dupont@mail.com"
                             required
                         />
@@ -91,7 +99,7 @@ export default function User({ data, actionButton }: { data?: user; actionButton
                             name="is_admin"
                             type="checkbox"
                             role="switch"
-                            defaultChecked={data?.is_admin}
+                            defaultChecked={user?.is_admin}
                         />
                     </label>
                 </fieldset>

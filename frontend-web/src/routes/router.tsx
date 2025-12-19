@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import UnknowPage from "../pages/UnknowPage";
-import Login from "../pages/Login";
-import EventListing from "../pages/EventListing";
-import EventManager from "../pages/EventManager";
+import UnknowPage from "../pages/errors/UnknowPage";
+import Login from "../pages/other/Login";
+import EventListing from "../pages/other/EventListing";
 
-import AdminRouteur from "./AdminRouteur";
+import adminRoutes from "./AdminRouter";
+import hostRoutes from "./HostRouter";
+import Cashier from "../pages/cashier/Cashier";
+import CreateEvent from "../pages/other/CreateEvent";
 
 const router = createBrowserRouter([
     {
@@ -20,13 +22,18 @@ const router = createBrowserRouter([
         path: "/",
         element: <EventListing />
     },
-
-    ...AdminRouteur,
-
     {
-        path: "/manager",
-        element: <EventManager />
-    }
+        path: "/createEvent",
+        element: <CreateEvent />
+    },
+    {
+        path: "/cashier/event/:eventId",
+        element: <Cashier />
+    },
+
+    ...adminRoutes,
+
+    ...hostRoutes
 ]);
 
 export default router;

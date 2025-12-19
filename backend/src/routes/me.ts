@@ -19,7 +19,7 @@ import {
 } from '../controller/membership.ts';
 
 import { replaceUserAvatar } from '../middleware/image-replacement.ts';
-import { userVal } from '../middleware/validation/validator.ts';
+import { purchaseVal, userVal } from '../middleware/validation/validator.ts';
 import { eventVal } from '../middleware/validation/validator.ts';
 import { membershipVal } from '../middleware/validation/validator.ts';
 
@@ -34,7 +34,7 @@ router.get('/events', getEventsByUser);
 
 
 router.get('/purchases', getPurchasesByUser);
-router.post('/purchase', createPurchase);
+router.post('/purchase', purchaseVal.create, createPurchase);
 
 router.post('/event/:event_id', membershipVal.join, joinEvent);
 router.delete('/event/:event_id', membershipVal.delete, deleteMembership);

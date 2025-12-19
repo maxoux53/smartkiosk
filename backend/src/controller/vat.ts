@@ -1,6 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
+import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 
 export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -24,17 +25,48 @@ export const getVat = async (req : Request, res : Response) : Promise<void> => {
 
 export const getAllVats = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const vats = await prisma.vat.findMany({
+        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
+        const { cursor, search } = req.body;
+
+        const results = await prisma.vat.findMany({
             where: {
-                deletion_date: null
+                deletion_date: null,
+                ...(search
+                    ? {
+                          type: {
+                              contains: search,
+                              mode: 'insensitive'
+                          }
+                      }
+                    : {})
             },
+            orderBy: {
+                type: 'asc'
+            },
+            take: limit + 1,
+            ...(cursor
+                ? {
+                      cursor: { type: cursor },
+                      skip: 1
+                  }
+                : {}),
             select: {
                 type: true,
                 rate: true
             }
         });
 
-        res.status(200).send(vats);
+        const hasNextPage = results.length > limit;
+        const items = results.slice(0, limit);
+        const nextCursor = hasNextPage ? items[items.length - 1]?.type ?? null : null;
+
+        res.status(200).send({
+            items,
+            pageInfo: {
+                nextCursor,
+                hasNextPage
+            }
+        });
     } catch(e) {
         console.error(e);
         res.sendStatus(500);

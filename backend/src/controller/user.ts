@@ -70,10 +70,32 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const getAllUsers = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const users = await prisma.user.findMany({
+        const limit: number = req.body.limit ?? 20;
+        const cursor: number | undefined = req.body.cursor;
+        const search: string | undefined = req.body.search;
+
+        const results = await prisma.user.findMany({
             where: {
-                deletion_date: null
+                deletion_date: null,
+                ...(search
+                    ? {
+                          first_name: {
+                              contains: search,
+                              mode: 'insensitive'
+                          }
+                      }
+                    : {})
             },
+            orderBy: {
+                id: 'asc'
+            },
+            take: limit + 1,
+            ...(cursor
+                ? {
+                      cursor: { id: cursor },
+                      skip: 1
+                  }
+                : {}),
             select: {
                 id: true,
                 first_name: true,
@@ -83,13 +105,24 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
             }
         });
 
-        for (const iUser in users) {
-            if (users[iUser].avatar) {
-                users[iUser].avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${users[iUser].avatar}/public`;
+        const hasNextPage = results.length > limit;
+        const items = results.slice(0, limit);
+
+        for (const iUser in items) {
+            if (items[iUser].avatar) {
+                items[iUser].avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${items[iUser].avatar}/public`;
             }
         }
-        
-        res.status(200).send(users);
+
+        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
+
+        res.status(200).send({
+            items,
+            pageInfo: {
+                nextCursor,
+                hasNextPage
+            }
+        });
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

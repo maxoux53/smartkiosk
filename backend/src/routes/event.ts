@@ -22,7 +22,7 @@ import { isAdmin, isHost } from "../middleware/identification.ts";
 const router = Router();
 
 router.get('/:event_id', eventVal.get, getEvent);
-router.get('/', isAdmin, getAllEvents);
+router.get('/', isAdmin, eventVal.list, getAllEvents);
 router.patch('/', isHost, eventVal.update, replaceEventImage, updateEvent);
 router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 

@@ -55,7 +55,7 @@ export const getAllCategories = async (req : Request, res : Response) : Promise<
         });
 
         if (results.length === 0) {
-            res.sendStatus(404);
+            res.sendStatus(204);
             return;
         }
 
@@ -133,7 +133,7 @@ export const updateCategory = async (req : Request, res : Response) : Promise<vo
             }
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);
@@ -155,7 +155,7 @@ export const deleteCategory = async (req : Request, res : Response) : Promise<vo
             }
         })).picture);
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

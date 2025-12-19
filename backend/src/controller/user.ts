@@ -41,7 +41,7 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
                 id: req.body.id,
                 deletion_date: null
@@ -124,7 +124,7 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
         });
 
         if (results.length === 0) {
-            res.sendStatus(404);
+            res.sendStatus(200);
             return;
         }
 
@@ -197,7 +197,7 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
             await eraseStoredImage(user.avatar);
         }
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);
@@ -206,7 +206,7 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
 };
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
-    const { id, first_name, last_name, email, is_admin, avatar } = req.body;
+    const { id, first_name, last_name, email, avatar } = req.body;
     const password_hash = (req.body.password ? await hash(req.body.password) : undefined);
     
     try {
@@ -219,12 +219,11 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 last_name,
                 email,
                 password_hash,
-                is_admin,
                 avatar
             },
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

@@ -125,7 +125,7 @@ export const createPurchase = async (req: Request, res: Response): Promise<void>
 
             // Promise.all = garantee that all order lines are created (wait for all promises))
             await Promise.all(order_lines.map(async (line: {product_id: number, quantity: number}) => {
-                const product = await tx.product.findUnique({
+                const product = await tx.product.findFirst({
                     where: {
                         id: line.product_id,
                         deletion_date: null
@@ -180,7 +180,7 @@ export const deletePurchase = async (req: Request, res: Response) : Promise<void
             }
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

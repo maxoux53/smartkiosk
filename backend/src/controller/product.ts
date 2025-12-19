@@ -42,7 +42,7 @@ import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts"
 */
 export const getProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const product = await prisma.product.findUnique({
+        const product = await prisma.product.findFirst({
             where: {
                 id: req.body.id,
                 deletion_date: null
@@ -127,7 +127,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
         });
 
         if (results.length === 0) {
-            res.sendStatus(404);
+            res.sendStatus(200);
             return;
         }
 
@@ -258,7 +258,7 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
             }
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

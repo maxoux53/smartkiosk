@@ -5,7 +5,7 @@ import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts"
 
 export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const vat = await prisma.vat.findUnique({
+        const vat = await prisma.vat.findFirst({
             where: {
                 type: req.body.type,
                 deletion_date: null
@@ -58,7 +58,7 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
         });
 
         if (results.length === 0) {
-            res.sendStatus(404);
+            res.sendStatus(200);
             return;
         }
 

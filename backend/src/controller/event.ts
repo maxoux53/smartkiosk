@@ -52,7 +52,7 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
         });
 
         if (results.length === 0) {
-            res.sendStatus(404);
+            res.sendStatus(204);
             return;
         }
 
@@ -144,7 +144,7 @@ export const updateEvent = async (req : Request, res : Response) : Promise<void>
             }
         });
         
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);
@@ -170,7 +170,7 @@ export const deleteEvent = async (req : Request, res : Response) : Promise<void>
                 }
             })
         ])
-        res.sendStatus(200);
+        res.sendStatus(204);
         
     } catch (e) {
         

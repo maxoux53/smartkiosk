@@ -1,23 +1,31 @@
-import { type FormEvent, type JSX } from "react";
+import { useEffect, useState, type FormEvent, type JSX } from "react";
 import type { event } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
-export default function Event({ data, actionButton }: { data?: event; actionButton: (event?: event) => void; }): JSX.Element {
-    
+export default function Event({ data, actionButton }: { data?: Promise<event | undefined>; actionButton: (event: event) => Promise<void>; }): JSX.Element {
+    const [event, setEvent] = useState<event | null>();
+        
+        useEffect(() => {
+            Promise.resolve(data).then((resolvedData) => {
+                setEvent(resolvedData);
+            });
+        }, [data]);
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
 
         const newEvent: event = {
-            id: data?.id ?? -1,
+            id: event?.id ?? -1,
             name: formData.get("name") as string,
             location: formData.get("location") as string,
             is_active: formData.get("is_active") === "on",
             image: null, // appelle API pour le code
             iban: formData.get("iban") as string
         };
+        console.log(newEvent);
 
         actionButton(newEvent);
     };
@@ -34,7 +42,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                         ID
                         <input
                             type="text"
-                            defaultValue={data?.id}
+                            defaultValue={event?.id}
                             placeholder="L'Id est généré automatiquement !"
                             disabled
                         />
@@ -44,7 +52,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                         <input
                             name="name"
                             type="text"
-                            defaultValue={data?.name}
+                            defaultValue={event?.name}
                             placeholder="Exemple: Summer Festival"
                             required
                         />
@@ -54,7 +62,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                         <input
                             name="location"
                             type="text"
-                            defaultValue={data?.location}
+                            defaultValue={event?.location}
                             placeholder="Exemple: Paris"
                             required
                         />
@@ -66,7 +74,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                             className="switch"
                             type="checkbox"
                             role="switch"
-                            defaultChecked={data ? data.is_active : true}
+                            defaultChecked={event ? event.is_active : true}
                             disabled={data === undefined}
                         />
                     </label>
@@ -81,7 +89,7 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
                         <input
                             name="iban"
                             type="text"
-                            defaultValue={data?.iban}
+                            defaultValue={event?.iban}
                             placeholder="Exemple: BE7612345678901234567890123"
                             required
                         />

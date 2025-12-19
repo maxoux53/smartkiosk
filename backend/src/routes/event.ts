@@ -42,8 +42,8 @@ import { replaceProductPicture } from '../middleware/image-replacement.ts';
 const router = Router();
 
 router.get('/:event_id', eventVal.get, getEvent);
-router.get('/', isAdmin, eventVal.list, getAllEvents);
-router.patch('/', isHost, eventVal.update, replaceEventImage, updateEvent);
+router.patch('/:event_id', isHost, eventVal.update, replaceEventImage, updateEvent);
+router.get('/', isAdmin, getAllEvents);
 router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 
 router.post('/:event_id/cashier', membershipVal.create, isHost, createMembership);

@@ -8,6 +8,7 @@ import hostRoutes from "./HostRouter";
 import Cashier from "../pages/cashier/Cashier";
 import CreateEvent from "../pages/other/CreateEvent";
 
+
 const router = createBrowserRouter([
     {
         path: "*",

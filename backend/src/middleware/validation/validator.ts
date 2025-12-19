@@ -27,6 +27,7 @@ export const categoryVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.id;
             req.body = await categorySchemas.categoryUpdate.validate(req.body);
             next();
         } catch (e) {
@@ -36,14 +37,6 @@ export const categoryVal = {
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await categorySchemas.categoryDeletion.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await categorySchemas.categoryList.validate(req.query);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -92,14 +85,6 @@ export const productVal = {
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
         }
-    },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await productSchemas.productList.validate(req.query);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
     }
 };
 
@@ -122,6 +107,7 @@ export const eventVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.event_id;
             req.body = await eventSchemas.eventUpdate.validate(req.body);
             next();
         } catch (e) {
@@ -131,14 +117,6 @@ export const eventVal = {
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await eventSchemas.eventDeletion.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await eventSchemas.eventList.validate(req.query);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -238,6 +216,7 @@ export const userVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.id;
             req.body = await userSchemas.userUpdate.validate(req.body);
             next();
         } catch (e) {
@@ -255,14 +234,6 @@ export const userVal = {
     login: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await userSchemas.userLogin.validate(req.body);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await userSchemas.userList.validate(req.query);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);
@@ -289,15 +260,8 @@ export const vatVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.type = req.params.type;
             req.body = await vatSchemas.vatUpdate.validate(req.body);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await vatSchemas.vatList.validate(req.query);
             next();
         } catch (e) {
             res.status(400).send((e as ValidationError).message);

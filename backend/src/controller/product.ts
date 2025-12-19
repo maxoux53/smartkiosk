@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 /**
@@ -81,31 +80,10 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
-        const { cursor, search } = req.body;
-
-        const results = await prisma.product.findMany({
+        const products = await prisma.product.findMany({
             where: {
-                deletion_date: null,
-                ...(search
-                    ? {
-                          label: {
-                              contains: search,
-                              mode: 'insensitive'
-                          }
-                      }
-                    : {})
+                deletion_date: null
             },
-            orderBy: {
-                id: 'asc'
-            },
-            take: limit + 1,
-            ...(cursor
-                ? {
-                      cursor: { id: cursor },
-                      skip: 1
-                  }
-                : {}),
             select: {
                 id: true,
                 label: true,
@@ -118,7 +96,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
                         id: true,
                         vat: {
                             select: {
-                                type: true
+                                type: true,
                             }
                         }
                     }
@@ -126,22 +104,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
 
-        if (results.length === 0) {
-            res.sendStatus(200);
-            return;
-        }
-
-        const hasNextPage = results.length > limit;
-        const items = results.slice(0, limit);
-        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
-
-        res.status(200).send({
-            items,
-            pageInfo: {
-                nextCursor,
-                hasNextPage
-            }
-        });
+        res.status(200).send(products);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

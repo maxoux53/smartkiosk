@@ -24,16 +24,9 @@ const categoryUpdateSchema = vine.object({
     picture: picture.optional()
 });
 
-const categoryListSchema = vine.object({
-    limit: vine.number().min(1).max(100).optional(),
-    cursor: vine.number().optional(),
-    search: vine.string().trim().minLength(1).maxLength(c.CATEGORY.LABEL_MAX).optional()
-});
-
 export const
     categorySearch = vine.create(categoryIdSchema),
     categoryCreation = vine.create(categoryCreationSchema),
     categoryUpdate = vine.create(categoryUpdateSchema),
-    categoryDeletion = vine.create(categoryIdSchema),
-    categoryList = vine.create(categoryListSchema)
+    categoryDeletion = vine.create(categoryIdSchema)
 ;

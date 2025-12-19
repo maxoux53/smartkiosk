@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
 import { eraseStoredImage } from '../util/images.ts';
-import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
@@ -51,7 +50,8 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
                 first_name: true,
                 last_name: true,
                 email: true,
-                avatar: true
+                avatar: true,
+                is_admin: true
             }
         });
 
@@ -73,47 +73,10 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const getAllUsers = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
-        const { cursor, search } = req.body;
-
-        const results = await prisma.user.findMany({
+        const users = await prisma.user.findMany({
             where: {
-                deletion_date: null,
-                ...(search
-                    ? {
-                          OR: [  
-                              {  
-                                  first_name: {  
-                                      contains: search,  
-                                      mode: 'insensitive'  
-                                  }  
-                              },  
-                              {  
-                                  last_name: {  
-                                      contains: search,  
-                                      mode: 'insensitive'  
-                                  }  
-                              },
-                              {
-                                 email: {
-                                     contains: search,
-                                     mode: 'insensitive'
-                                 }
-                              }  
-                          ]
-                      }
-                    : {})
+                deletion_date: null
             },
-            orderBy: {
-                id: 'asc'
-            },
-            take: limit + 1,
-            ...(cursor
-                ? {
-                      cursor: { id: cursor },
-                      skip: 1
-                  }
-                : {}),
             select: {
                 id: true,
                 first_name: true,
@@ -123,29 +86,13 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
             }
         });
 
-        if (results.length === 0) {
-            res.sendStatus(200);
-            return;
-        }
-
-        const hasNextPage = results.length > limit;
-        const items = results.slice(0, limit);
-
-        for (const iUser in items) {
-            if (items[iUser].avatar) {
-                items[iUser].avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${items[iUser].avatar}/public`;
+        for (const iUser in users) {
+            if (users[iUser].avatar) {
+                users[iUser].avatar = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${users[iUser].avatar}/public`;
             }
         }
-
-        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
-
-        res.status(200).send({
-            items,
-            pageInfo: {
-                nextCursor,
-                hasNextPage
-            }
-        });
+        
+        res.status(200).send(users);
     } catch (e) {
         
         const { code, message } = appropriateHttpStatusCode(e as Error);

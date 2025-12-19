@@ -12,6 +12,7 @@
     "dependencies": {
         "@picocss/pico": "^2.1.1",
         "@tanstack/react-table": "^8.21.3",
+        "cookie": "^1.1.1",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "react-router-dom": "^7.9.5"

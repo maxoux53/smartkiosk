@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getEvent = async (req : Request, res : Response) : Promise<void> => {
@@ -25,50 +24,11 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
 
 export const getAllEvents = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
-        const { cursor, search } = req.body;
+        const events = await prisma.event.findMany({});
 
-        const results = await prisma.event.findMany({
-            where: {
-                ...(search
-                    ? {
-                          name: {
-                              contains: search,
-                              mode: 'insensitive'
-                          }
-                      }
-                    : {})
-            },
-            orderBy: {
-                id: 'asc'
-            },
-            take: limit + 1,
-            ...(cursor
-                ? {
-                      cursor: { id: cursor },
-                      skip: 1
-                  }
-                : {})
-        });
-
-        if (results.length === 0) {
-            res.sendStatus(204);
-            return;
-        }
-
-        const hasNextPage = results.length > limit;
-        const items = results.slice(0, limit);
-        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
-
-        res.status(200).send({
-            items,
-            pageInfo: {
-                nextCursor,
-                hasNextPage
-            }
-        });
-    } catch (e) {
-        
+        res.status(200).send(events);
+    } catch(e) {
+        console.error(e)
         const { code, message } = appropriateHttpStatusCode(e as Error);
         res.status(code).send(message);
     }
@@ -88,7 +48,7 @@ export const getEventsByUser = async (req : Request, res : Response) : Promise<v
                 }
             }
         });
-
+      
         res.status(200).send(events);
     } catch(e) {
         console.error(e)

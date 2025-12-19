@@ -1,19 +1,55 @@
-import { type JSX } from "react";
+import { useMemo, type JSX } from "react";
 import Category from "../../../../components/management/admin/Category";
-//import { useParams } from "react-router-dom";
 import type { category } from "../../../../type";
+import { useNavigate, useParams } from "react-router-dom";
+import { useModal } from "../../../../contexts/ModalContext";
+import { connect } from "../../../../API/connect";
 
 export default function EditCategory(): JSX.Element {
-    //const params = useParams();
+    const {setTitle, openModal, setMessage} = useModal();
+    const navigate = useNavigate();
+    const params = useParams();
 
-    const category: category | null = null; // voir plus tard avec la requête à l'api avec l'id
+    if (!params.id) {
+        setTitle("Erreur");
+        setMessage("L'id de la catégorie n'est pas trouvé");
+        openModal();
+        navigate(-1);
+    }
+
+    const categoryFetch: Promise<category | undefined> = useMemo(
+        async () => {
+            try {
+                return await connect(`/interact/category/${params.id}`, "GET");
+            } catch (e) {
+                setTitle("Erreur");
+                setMessage(String(e));
+                openModal();
+            }
+        },[]
+    )
 
     return (
         <main>
-            {category ?
+            {categoryFetch ?
                 <Category
-                    data={category}
-                    actionButton={() => console.log("Modification BDD")}
+                    data={categoryFetch}
+                    actionButton={async (category) => {
+                        try {
+                            await connect(`/interact/category/${category.id}`, "PATCH", {
+                                label: category.label,
+                                vat_type: category.vat_type
+                            })
+                            setTitle("Édition d'une catégorie");
+                            setMessage("Catégorie modifiée avec succès");
+                            openModal();
+                            navigate(-1)
+                        } catch (e) {
+                            setTitle("Erreur");
+                            setMessage(String(e));
+                            openModal();
+                        }
+                    }}
                 />
             :   <></>}
         </main>

@@ -36,17 +36,10 @@ const productsByEventSchema = vine.object({
     event_id
 });
 
-const productListSchema = vine.object({
-    limit: vine.number().min(1).max(100).optional(),
-    cursor: vine.number().optional(),
-    search: vine.string().trim().minLength(1).maxLength(c.PRODUCT.LABEL_MAX).optional()
-});
-
 export const
     productSearch = vine.create(productIdSchema),
     productCreation = vine.create(productCreationSchema),
     productUpdate = vine.create(productUpdateSchema),
     productDeletion = vine.create(productIdSchema),
-    productsByEvent = vine.create(productsByEventSchema),
-    productList = vine.create(productListSchema)
+    productsByEvent = vine.create(productsByEventSchema)
 ;

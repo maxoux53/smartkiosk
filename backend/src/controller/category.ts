@@ -2,6 +2,7 @@ import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { eraseStoredImage } from '../util/images.ts';
 import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getCategory = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -18,8 +19,9 @@ export const getCategory = async (req : Request, res : Response) : Promise<void>
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -69,8 +71,9 @@ export const getAllCategories = async (req : Request, res : Response) : Promise<
             }
         });
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -87,8 +90,9 @@ export const getAllLabelCategory = async (req : Request, res : Response) : Promi
         })
         res.status(200).send(labels);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -109,8 +113,8 @@ export const createCategory = async (req : Request, res : Response) : Promise<vo
 
         res.status(201).send(newCategory);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -131,8 +135,9 @@ export const updateCategory = async (req : Request, res : Response) : Promise<vo
 
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -152,7 +157,8 @@ export const deleteCategory = async (req : Request, res : Response) : Promise<vo
 
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

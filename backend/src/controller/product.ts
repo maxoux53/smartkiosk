@@ -1,6 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 /**
  * @swagger
@@ -72,8 +73,9 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -141,8 +143,9 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -174,8 +177,9 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
         });
         res.status(200).send(products);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -229,8 +233,9 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
         
         res.status(201).send(newProductId);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -255,8 +260,9 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
 
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -273,7 +279,8 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
 
         res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }  
 };

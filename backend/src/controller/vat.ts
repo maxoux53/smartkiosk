@@ -1,7 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getVat = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -18,8 +18,9 @@ export const getVat = async (req : Request, res : Response) : Promise<void> => {
             res.sendStatus(404);
         }
     } catch(e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -73,8 +74,9 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
             }
         });
     } catch(e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -86,13 +88,12 @@ export const createVat = async (req : Request, res : Response) : Promise<void> =
                 rate: req.body.rate
             }
         })
-
         res.sendStatus(201);
         
-        // Erreur pas claire si type deja existant 
     } catch(e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -109,8 +110,9 @@ export const updateVat = async (req : Request, res : Response) : Promise<void> =
 
         res.sendStatus(204);
     } catch(e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -128,7 +130,8 @@ export const deleteVat = async (req : Request, res : Response) : Promise<void> =
 
         res.sendStatus(204);
     } catch(e) {
-        console.error(e);
-        res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

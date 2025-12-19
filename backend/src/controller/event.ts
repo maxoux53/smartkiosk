@@ -1,6 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -16,8 +17,9 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -66,8 +68,9 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
             }
         });
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -89,7 +92,8 @@ export const getEventsByUser = async (req : Request, res : Response) : Promise<v
         res.status(200).send(events);
     } catch(e) {
         console.error(e)
-        res.sendStatus(500)
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -119,8 +123,9 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
 
         res.status(201).send(newEvent);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -141,8 +146,9 @@ export const updateEvent = async (req : Request, res : Response) : Promise<void>
         
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -167,7 +173,8 @@ export const deleteEvent = async (req : Request, res : Response) : Promise<void>
         res.sendStatus(200);
         
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

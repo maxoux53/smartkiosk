@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { eraseStoredImage } from '../util/images.ts';
 import prisma from '../database/databaseORM.ts'
-import { PrismaClientKnownRequestError } from '../generated/prisma/internal/prismaNamespace.ts';
+import { appropriateHttpStatusCode } from '../util/appropriateHttpStatusCode.ts';
 
 export const replaceEventImage = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     if (req.body.image != undefined) {
@@ -19,8 +19,9 @@ export const replaceEventImage = async (req: Request, res: Response, next: NextF
                 await eraseStoredImage(event.image);
             }
         } catch (e) {
-            console.error(e);
-            res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+            
+            const { code, message } = appropriateHttpStatusCode(e as Error);
+            res.status(code).send(message);
             return;
         }
     }
@@ -44,8 +45,9 @@ export const replaceUserAvatar = async (req: Request, res: Response, next: NextF
                 await eraseStoredImage(user.avatar);
             }
         } catch (e) {
-            console.error(e);
-            res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+            
+            const { code, message } = appropriateHttpStatusCode(e as Error);
+            res.status(code).send(message);
             return;
         }
     }
@@ -69,8 +71,9 @@ export const replaceProductPicture = async (req: Request, res: Response, next: N
                 await eraseStoredImage(product.picture);
             }
         } catch (e) {
-            console.error(e);
-            res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+            
+            const { code, message } = appropriateHttpStatusCode(e as Error);
+            res.status(code).send(message);
             return;
         }
     }
@@ -92,8 +95,9 @@ export const replaceCategoryPicture = async (req: Request, res: Response, next: 
 
             await eraseStoredImage(category!.picture);
         } catch (e) {
-            console.error(e);
-            res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+            
+            const { code, message } = appropriateHttpStatusCode(e as Error);
+            res.status(code).send(message);
             return;
         }
     }

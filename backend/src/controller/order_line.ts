@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getOrderLine = async (req: Request, res: Response): Promise<void> => {
     const { product_id, purchase_id } = req.body;
@@ -20,7 +21,8 @@ export const getOrderLine = async (req: Request, res: Response): Promise<void> =
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };

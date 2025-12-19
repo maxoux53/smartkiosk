@@ -2,9 +2,9 @@ import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
-import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 import { eraseStoredImage } from '../util/images.ts';
 import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = req.body;
@@ -33,8 +33,9 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
             res.sendStatus(401);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -64,8 +65,9 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -145,8 +147,9 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
             }
         });
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -169,8 +172,9 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
 
         res.status(201).send(newUser);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -195,8 +199,9 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
 
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -221,7 +226,8 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
 
         res.sendStatus(200);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };

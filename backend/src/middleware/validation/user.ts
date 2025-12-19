@@ -39,7 +39,7 @@ const userLoginSchema = vine.object({
 const userListSchema = vine.object({
     limit: vine.number().min(1).max(100).optional(),
     cursor: vine.number().optional(),
-    search: vine.string().trim().minLength(1).maxLength(c.USER.FIRST_NAME_MAX).optional()
+    search: vine.string().trim().minLength(1).maxLength(Math.max(c.USER.FIRST_NAME_MAX, c.USER.LAST_NAME_MAX, c.USER.EMAIL_MAX)).optional()
 });
 
 export const

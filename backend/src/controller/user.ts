@@ -4,6 +4,7 @@ import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
 import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 import { eraseStoredImage } from '../util/images.ts';
+import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = req.body;
@@ -70,19 +71,34 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const getAllUsers = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const limit: number = req.body.limit ?? 20;
-        const cursor: number | undefined = req.body.cursor;
-        const search: string | undefined = req.body.search;
+        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
+        const { cursor, search } = req.body;
 
         const results = await prisma.user.findMany({
             where: {
                 deletion_date: null,
                 ...(search
                     ? {
-                          first_name: {
-                              contains: search,
-                              mode: 'insensitive'
-                          }
+                          OR: [  
+                              {  
+                                  first_name: {  
+                                      contains: search,  
+                                      mode: 'insensitive'  
+                                  }  
+                              },  
+                              {  
+                                  last_name: {  
+                                      contains: search,  
+                                      mode: 'insensitive'  
+                                  }  
+                              },
+                              {
+                                 email: {
+                                     contains: search,
+                                     mode: 'insensitive'
+                                 }
+                              }  
+                          ]
                       }
                     : {})
             },

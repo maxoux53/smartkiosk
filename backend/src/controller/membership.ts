@@ -25,23 +25,28 @@ export const getMembership = async (req : Request, res : Response) : Promise<voi
 }
 
 export const createMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_email, event_id, role } = req.body;
+    const { user_email, event_id } = req.body;
 
     try {
-        const user_id =  await prisma.user.findUnique({
+        const user_id = (await prisma.user.findUnique({
             where: {
                 email: user_email
             },
             select: {
                 id: true
             }
-        });
+        }))?.id;
+
+        if (!user_id) {
+            res.status(404).send("User not found");
+            return;
+        }
 
         await prisma.membership.create({
             data: {
                 user_id,
                 event_id,
-                role
+                role: "cashier"
             }
         });
         

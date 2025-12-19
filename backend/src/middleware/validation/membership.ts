@@ -13,8 +13,7 @@ const membershipIdSchema = vine.object({
 
 const membershipCreationSchema = vine.object({
     user_email,
-    event_id,
-    role
+    event_id
 });
 
 const eventJoinSchema = vine.object({

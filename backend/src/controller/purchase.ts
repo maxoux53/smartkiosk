@@ -11,7 +11,7 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
         });
     
         if (purchase) {
-            res.send(purchase);
+            res.status(200).send(purchase);
         } else {
             res.sendStatus(404);
         }

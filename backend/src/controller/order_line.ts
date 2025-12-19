@@ -16,7 +16,7 @@ export const getOrderLine = async (req: Request, res: Response): Promise<void> =
         });
         
         if (order_line) {
-            res.send(order_line);
+            res.status(200).send(order_line);
         } else {
             res.sendStatus(404);
         }

@@ -201,7 +201,7 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
         });
 
         if (!category) {
-            res.sendStatus(404);
+            res.status(404).send("Category not found");
             return;
         }
         

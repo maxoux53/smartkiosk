@@ -31,14 +31,9 @@ const eventUpdatedSchema = vine.object({
     iban: iban.optional(),
 });
 
-const eventsByUserSchema = vine.object({
-    user_id
-})
-
 export const
     eventSearch = vine.create(eventIdSchema),
     eventCreation = vine.create(eventCreatedSchema),
     eventUpdate = vine.create(eventUpdatedSchema),
-    eventDeletion = vine.create(eventIdSchema),
-    eventsByUser = vine.create(eventsByUserSchema)
+    eventDeletion = vine.create(eventIdSchema)
 ;

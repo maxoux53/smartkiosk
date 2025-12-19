@@ -30,7 +30,7 @@ router.patch('/', userVal.update, replaceUserAvatar, updateUser);
 router.delete('/', deleteUser);
 
 router.post('/event', eventVal.create, createEvent);
-router.get('/events', eventVal.getByUser, getEventsByUser);
+router.get('/events', getEventsByUser);
 
 
 router.get('/purchases', getPurchasesByUser);

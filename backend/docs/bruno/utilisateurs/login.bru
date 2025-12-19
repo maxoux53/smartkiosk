@@ -1,0 +1,18 @@
+meta {
+  name: login
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3001/v1/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "demo1@smart.dossier",
+    "password": "bonjour"
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: maj tva
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3001/v1/interact/vat/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "type": "D",
+    "rate": 48
+  }
+}

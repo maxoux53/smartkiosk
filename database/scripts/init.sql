@@ -4,7 +4,7 @@ BEGIN TRANSACTION;
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
     email VARCHAR(80) UNIQUE NOT NULL,
-    password BYTEA NOT NULL,
+    password_hash TEXT NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT FALSE,
     avatar TEXT,
     deletion_date TIMESTAMP DEFAULT NULL
@@ -27,7 +27,7 @@ BEGIN TRANSACTION;
 
   CREATE TABLE membership (
     user_id INT REFERENCES "user"(id),
-    event_id INT REFERENCES event(id),
+    event_id INT REFERENCES event(id) ON DELETE CASCADE,
     role membership_role NOT NULL DEFAULT 'guest',
 
     CONSTRAINT pk_membership PRIMARY KEY (user_id, event_id)
@@ -65,12 +65,13 @@ BEGIN TRANSACTION;
   CREATE TABLE purchase (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "date" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    user_id INT NOT NULL REFERENCES "user"(id)
+    user_id INT NOT NULL REFERENCES "user"(id),
+    is_served BOOLEAN NOT NULL DEFAULT FALSE
   );
 
   CREATE TABLE order_line (
     product_id INT REFERENCES product(id),
-    purchase_id INT REFERENCES purchase(id),
+    purchase_id INT REFERENCES purchase(id) ON DELETE CASCADE,
     quantity SMALLINT NOT NULL,
     price MONEY NOT NULL,
 

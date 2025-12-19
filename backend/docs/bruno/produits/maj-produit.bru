@@ -1,0 +1,24 @@
+meta {
+  name: maj produit
+  type: http
+  seq: 1
+}
+
+patch {
+  url: http://localhost:3001/v1/interact/product/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "id": 3,
+    "label": "un carton (de Tournai)",
+    "excl_vat_price": 300,
+    "category_id": 3
+  }
+}

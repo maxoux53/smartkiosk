@@ -1,0 +1,22 @@
+meta {
+  name: maj evenement
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:3001/v1/interact/event/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "id": 6,
+    "name": "Event incroyable"
+  }
+}

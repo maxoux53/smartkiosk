@@ -3,15 +3,26 @@
     "version": "1.0.0",
     "description": "Backend API for Smart Kiosk",
     "main": "dist/index.js",
+    "type": "module",
     "scripts": {
-        "dev": "tsx watch src/index.ts",
-        "build": "tsc",
-        "start": "node dist/index.js",
-        "type-check": "tsc --noEmit",
-        "lint": "eslint src/**/*.{ts,js}"
+        "dev": "tsx watch src/server.ts",
+        "start": "node dist/server.js",
+        "genDoc": "tsx ./src/swagger/swagger_doc.ts"
     },
     "dependencies": {
-        "express": "^5.1.0"
+        "@prisma/client": "^6.19.0",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@vinejs/vine": "^4.1.0",
+        "argon2": "^0.44.0",
+        "cloudflare": "^5.2.0",
+        "dotenv": "^16.4.7",
+        "express": "^5.1.0",
+        "jsonwebtoken": "^9.0.2"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/express": "5.0.5",
+        "@types/swagger-jsdoc": "^6.0.4",
+        "prisma": "^6.19.0",
+        "swagger-jsdoc": "^6.2.8"
+    }
 }

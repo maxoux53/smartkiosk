@@ -1,0 +1,17 @@
+meta {
+  name: rejoindre evenement
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3001/v1/interact/me/event/1
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "role": "guest"
+  }
+}

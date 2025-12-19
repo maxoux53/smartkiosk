@@ -1,0 +1,21 @@
+meta {
+  name: creation cashier evenement
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3001/v1/interact/event/1/cashier
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "user_email": "demo4@smart.dossier"
+  }
+}

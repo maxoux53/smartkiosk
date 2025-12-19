@@ -1,0 +1,25 @@
+meta {
+  name: creation evenement
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/v1/interact/me/event/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "name": "Event de test",
+    "location": "Tournai",
+    "iban": "BE71096123456769",
+    "is_active": true,
+    "image": "abc"
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: maj categorie
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3001/v1/interact/category/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "id": 1,
+    "label": "Boissons (maj)"
+  }
+}

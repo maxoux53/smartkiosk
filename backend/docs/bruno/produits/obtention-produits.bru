@@ -1,0 +1,20 @@
+meta {
+  name: obtention produits
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:3001/v1/interact/product/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

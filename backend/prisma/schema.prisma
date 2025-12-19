@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  id            Int       @id @default(autoincrement())
+  label         String    @db.VarChar(50)
+  vat_type      String    @db.Char(1)
+  picture       String
+  deletion_date DateTime? @db.Timestamp(6)
+  vat           vat       @relation(fields: [vat_type], references: [type], onDelete: NoAction, onUpdate: NoAction)
+  product       product[]
+}
+
+model event {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(100)
+  location   String       @db.VarChar(80)
+  image      String?
+  is_active  Boolean      @default(true)
+  iban       String       @db.VarChar(35)
+  membership membership[]
+  product    product[]
+}
+
+model membership {
+  user_id  Int
+  event_id Int
+  role     membership_role @default(guest)
+  event    event           @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user     user            @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, event_id], map: "pk_membership")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model order_line {
+  product_id  Int
+  purchase_id Int
+  quantity    Int      @db.SmallInt
+  price       Decimal  @db.Money
+  product     product  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  purchase    purchase @relation(fields: [purchase_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([product_id, purchase_id], map: "pk_order_line")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model product {
+  id             Int          @id @default(autoincrement())
+  label          String       @db.VarChar(80)
+  is_available   Boolean      @default(true)
+  excl_vat_price Decimal      @db.Money
+  deletion_date  DateTime?    @db.Timestamp(6)
+  picture        String?
+  category_id    Int
+  event_id       Int?
+  order_line     order_line[]
+  category       category     @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event          event?       @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model purchase {
+  id         Int          @id @default(autoincrement())
+  date       DateTime     @default(now()) @db.Timestamp(6)
+  user_id    Int
+  is_served  Boolean      @default(false)
+  order_line order_line[] 
+  user       user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user {
+  id            Int          @id @default(autoincrement())
+  first_name    String       @db.VarChar(20)
+  last_name     String       @db.VarChar(40)
+  email         String       @unique @db.VarChar(80)
+  password_hash String
+  is_admin      Boolean      @default(false)
+  avatar        String?
+  deletion_date DateTime?    @db.Timestamp(6)
+  membership    membership[]
+  purchase      purchase[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model vat {
+  type          String     @id @db.Char(1)
+  rate          Int        @db.SmallInt
+  deletion_date DateTime?  @db.Timestamp(6)
+  category      category[]
+}
+
+enum membership_role {
+  host
+  cashier
+  guest
+}

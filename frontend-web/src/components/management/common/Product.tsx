@@ -89,7 +89,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                             placeholder="Exemple: 1"
                             min="0"
                             required
-                            disabled={params.eventId !== null || data !== undefined}
+                            disabled={params.eventId !== undefined || data !== undefined}
                         />
                     </label>
                     <label>

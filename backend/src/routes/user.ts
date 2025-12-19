@@ -15,9 +15,9 @@ import { userVal } from "../middleware/validation/validator.ts"
 const router = Router();
 
 router.get('/:id', userVal.get, getUser);
-router.get('/', isAdmin, userVal.list, getAllUsers);
+router.get('/', isAdmin, getAllUsers);
 router.post('/', userVal.create, createUser);
-router.patch('/', isAdmin, userVal.update, replaceUserAvatar, updateUser);
+router.patch('/:id', isAdmin, userVal.update, replaceUserAvatar, updateUser);
 router.delete('/:id', isAdmin, userVal.delete, deleteUser);
 
 export default router;

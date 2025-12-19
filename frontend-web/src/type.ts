@@ -5,6 +5,7 @@ export type user = {
     email: string;
     avatar: string | null;
     is_admin: boolean;
+    password?: string;
 };
 
 export type cashier = {
@@ -78,3 +79,18 @@ export type pagination = {
     pageIndex: number;
     pageSize: number;
 };
+
+export type getUser = {
+    id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    avatar: string,
+    is_admin: boolean
+}
+
+export type getEventsByUser = {
+    id: number,
+    name: string,
+    image: string
+}

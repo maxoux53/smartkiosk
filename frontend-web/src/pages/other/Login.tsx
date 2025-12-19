@@ -1,20 +1,54 @@
-import { type JSX, useRef, type FormEvent } from "react";
+import { type JSX, useRef, type FormEvent, useState } from "react";
 
 import "./login.css";
 import { useNavigate } from "react-router-dom";
+import { connect } from "../../API/connect";
+import * as cookie from 'cookie'; 
+import { checkIsAdmin } from "../../API/auth";
+import { useModal } from "../../contexts/ModalContext";
+
+type res = {
+    token?: string
+}
 
 function Login(): JSX.Element {
-    const navigate = useNavigate();
+    const {setTitle, openModal, setMessage} = useModal();
     const mailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault(); // Éviter le comportement par défaut de submit
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
         const mail = mailRef.current?.value;
         const password = passwordRef.current?.value;
-        // appelle API
-        console.log(`${mail} / ${password}`);
-        navigate("/");
+        try {
+            const res: res = await connect("/login", "POST", {
+                email: mail,
+                password: password
+            })
+            
+            if (res.token) {
+                document.cookie = cookie.serialize('token', res.token, {
+                    path: '/',        
+                    maxAge: 60 * 60 * 8,
+                    sameSite: 'strict'  
+                });
+            }
+            const isAdmin = await checkIsAdmin();
+            if (isAdmin) {
+                navigate("/admin");
+            } else {
+                setTitle("Erreur")
+                setMessage("Vous n'avez de droits administrateur !");
+                openModal();
+            }
+        } catch (e) {
+            setTitle("Erreur")
+            setMessage(String(e));
+            openModal();
+        }
+        
     };
 
     return (

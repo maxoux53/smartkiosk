@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
 import { type vat } from "../../../type";
+import { connect } from "../../../API/connect";
+import { useModal } from "../../../contexts/ModalContext";
 
 export default function Vat(): JSX.Element {
+    const {setTitle, setMessage, openModal} = useModal();
     const navigate = useNavigate();
 
     const add = () => {
@@ -16,27 +19,27 @@ export default function Vat(): JSX.Element {
         navigate(`vat/edit/${row.type}`);
     };
 
-    const remove = () => {};
-
-    const data: vat[] = useMemo(
-        () => [
-            {
-                type: "Standard",
-                rate: 20
-            },
-            {
-                type: "Reduced",
-                rate: 5
-            },
-            {
-                type: "Intermediate",
-                rate: 10
-            },
-            {
-                type: "Super Reduced",
-                rate: 2
+    const remove = async (row: vat) => {
+            try {
+                await connect(`/interact/vat/${row.type}`, "DELETE");
+            } catch(e) {
+                setTitle("Erreur");
+                setMessage(String(e));
+                openModal();
             }
-        ],
+        };
+
+    const vats: Promise<Array<vat>> = useMemo(
+        async () => {
+            try {
+                return await connect("/interact/vat/", "GET");
+            } catch (e){
+                setTitle("Erreur");
+                setMessage(String(e));
+                openModal();
+                return [];
+            }
+        },
         []
     );
 
@@ -58,7 +61,7 @@ export default function Vat(): JSX.Element {
         <>
             <Edit
                 columns={columns}
-                data={data}
+                data={vats}
                 add={add}
                 edit={edit}
                 remove={remove}

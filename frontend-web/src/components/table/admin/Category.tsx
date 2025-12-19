@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
 import { type category } from "../../../type";
+import { connect } from "../../../API/connect";
+import { useModal } from "../../../contexts/ModalContext";
 
 export default function Category(): JSX.Element {
+    const {setTitle, openModal, setMessage} = useModal();
     const navigate = useNavigate();
 
     const add = () => {
@@ -16,43 +19,31 @@ export default function Category(): JSX.Element {
         navigate(`category/edit/${row.id}`);
     };
 
-    const remove = () => {};
+    const remove = async (row: category) => {
+        try {
+            await connect(`/interact/category/${row.id}`, "DELETE");
+        } catch(e) {
+            setTitle("Erreur");
+            setMessage(String(e));
+            openModal();
+        }
+    };
 
-    const data: category[] = useMemo(
-        () => [
-            {
-                id: 1,
-                label: "Boissons",
-                vat_type: "20%",
-                picture: "drinks.jpg"
-            },
-            {
-                id: 2,
-                label: "Nourriture",
-                vat_type: "5.5%",
-                picture: "food.jpg"
-            },
-            {
-                id: 3,
-                label: "Snacks",
-                vat_type: "20%",
-                picture: "snacks.png"
-            },
-            {
-                id: 4,
-                label: "Desserts",
-                vat_type: "10%",
-                picture: "desserts.jpg"
-            },
-            {
-                id: 5,
-                label: "Alcools",
-                vat_type: "20%",
-                picture: "alcohol.jpg"
+    const categories: Promise<Array<category>> = useMemo(
+        async () => {
+            try {
+                return await connect("/interact/category/", "GET");
+            } catch (e){
+                setTitle("Erreur");
+                setMessage(String(e));
+                openModal();
+                return [];
             }
-        ],
+        },
         []
     );
+
+    console.log(categories);
 
     const columns = useMemo<ColumnDef<category>[]>(
         () => [
@@ -84,7 +75,7 @@ export default function Category(): JSX.Element {
         <>
             <Edit
                 columns={columns}
-                data={data}
+                data={categories}
                 add={add}
                 edit={edit}
                 remove={remove}

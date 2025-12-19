@@ -1,9 +1,16 @@
-import { type FormEvent, type JSX } from "react";
+import { useEffect, useState, type FormEvent, type JSX } from "react";
 import type { vat } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
-export default function Vat({data, actionButton}: {data?: vat; actionButton: (vat?: vat) => void;}): JSX.Element {
+export default function Vat({data, actionButton}: {data?: Promise<vat | undefined>; actionButton: (vat: vat) => void;}): JSX.Element {
+    const [vat, setVat] = useState<vat | null>();
+            
+    useEffect(() => {
+        Promise.resolve(data).then((resolvedData) => {
+            setVat(resolvedData);
+        });
+    }, [data]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,7 +38,7 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
                         <input
                             name="type"
                             type="text"
-                            defaultValue={data?.type}
+                            defaultValue={vat?.type}
                             placeholder="Exemple: Standard"
                             required
                         />
@@ -42,7 +49,7 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
                             name="rate"
                             type="number"
                             step="1"
-                            defaultValue={data?.rate}
+                            defaultValue={vat?.rate}
                             placeholder="Exemple: 20.0"
                             min="0"
                             required

@@ -1,5 +1,6 @@
 import { useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
+import { deleteToken } from "../../API/auth";
 
 export default function Disconnect(): JSX.Element {
     const [showDisconnectModal, setShowDisconnectModal] = useState<boolean>(false);
@@ -18,7 +19,10 @@ export default function Disconnect(): JSX.Element {
                         <footer>
                             <button
                                 type="button"
-                                onClick={() => navigate("/login")}
+                                onClick={() => {
+                                    navigate("/login")
+                                    deleteToken();
+                                }}
                             >
                                 Oui
                             </button>

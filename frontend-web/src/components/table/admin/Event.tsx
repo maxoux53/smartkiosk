@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import Edit from "../../table/Edit";
 import { type event } from "../../../type";
+import { connect } from "../../../API/connect";
+import { useModal } from "../../../contexts/ModalContext";
 
 export default function Event(): JSX.Element {
+    const {setTitle, openModal, setMessage} = useModal();
     const navigate = useNavigate();
 
     const add = () => {
@@ -16,51 +19,27 @@ export default function Event(): JSX.Element {
         navigate(`event/edit/${row.id}`);
     };
 
-    const remove = () => {};
+    const remove = async (row: event) => {
+        try {
+            await connect(`/interact/event/${row.id}`, "DELETE");
+        } catch(e) {
+            setTitle("Erreur");
+            setMessage(String(e));
+            openModal();
+        }
+    };
 
-    const data: event[] = useMemo(
-        () => [
-            {
-                id: 1,
-                name: "Summer Festival",
-                location: "Paris",
-                is_active: true,
-                image: "summer.jpg",
-                iban: "FR7612345678901234567890123"
-            },
-            {
-                id: 2,
-                name: "Tech Conference",
-                location: "Lyon",
-                is_active: false,
-                image: null,
-                iban: "FR7698765432109876543210987"
-            },
-            {
-                id: 3,
-                name: "Art Exhibition",
-                location: "Bordeaux",
-                is_active: true,
-                image: "art.png",
-                iban: "FR7611223344556677889900112"
-            },
-            {
-                id: 4,
-                name: "Music Concert",
-                location: "Marseille",
-                is_active: true,
-                image: "concert.jpg",
-                iban: "FR7655443322110099887766554"
-            },
-            {
-                id: 5,
-                name: "Food Market",
-                location: "Lille",
-                is_active: false,
-                image: null,
-                iban: "FR7699887766554433221100998"
+    const events: Promise<Array<event>> = useMemo(
+        async () => {
+            try {
+                return await connect("/interact/event/", "GET");
+            } catch (e){
+                setTitle("Erreur");
+                setMessage(String(e));
+                openModal();
+                return [];
             }
-        ],
+        },
         []
     );
 
@@ -94,6 +73,42 @@ export default function Event(): JSX.Element {
             {
                 accessorKey: "iban",
                 header: "IBAN"
+            },
+            {
+                accessorKey: "products",
+                header: "Produits",
+                cell: ({row}) => {return <a onClick={async () => {
+                    try {
+                        const products = await connect(`/interact/event/${row.original.id}/products`, "GET");
+                        setTitle("Produits");
+                        setMessage(String(products));
+                        openModal();
+                    } catch (e) {
+                        setTitle("Erreur");
+                        setMessage(String(e));
+                        openModal();
+                    }
+
+
+                }}>Visualiser</a>}
+            },
+            {
+                accessorKey: "purchases",
+                header: "Achats",
+                cell: ({row}) => {return <a onClick={async () => {
+                    try {
+                        const purchases = await connect(`/interact/event/${row.original.id}/purchases`, "GET");
+                        setTitle("Achats");
+                        setMessage(String(purchases));
+                        openModal();
+                    } catch (e) {
+                        setTitle("Erreur");
+                        setMessage(String(e));
+                        openModal();
+                    }
+
+
+                }}>Visualiser</a>}
             }
         ],
         []
@@ -103,7 +118,7 @@ export default function Event(): JSX.Element {
         <>
             <Edit
                 columns={columns}
-                data={data}
+                data={events}
                 add={add}
                 edit={edit}
                 remove={remove}

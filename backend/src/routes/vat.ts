@@ -16,8 +16,8 @@ const router = Router();
 
 router.get('/:type', vatVal.get, getVat);
 router.post('/', isAdmin, vatVal.create, createVat);
-router.get('/', vatVal.list, getAllVats);
-router.patch('/', isAdmin, vatVal.update, updateVat);
+router.patch('/:type', isAdmin, vatVal.update, updateVat);
+router.get('/', getAllVats);
 router.delete('/:type', isAdmin, vatVal.delete, deleteVat);
 
 export default router;

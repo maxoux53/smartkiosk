@@ -37,8 +37,10 @@ export const getEventsByUser = async (req : Request, res : Response) : Promise<v
             where: {
                 membership: {
                     some: {
-                        user_id: req.body.user_id,  
-                        role: "host"
+                        user_id: req.session.id,  
+                        role: {
+                            in: ['host', 'cashier']
+                        }
                     }
                 }
             }
@@ -63,6 +65,7 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
                 iban,
                 image,
                 membership: {
+                    // Nested write transaction
                     create: {
                         role: 'host',
                         user: {

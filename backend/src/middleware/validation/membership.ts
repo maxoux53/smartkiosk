@@ -17,18 +17,14 @@ const membershipCreationSchema = vine.object({
     event_id
 });
 
-const eventJoinSchema = vine.object({
-    event_id
-});
-
-const cashiersByEventSchema = vine.object({
+const evendIdSchema = vine.object({
     event_id
 });
 
 export const
     membershipSearch = vine.create(membershipIdSchema),
     membershipCreation = vine.create(membershipCreationSchema),
-    eventJoin = vine.create(eventJoinSchema),
+    eventJoin = vine.create(evendIdSchema),
     membershipDeletion = vine.create(membershipIdSchema),
-    cashiersByEvent = vine.create(cashiersByEventSchema)
+    cashiersByEvent = vine.create(evendIdSchema)
 ;

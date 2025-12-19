@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import PurchaseComponent from "../../../../components/admin/management/Purchase";
+import Purchase from "../../../../components/management/admin/Purchase";
 
-export default function Purchase(): JSX.Element {
+export default function AddPurchase(): JSX.Element {
     return (
-        <PurchaseComponent
-            actionButton={() => console.log("Modification BDD")}
-        />
+        <main>
+            <Purchase actionButton={() => console.log("Modification BDD")} />
+        </main>
     );
 }

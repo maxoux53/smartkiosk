@@ -14,9 +14,16 @@ const vatSchema = vine.object({
     rate
 });
 
+const vatListSchema = vine.object({
+    limit: vine.number().min(1).max(100).optional(),
+    cursor: vine.string().trim().minLength(1).maxLength(c.VAT.TYPE_MAX).optional(),
+    search: vine.string().trim().minLength(1).maxLength(c.VAT.TYPE_MAX).optional()
+});
+
 export const
     vatSearch = vine.create(vatIdSchema),
     vatCreation = vine.create(vatSchema),
     vatUpdate = vine.create(vatSchema),
     vatDeletion = vine.create(vatIdSchema)
+    vatList = vine.create(vatListSchema)
 ;

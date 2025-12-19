@@ -3,9 +3,16 @@ export type user = {
     first_name: string;
     last_name: string;
     email: string;
-    password: string;
     avatar: string | null;
     is_admin: boolean;
+};
+
+export type cashier = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    avatar: string | null;
 };
 
 export type membership = {
@@ -44,6 +51,15 @@ export type product = {
     picture: string | null;
     category_id: number;
     event_id: number | null;
+};
+
+export type productForManager = {
+    id: number;
+    label: string;
+    is_available: boolean;
+    excl_vat_price: string;
+    picture: string | null;
+    category_id: number;
 };
 
 export type category = {

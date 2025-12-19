@@ -36,10 +36,17 @@ const userLoginSchema = vine.object({
     password
 });
 
+const userListSchema = vine.object({
+    limit: vine.number().min(1).max(100).optional(),
+    cursor: vine.number().optional(),
+    search: vine.string().trim().minLength(1).maxLength(Math.max(c.USER.FIRST_NAME_MAX, c.USER.LAST_NAME_MAX, c.USER.EMAIL_MAX)).optional()
+});
+
 export const
     userSearch = vine.create(userIdSchema),
     userCreation = vine.create(userCreatedSchema),
     userUpdate = vine.create(userUpdatedSchema),
     userDeletion = vine.create(userIdSchema),
-    userLogin = vine.create(userLoginSchema)
+    userLogin = vine.create(userLoginSchema),
+    userList = vine.create(userListSchema)
 ;

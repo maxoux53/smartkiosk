@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import CategoryComponent from "../../../../components/admin/management/Category";
+import Category from "../../../../components/management/admin/Category";
 
-export default function Category(): JSX.Element {
+export default function AddCategory(): JSX.Element {
     return (
-        <CategoryComponent
-            actionButton={() => console.log("Modification BDD")}
-        />
+        <main>
+            <Category actionButton={() => console.log("Modification BDD")} />
+        </main>
     );
 }

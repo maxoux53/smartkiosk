@@ -46,7 +46,7 @@ const router = Router();
 */
 router.get('/:id', productVal.get, getProduct);
 
-router.get('/', isAdmin, getAllProducts);
+router.get('/', isAdmin, productVal.list, getAllProducts);
 
 /**
  * @swagger

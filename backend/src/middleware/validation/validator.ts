@@ -27,6 +27,7 @@ export const categoryVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.id;
             req.body = await categorySchemas.categoryUpdate.validate(req.body);
             next();
         } catch (e) {

@@ -177,14 +177,6 @@ export const purchaseVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
-    create: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await purchaseSchemas.purchaseCreation.validate(req.body);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body = await purchaseSchemas.purchaseDeletion.validate(req.params);

@@ -8,10 +8,6 @@ const purchaseIdSchema = vine.object({
     id
 });
 
-const purchaseCreationSchema = vine.object({
-    user_id
-});
-
 const purchaseListForUserSchema = vine.object({
     user_id
 });
@@ -22,7 +18,6 @@ const purchasesByEventSchema = vine.object({
 
 export const
     purchaseSearch = vine.create(purchaseIdSchema),
-    purchaseCreation = vine.create(purchaseCreationSchema),
     purchaseDeletion = vine.create(purchaseIdSchema),
     purchaseListForUser = vine.create(purchaseListForUserSchema),
     purchasesByEvent = vine.create(purchasesByEventSchema)

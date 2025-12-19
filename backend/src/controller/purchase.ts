@@ -109,7 +109,7 @@ export const createPurchase = async (req: Request, res: Response): Promise<void>
     try {
         const newPurchase = await prisma.purchase.create({
             data: {
-                user_id : req.body.id,
+                user_id : req.session.id,
                 date: new Date()
             },
             select: {

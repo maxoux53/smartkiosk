@@ -118,13 +118,8 @@ export const createPurchase = async (req: Request, res: Response): Promise<void>
                 }
             });
 
-            type OrderLineInput = {
-                product_id: number;
-                quantity: number;
-            };
-
             // Promise.all = garantee that all order lines are created (wait for all promises))
-            await Promise.all(order_lines.map(async (line: OrderLineInput) => {
+            await Promise.all(order_lines.map(async (line: {product_id: number, quantity: number}) => {
                 const product = await tx.product.findUnique({
                     where: {
                         id: line.product_id,

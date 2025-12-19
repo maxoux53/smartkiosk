@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import Membership from "../../../../components/management/common/Membership";
+import Membership from "../../../../components/management/admin/Membership";
 
 export default function AddMembership(): JSX.Element {
     return (

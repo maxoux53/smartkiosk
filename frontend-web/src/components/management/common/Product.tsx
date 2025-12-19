@@ -1,10 +1,11 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { product } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
 export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product) => void; isAdmin: boolean;}): JSX.Element {
+    const params = useParams();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -84,11 +85,11 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                         <input
                             name="event_id"
                             type="number"
-                            defaultValue={data?.event_id ?? ""}
+                            defaultValue={params.eventId ?? data?.event_id ?? "" }
                             placeholder="Exemple: 1"
                             min="0"
                             required
-                            disabled={data !== undefined}
+                            disabled={params.eventId !== null || data !== undefined}
                         />
                     </label>
                     <label>

@@ -22,7 +22,14 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
 
     return (
         <>
-            <Header title={data ? "Modifier une ligne de commande" : "Ajouter une ligne de commande"} hasBackButton={true}/>
+            <Header
+                title={
+                    data ?
+                        "Modifier une ligne de commande"
+                    :   "Ajouter une ligne de commande"
+                }
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

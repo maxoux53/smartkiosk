@@ -6,9 +6,7 @@ export default function EditProduct(): JSX.Element {
 
     return (
         <main>
-            <Product
-                actionButton={() => console.log("Modification BDD")}
-            />
+            <Product actionButton={() => console.log("Modification BDD")} />
         </main>
     );
 }

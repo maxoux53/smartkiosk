@@ -24,7 +24,10 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
 
     return (
         <>
-            <Header title={data ? "Modifier un évènement" : "Ajouter un évènement"} hasBackButton={true}/>
+            <Header
+                title={data ? "Modifier un évènement" : "Ajouter un évènement"}
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

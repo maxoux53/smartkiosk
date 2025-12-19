@@ -21,7 +21,14 @@ export default function Membership({ data, actionButton }: { data?: membership; 
 
     return (
         <>
-            <Header title={data ? "Modifier une participation" : "Ajouter une participation"} hasBackButton={true}/>
+            <Header
+                title={
+                    data ?
+                        "Modifier une participation"
+                    :   "Ajouter une participation"
+                }
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

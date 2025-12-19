@@ -20,7 +20,10 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
 
     return (
         <main>
-            <Header title={data ? "Modifier une TVA" : "Ajouter une TVA"} hasBackButton={true}/>
+            <Header
+                title={data ? "Modifier une TVA" : "Ajouter une TVA"}
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

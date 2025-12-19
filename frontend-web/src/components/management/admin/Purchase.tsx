@@ -21,7 +21,10 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
 
     return (
         <>
-            <Header title={data ? "Modifier un achat" : "Ajouter un achat"} hasBackButton={true}/>
+            <Header
+                title={data ? "Modifier un achat" : "Ajouter un achat"}
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

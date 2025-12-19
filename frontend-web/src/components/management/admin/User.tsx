@@ -24,7 +24,12 @@ export default function User({ data, actionButton }: { data?: user; actionButton
 
     return (
         <main>
-            <Header title={data ? "Modifier un utilisateur" : "Ajouter un utilisateur"} hasBackButton={true}/>
+            <Header
+                title={
+                    data ? "Modifier un utilisateur" : "Ajouter un utilisateur"
+                }
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

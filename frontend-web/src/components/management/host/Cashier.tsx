@@ -3,10 +3,9 @@ import "../management.css";
 import Header from "../../other/Header";
 
 export default function Cashier(): JSX.Element {
-
     return (
         <>
-            <Header title="Ajouter un serveur" hasBackButton={true}/>
+            <Header title="Ajouter un serveur" hasBackButton={true} />
             <form
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                     console.log(e);

@@ -21,7 +21,12 @@ export default function Category({ data, actionButton }: { data?: category; acti
 
     return (
         <main>
-            <Header title={data ? "Modifier une catégorie" : "Ajouter une catégorie"} hasBackButton={true}/>
+            <Header
+                title={
+                    data ? "Modifier une catégorie" : "Ajouter une catégorie"
+                }
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>

@@ -25,10 +25,12 @@ export default function Product({ data, actionButton }: { data?: product; action
         actionButton(newProduct);
     };
 
-
     return (
         <>
-            <Header title={data ? "Modifier un produit" : "Ajouter un produit"} hasBackButton={true}/>
+            <Header
+                title={data ? "Modifier un produit" : "Ajouter un produit"}
+                hasBackButton={true}
+            />
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
@@ -84,11 +86,16 @@ export default function Product({ data, actionButton }: { data?: product; action
                         <input
                             name="event_id"
                             type="number"
-                            defaultValue={params.eventId ?? data?.event_id ?? "" }
+                            defaultValue={
+                                params.eventId ?? data?.event_id ?? ""
+                            }
                             placeholder="Exemple: 1"
                             min="0"
                             required
-                            disabled={params.eventId !== undefined || data !== undefined}
+                            disabled={
+                                params.eventId !== undefined ||
+                                data !== undefined
+                            }
                         />
                     </label>
                     <label>

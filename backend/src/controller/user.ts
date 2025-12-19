@@ -121,6 +121,11 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
             }
         });
 
+        if (!results) {
+            res.sendStatus(404);
+            return;
+        }
+
         const hasNextPage = results.length > limit;
         const items = results.slice(0, limit);
 
@@ -200,7 +205,7 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
     const password_hash = (req.body.password ? await hash(req.body.password) : undefined);
     
     try {
-        const updatedUser = await prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: id
             },

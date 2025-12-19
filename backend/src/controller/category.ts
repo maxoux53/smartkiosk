@@ -25,8 +25,8 @@ export const getCategory = async (req : Request, res : Response) : Promise<void>
 
 export const getAllCategories = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const { cursor, search } = req.body;
         const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
+        const { cursor, search } = req.body;
 
         const results = await prisma.category.findMany({
             where: {
@@ -51,6 +51,11 @@ export const getAllCategories = async (req : Request, res : Response) : Promise<
                   }
                 : {})
         });
+
+        if (!results) {
+            res.sendStatus(404);
+            return;
+        }
 
         const hasNextPage = results.length > limit;
         const items = results.slice(0, limit);

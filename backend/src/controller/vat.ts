@@ -56,6 +56,11 @@ export const getAllVats = async (req : Request, res : Response) : Promise<void> 
             }
         });
 
+        if (!results) {
+            res.sendStatus(404);
+            return;
+        }
+
         const hasNextPage = results.length > limit;
         const items = results.slice(0, limit);
         const nextCursor = hasNextPage ? items[items.length - 1]?.type ?? null : null;

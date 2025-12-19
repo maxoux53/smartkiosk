@@ -124,6 +124,11 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
 
+        if (!results) {
+            res.sendStatus(404);
+            return;
+        }
+
         const hasNextPage = results.length > limit;
         const items = results.slice(0, limit);
         const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;

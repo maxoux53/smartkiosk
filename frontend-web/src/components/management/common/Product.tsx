@@ -88,7 +88,7 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
                             placeholder="Exemple: 1"
                             min="0"
                             required
-                            disabled={!isAdmin}
+                            disabled={data !== undefined}
                         />
                     </label>
                     <label>

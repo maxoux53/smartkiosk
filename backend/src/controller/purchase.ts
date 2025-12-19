@@ -105,24 +105,6 @@ export const getPurchasesByEvent = async (req : Request, res :Response) : Promis
     }
 }
 
-// export const createPurchase = async (req: Request, res: Response): Promise<void> => {
-//     try {
-//         const newPurchase = await prisma.purchase.create({
-//             data: {
-//                 user_id : req.session.id,
-//                 date: new Date()
-//             },
-//             select: {
-//                 id: true
-//             }
-//         })
-//         res.status(201).send(newPurchase);
-//     } catch (e) {
-//         console.error(e);
-//         res.sendStatus(500);
-//     }
-// }
-
 export const createPurchase = async (req: Request, res: Response): Promise<void> => {
     const { order_lines } = req.body;
 

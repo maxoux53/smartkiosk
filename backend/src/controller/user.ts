@@ -49,7 +49,8 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
                 first_name: true,
                 last_name: true,
                 email: true,
-                avatar: true
+                avatar: true,
+                is_admin: true
             }
         });
 

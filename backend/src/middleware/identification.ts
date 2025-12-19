@@ -19,7 +19,7 @@ export const checkJWT = async (req: Request, res: Response, next: NextFunction) 
 };
 
 
-export const isAdmin = (req: Request, res: Response, next: NextFunction) : void => {
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     if (!req.session?.isAdmin) {
         res.status(403).send('Admin access required');
         return;

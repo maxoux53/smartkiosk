@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 
 /**
  * @swagger
@@ -77,11 +78,32 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 };
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
-    try { 
-        const products = await prisma.product.findMany({
+    try {
+        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
+        const { cursor, search } = req.body;
+
+        const results = await prisma.product.findMany({
             where: {
-                deletion_date: null
+                deletion_date: null,
+                ...(search
+                    ? {
+                          label: {
+                              contains: search,
+                              mode: 'insensitive'
+                          }
+                      }
+                    : {})
             },
+            orderBy: {
+                id: 'asc'
+            },
+            take: limit + 1,
+            ...(cursor
+                ? {
+                      cursor: { id: cursor },
+                      skip: 1
+                  }
+                : {}),
             select: {
                 id: true,
                 label: true,
@@ -92,9 +114,9 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
                 category: {
                     select: {
                         id: true,
-                        vat:{
+                        vat: {
                             select: {
-                                type: true,
+                                type: true
                             }
                         }
                     }
@@ -102,7 +124,22 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
 
-        res.status(200).send(products);
+        if (results.length === 0) {
+            res.sendStatus(404);
+            return;
+        }
+
+        const hasNextPage = results.length > limit;
+        const items = results.slice(0, limit);
+        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
+
+        res.status(200).send({
+            items,
+            pageInfo: {
+                nextCursor,
+                hasNextPage
+            }
+        });
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
@@ -141,37 +178,6 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
         res.sendStatus(500);
     }
 };
-
-// export const getAvailableProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
-//     try {
-//         const products = await prisma.product.findMany({
-//             where: {
-//                 deletion_date: null,
-//                 event_id: req.body.event_id,
-//                 is_available: true
-//             },
-//             select: {
-//                 label: true,
-//                 excl_vat_price: true,
-//                 picture: true,
-//                 category: {
-//                     select: {
-//                         label: true,
-//                         vat:{
-//                             select: {
-//                                 rate: true
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         });
-//         res.status(200).send(products);
-//     } catch (e) {
-//         console.error(e);
-//         res.sendStatus(500);
-//     }
-// };
 
 /**
  * @swagger
@@ -229,12 +235,13 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
+    const { product_id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
     
     try {
         await prisma.product.update({
             where: {
-                id
+                id: product_id,
+                deletion_date: null
             },
             data: {
                 label,
@@ -257,7 +264,7 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     try {
         await prisma.product.update({
             where: {
-                id: req.body.id
+                id: req.body.product_id
             },
             data: {
                 deletion_date: new Date()

@@ -2,13 +2,10 @@ import { Router } from 'express';
 
 import {
     getProduct,
-    getAllProducts,
-    updateProduct,
-    deleteProduct
+    getAllProducts
 } from "../controller/product.ts";
 
-import { replaceProductPicture } from '../middleware/image-replacement.ts';
-import { isAdmin, isHost } from "../middleware/identification.ts";
+import { isAdmin } from "../middleware/identification.ts";
 import { productVal } from '../middleware/validation/validator.ts';
 
 const router = Router();
@@ -49,7 +46,7 @@ const router = Router();
 */
 router.get('/:id', productVal.get, getProduct);
 
-router.get('/', isAdmin, getAllProducts);
+router.get('/', isAdmin, productVal.list, getAllProducts);
 
 /**
  * @swagger
@@ -79,7 +76,6 @@ router.get('/', isAdmin, getAllProducts);
  *       500:
  *         description: Server error
 */
-router.patch('/', isHost, productVal.update, replaceProductPicture, updateProduct);
 
 /**
  * @swagger
@@ -111,6 +107,5 @@ router.patch('/', isHost, productVal.update, replaceProductPicture, updateProduc
  *       500:
  *         description: Server error
 */
-router.delete('/:id', isHost, productVal.delete, deleteProduct);
 
 export default router;

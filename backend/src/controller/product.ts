@@ -79,8 +79,8 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
 
 export const getAllProducts = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const { cursor, search } = req.body;
         const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
+        const { cursor, search } = req.body;
 
         const results = await prisma.product.findMany({
             where: {

@@ -1,7 +1,6 @@
 import vine from '@vinejs/vine'
 
 const id = vine.number();
-const user_id = vine.number();
 const event_id = vine.number()
 
 const purchaseIdSchema = vine.object({

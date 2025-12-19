@@ -1,7 +1,5 @@
 import vine from '@vinejs/vine'
 
-import { membership_role } from '../../generated/prisma/enums.ts';
-
 const user_id = vine.number();
 const event_id = vine.number();
 const user_email = vine.string().email();

@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { Decimal } from "@prisma/client/runtime/library";
 
 export const getOrderLine = async (req: Request, res: Response): Promise<void> => {
     const { product_id, purchase_id } = req.body;

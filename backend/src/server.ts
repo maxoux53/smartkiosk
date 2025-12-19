@@ -4,7 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 
 const app : Express = express();
-const port : number = parseInt(process.env.PORT!);
+const port : number = parseInt(process.env.PORT || '3001');
 
 app.use(express.json()); // Middleware pour parser le JSON des requêtes
 app.use(

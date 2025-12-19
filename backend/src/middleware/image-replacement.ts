@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { eraseStoredImage } from '../images.ts';
+import { eraseStoredImage } from '../util/images.ts';
 import prisma from '../database/databaseORM.ts'
 import { PrismaClientKnownRequestError } from '../generated/prisma/internal/prismaNamespace.ts';
 

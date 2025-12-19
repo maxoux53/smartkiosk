@@ -1,4 +1,4 @@
-import { genImgUploadUrl } from "../images.ts";
+import { genImgUploadUrl } from "../util/images.ts";
 import { Request, Response } from "express";
 
 export const upload = async (req : Request, res : Response) : Promise<void> => {

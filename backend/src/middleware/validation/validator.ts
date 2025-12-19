@@ -107,6 +107,7 @@ export const eventVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.event_id;
             req.body = await eventSchemas.eventUpdate.validate(req.body);
             next();
         } catch (e) {

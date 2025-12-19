@@ -23,7 +23,7 @@ const router = Router();
 
 router.get('/:event_id', eventVal.get, getEvent);
 router.get('/', isAdmin, getAllEvents);
-router.patch('/', isHost, eventVal.update, replaceEventImage, updateEvent);
+router.patch('/:event_id', isHost, eventVal.update, replaceEventImage, updateEvent);
 router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 
 router.post('/:event_id/cashier', isHost, membershipVal.create, createMembership);

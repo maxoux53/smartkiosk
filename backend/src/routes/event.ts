@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import {
     getEvent,
     getAllEvents,
@@ -19,19 +20,24 @@ import {
     deleteCashierFromEvent,
     getAllCashiersByEvent
 } from '../controller/membership.ts';
+
 import {
     eventVal, 
     membershipVal, 
     productVal, 
     purchaseVal 
 } from '../middleware/validation/validator.ts';
+
 import { replaceEventImage } from '../middleware/image-replacement.ts';
+
 import { 
     isAdmin, 
     isHost, 
     isCashier 
 } from "../middleware/identification.ts";
+
 import { replaceProductPicture } from '../middleware/image-replacement.ts';
+
 
 const router = Router();
 

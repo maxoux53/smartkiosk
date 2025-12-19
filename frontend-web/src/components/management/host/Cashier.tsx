@@ -1,10 +1,8 @@
 import type { FormEvent, JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import "../management.css";
 import Header from "../../other/Header";
 
 export default function Cashier(): JSX.Element {
-    const navigate = useNavigate();
 
     return (
         <>

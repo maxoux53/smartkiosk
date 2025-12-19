@@ -14,7 +14,6 @@ export default function EditProduct(): JSX.Element {
                 <Product
                     data={product}
                     actionButton={() => console.log("Modification BDD")}
-                    isAdmin={true}
                 />
             :   <></>}
         </main>

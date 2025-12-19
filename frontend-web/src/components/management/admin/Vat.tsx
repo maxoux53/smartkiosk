@@ -1,5 +1,4 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import type { vat } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
@@ -18,8 +17,6 @@ export default function Vat({data, actionButton}: {data?: vat; actionButton: (va
 
         actionButton(newVat);
     };
-
-    const navigate = useNavigate();
 
     return (
         <main>

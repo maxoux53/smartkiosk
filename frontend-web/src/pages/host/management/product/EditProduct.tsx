@@ -8,7 +8,6 @@ export default function EditProduct(): JSX.Element {
         <main>
             <Product
                 actionButton={() => console.log("Modification BDD")}
-                isAdmin={false}
             />
         </main>
     );

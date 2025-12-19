@@ -1,5 +1,4 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import type { purchase } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
@@ -19,8 +18,6 @@ export default function Purchase({ data, actionButton }: { data?: purchase; acti
 
         actionButton(newPurchase);
     };
-
-    const navigate = useNavigate();
 
     return (
         <>

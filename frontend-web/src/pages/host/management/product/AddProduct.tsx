@@ -6,7 +6,6 @@ export default function AddProduct(): JSX.Element {
         <main>
             <Product
                 actionButton={() => console.log("Modification BDD")}
-                isAdmin={false}
             />
         </main>
     );

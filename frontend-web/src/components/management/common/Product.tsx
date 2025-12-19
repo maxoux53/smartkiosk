@@ -1,10 +1,10 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { product } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
 
-export default function Product({ data, actionButton, isAdmin }: { data?: product; actionButton: (product?: product) => void; isAdmin: boolean;}): JSX.Element {
+export default function Product({ data, actionButton }: { data?: product; actionButton: (product?: product) => void;}): JSX.Element {
     const params = useParams();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -25,7 +25,6 @@ export default function Product({ data, actionButton, isAdmin }: { data?: produc
         actionButton(newProduct);
     };
 
-    const navigate = useNavigate();
 
     return (
         <>

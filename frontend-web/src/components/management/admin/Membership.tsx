@@ -1,5 +1,4 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import type { membership } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
@@ -19,8 +18,6 @@ export default function Membership({ data, actionButton }: { data?: membership; 
 
         actionButton(newMembership);
     };
-
-    const navigate = useNavigate();
 
     return (
         <>

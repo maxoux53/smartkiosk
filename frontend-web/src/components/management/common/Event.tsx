@@ -1,5 +1,4 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import type { event } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
@@ -22,8 +21,6 @@ export default function Event({ data, actionButton }: { data?: event; actionButt
 
         actionButton(newEvent);
     };
-
-    const navigate = useNavigate();
 
     return (
         <>

@@ -1,5 +1,4 @@
 import { type FormEvent, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
 import type { order_line } from "../../../type";
 import "../management.css";
 import Header from "../../other/Header";
@@ -20,8 +19,6 @@ export default function OrderLine({ data, actionButton }: { data?: order_line; a
 
         actionButton(newOrderLine);
     };
-
-    const navigate = useNavigate();
 
     return (
         <>

@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { LAZY_LOADING_PAGE_DEFAULT_SIZE } from "../../../shared/constraint.constants.ts";
 
 export const getEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -23,68 +22,7 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
 
 export const getAllEvents = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const limit = req.body.limit || LAZY_LOADING_PAGE_DEFAULT_SIZE;
-        const { cursor, search } = req.body;
-
-        const results = await prisma.event.findMany({
-            where: {
-                ...(search
-                    ? {
-                          name: {
-                              contains: search,
-                              mode: 'insensitive'
-                          }
-                      }
-                    : {})
-            },
-            orderBy: {
-                id: 'asc'
-            },
-            take: limit + 1,
-            ...(cursor
-                ? {
-                      cursor: { id: cursor },
-                      skip: 1
-                  }
-                : {})
-        });
-
-        if (results.length === 0) {
-            res.sendStatus(404);
-            return;
-        }
-
-        const hasNextPage = results.length > limit;
-        const items = results.slice(0, limit);
-        const nextCursor = hasNextPage ? items[items.length - 1]?.id ?? null : null;
-
-        res.status(200).send({
-            items,
-            pageInfo: {
-                nextCursor,
-                hasNextPage
-            }
-        });
-    } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
-    }
-}
-
-export const getEventsByUser = async (req : Request, res : Response) : Promise<void> => {
-    try {
-         const events = await prisma.event.findMany({
-            where: {
-                membership: {
-                    some: {
-                        user_id: req.session.id,  
-                        role: {
-                            in: ['host', 'cashier']
-                        }
-                    }
-                }
-            }
-        });
+        const events = await prisma.event.findMany({});
 
         res.status(200).send(events);
     } catch(e) {

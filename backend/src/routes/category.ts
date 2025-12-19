@@ -15,7 +15,7 @@ import { categoryVal } from '../middleware/validation/validator.ts';
 const router = Router();
 
 router.get('/:id', categoryVal.get, getCategory);
-router.get('/', categoryVal.list, getAllCategories);
+router.get('/', getAllCategories);
 router.post('/', isAdmin, categoryVal.create, createCategory);
 router.patch('/:id', isAdmin, categoryVal.update, replaceCategoryPicture, updateCategory);
 router.delete('/:id', isAdmin, categoryVal.delete, deleteCategory);

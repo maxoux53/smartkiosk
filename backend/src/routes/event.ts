@@ -13,7 +13,10 @@ import {
 import {
     getPurchasesByEvent
 } from '../controller/purchase.ts';
-import { createMembership } from '../controller/membership.ts';
+import { 
+    createMembership ,
+    getAllCashiersByEvent
+} from '../controller/membership.ts';
 
 import { eventVal, membershipVal, productVal, purchaseVal } from '../middleware/validation/validator.ts';
 import { replaceEventImage } from '../middleware/image-replacement.ts';
@@ -27,6 +30,7 @@ router.patch('/', isHost, eventVal.update, replaceEventImage, updateEvent);
 router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 
 router.post('/:event_id/cashier', isHost, membershipVal.create, createMembership);
+router.get('/:event_id/cashiers', isHost, membershipVal.getCashiersByEvent, getAllCashiersByEvent);
 
 router.get('/:event_id/products', productVal.getByEvent, getProductsByEvent);
 router.post('/:event_id/product', productVal.create, createProduct);

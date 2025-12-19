@@ -229,7 +229,7 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id, event_id } = req.body;
+    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
     
     try {
         await prisma.product.update({
@@ -242,8 +242,7 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
                 excl_vat_price,
                 deletion_date,
                 picture,
-                category_id,
-                event_id
+                category_id
             }
         });
 

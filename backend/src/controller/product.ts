@@ -142,37 +142,6 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
     }
 };
 
-// export const getAvailableProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
-//     try {
-//         const products = await prisma.product.findMany({
-//             where: {
-//                 deletion_date: null,
-//                 event_id: req.body.event_id,
-//                 is_available: true
-//             },
-//             select: {
-//                 label: true,
-//                 excl_vat_price: true,
-//                 picture: true,
-//                 category: {
-//                     select: {
-//                         label: true,
-//                         vat:{
-//                             select: {
-//                                 rate: true
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         });
-//         res.status(200).send(products);
-//     } catch (e) {
-//         console.error(e);
-//         res.sendStatus(500);
-//     }
-// };
-
 /**
  * @swagger
  * components:

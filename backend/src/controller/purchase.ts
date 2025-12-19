@@ -1,6 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { purchase } from "../generated/prisma/client.ts";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export const getPurchase = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -35,7 +35,7 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
     try {
         const purchases = await prisma.purchase.findMany({
             where: {
-                user_id: req.body.id
+                user_id: req.session.id
             },
             select: {
                 id: true,
@@ -106,22 +106,65 @@ export const getPurchasesByEvent = async (req : Request, res :Response) : Promis
 }
 
 export const createPurchase = async (req: Request, res: Response): Promise<void> => {
+    const { order_lines } = req.body;
+
     try {
-        const newPurchase = await prisma.purchase.create({
-            data: {
-                user_id : req.body.id,
-                date: new Date()
-            },
-            select: {
-                id: true
-            }
-        })
-        res.status(201).send(newPurchase);
+        // tx = Prisma client for transactions, every tx operations are in tranasaction
+        await prisma.$transaction(async (tx) => {
+            const purchase = await tx.purchase.create({
+                data: {
+                    user_id: req.session.id,
+                    date: new Date()
+                }
+            });
+
+            // Promise.all = garantee that all order lines are created (wait for all promises))
+            await Promise.all(order_lines.map(async (line: {product_id: number, quantity: number}) => {
+                const product = await tx.product.findUnique({
+                    where: {
+                        id: line.product_id,
+                        deletion_date: null
+                    },
+                    select: {
+                        excl_vat_price: true,
+                        category: { 
+                            select: {
+                                vat: { 
+                                    select: { 
+                                        rate: true 
+                                    } 
+                                } 
+                            } 
+                        }
+                    }
+                });
+
+                if (!product) {
+                    // If product not found, throw error to rollback the transaction
+                    throw new Error(`Produit ${line.product_id} introuvable`);
+                }
+
+                const totalPrice = ((new Decimal(line.quantity).mul(product.excl_vat_price).mul(new Decimal(1).plus(product.category.vat.rate / 100)))).toDecimalPlaces(2);
+
+                // no await : create all order line in parallel and return the promise
+                return tx.order_line.create({
+                    data: {
+                        product_id: line.product_id,
+                        purchase_id: purchase.id,
+                        quantity: line.quantity,
+                        price: totalPrice
+                    }
+                });
+            }));
+        });
+
+        res.sendStatus(201);
     } catch (e) {
         console.error(e);
         res.sendStatus(500);
     }
-}
+};
+
 
 export const deletePurchase = async (req: Request, res: Response) : Promise<void> => {
     try {

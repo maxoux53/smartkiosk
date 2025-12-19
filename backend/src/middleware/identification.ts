@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from '../util/jwt.js';
 import { VerifyErrors } from 'jsonwebtoken';
+import prisma from "../database/databaseORM.ts";
 
 export const checkJWT = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const authorizationHeader = req.get('authorization');
@@ -18,7 +19,7 @@ export const checkJWT = async (req: Request, res: Response, next: NextFunction) 
 };
 
 
-export const isAdmin = (req: Request, res: Response, next: NextFunction) : void => {
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     if (!req.session?.isAdmin) {
         res.status(403).send('Admin access required');
         return;
@@ -26,14 +27,60 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) : void 
     next();
 }
 
-export const isHost = (req: Request, res: Response, next: NextFunction) : void => {
-    next();
+export const isHost = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
+    if (req.session?.isAdmin) {
+        next();
+        return;
+    }
 
-    // middleware pour vérifier si l'utilisateur est bien l'organisateur de l'événement qu'il tente d'impacter
-    // if (req.session?.isAdmin) {
-    //     next();
-    //     return;
-    // }
+    const { event_id } = req.body;
+    try {
+        const membership = await prisma.membership.findFirst({
+            where: {
+                user_id: req.session.id,
+                event_id: event_id,
+                role: 'host'
+            }
+        })
+        if (!membership) {
+            res.status(403).send('Host access required');
+            return;
+        }
+        next();
+
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
+}
+
+export const isCashier = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
+    if (req.session?.isAdmin) {
+        next();
+        return;
+    }
+    
+    const { event_id } = req.body;
+    try {
+        const membership = await prisma.membership.findFirst({
+            where: {
+                user_id: req.session.id,
+                event_id: event_id,
+                role: {
+                    in: ['host', 'cashier']
+                }
+            }
+        })
+        if (!membership) {
+            res.status(403).send('Host or cashier access required');
+            return;
+        }
+        next();
+
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
 }
 
 export const self = (req: Request, res: Response, next: NextFunction) : void => {

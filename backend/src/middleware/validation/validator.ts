@@ -156,6 +156,14 @@ export const membershipVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
+    getCashiersByEvent: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            req.body = await membershipSchemas.cashiersByEvent.validate(req.params);
+            next();
+        } catch (e) {
+            res.status(400).send((e as ValidationError).message);
+        }
+    },
     create: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body.event_id = req.params.event_id;
@@ -193,16 +201,8 @@ export const purchaseVal = {
             res.status(400).send((e as ValidationError).message);
         }
     },
-    list: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            req.body = await purchaseSchemas.purchaseListForUser.validate(req.params);
-            next();
-        } catch (e) {
-            res.status(400).send((e as ValidationError).message);
-        }
-    },
     create: async (req: Request, res: Response, next: NextFunction) => {
-        try {
+        try{
             req.body = await purchaseSchemas.purchaseCreation.validate(req.body);
             next();
         } catch (e) {

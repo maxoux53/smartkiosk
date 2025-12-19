@@ -179,37 +179,6 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
     }
 };
 
-// export const getAvailableProductsByEvent = async (req : Request, res : Response) : Promise<void> => {
-//     try {
-//         const products = await prisma.product.findMany({
-//             where: {
-//                 deletion_date: null,
-//                 event_id: req.body.event_id,
-//                 is_available: true
-//             },
-//             select: {
-//                 label: true,
-//                 excl_vat_price: true,
-//                 picture: true,
-//                 category: {
-//                     select: {
-//                         label: true,
-//                         vat:{
-//                             select: {
-//                                 rate: true
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         });
-//         res.status(200).send(products);
-//     } catch (e) {
-//         console.error(e);
-//         res.sendStatus(500);
-//     }
-// };
-
 /**
  * @swagger
  * components:
@@ -266,12 +235,13 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
+    const { product_id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
     
     try {
         await prisma.product.update({
             where: {
-                id
+                id: product_id,
+                deletion_date: null
             },
             data: {
                 label,
@@ -294,7 +264,7 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     try {
         await prisma.product.update({
             where: {
-                id: req.body.id
+                id: req.body.product_id
             },
             data: {
                 deletion_date: new Date()

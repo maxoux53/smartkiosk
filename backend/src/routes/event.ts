@@ -8,16 +8,36 @@ import {
 } from "../controller/event.ts";
 import {
     createProduct,
-    getProductsByEvent
+    getProductsByEvent,
+    updateProduct,
+    deleteProduct
 } from '../controller/product.ts';
 import {
     getPurchasesByEvent
 } from '../controller/purchase.ts';
-import { createMembership } from '../controller/membership.ts';
+import { 
+    createMembership ,
+    deleteCashierFromEvent,
+    getAllCashiersByEvent
+} from '../controller/membership.ts';
 
-import { eventVal, membershipVal, productVal, purchaseVal } from '../middleware/validation/validator.ts';
+import {
+    eventVal, 
+    membershipVal, 
+    productVal, 
+    purchaseVal 
+} from '../middleware/validation/validator.ts';
+
 import { replaceEventImage } from '../middleware/image-replacement.ts';
-import { isAdmin, isHost } from "../middleware/identification.ts";
+
+import { 
+    isAdmin, 
+    isHost, 
+    isCashier 
+} from "../middleware/identification.ts";
+
+import { replaceProductPicture } from '../middleware/image-replacement.ts';
+
 
 const router = Router();
 
@@ -26,11 +46,15 @@ router.get('/', isAdmin, eventVal.list, getAllEvents);
 router.patch('/', isHost, eventVal.update, replaceEventImage, updateEvent);
 router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 
-router.post('/:event_id/cashier', isHost, membershipVal.create, createMembership);
+router.post('/:event_id/cashier', membershipVal.create, isHost, createMembership);
+router.get('/:event_id/cashiers', membershipVal.getCashiersByEvent, isHost, getAllCashiersByEvent);
+router.delete('/:event_id/cashier', membershipVal.delete, isHost, deleteCashierFromEvent);
 
 router.get('/:event_id/products', productVal.getByEvent, getProductsByEvent);
-router.post('/:event_id/product', productVal.create, createProduct);
+router.post('/:event_id/product', productVal.create, isHost, createProduct);
+router.post('/:event_id/product', productVal.update, isCashier, replaceProductPicture, updateProduct);
+router.post('/:event_id/product', productVal.delete, isHost, deleteProduct);
 
-router.get('/:event_id/purchases', isHost, purchaseVal.getByEvent, getPurchasesByEvent);
+router.get('/:event_id/purchases', purchaseVal.getByEvent, isCashier, getPurchasesByEvent);
 
 export default router;

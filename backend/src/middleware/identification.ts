@@ -27,7 +27,6 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) : void 
     next();
 }
 
-export const isHost = (req: Request, res: Response, next: NextFunction) : void => {
 export const isHost = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     if (req.session?.isAdmin) {
         next();

@@ -229,12 +229,13 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
 };
 
 export const updateProduct = async (req : Request, res : Response) : Promise<void> => {
-    const { id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
+    const { product_id, label, is_available, excl_vat_price, deletion_date, picture, category_id } = req.body;
     
     try {
         await prisma.product.update({
             where: {
-                id
+                id: product_id,
+                deletion_date: null
             },
             data: {
                 label,
@@ -257,7 +258,7 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
     try {
         await prisma.product.update({
             where: {
-                id: req.body.id
+                id: req.body.product_id
             },
             data: {
                 deletion_date: new Date()

@@ -104,29 +104,6 @@ export const joinEvent = async (req : Request, res : Response) : Promise<void> =
     }
 }
 
-export const updateMembership = async (req : Request, res : Response) : Promise<void> => {
-    const { user_id, event_id, role } = req.body;
-
-    try {
-        await prisma.membership.update({
-            where: {
-                user_id_event_id: {
-                    user_id,
-                    event_id
-                }
-            },
-            data: {
-                role
-            }
-        });
-        res.sendStatus(200);
-
-    } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
-    }
-}
-
 export const deleteMembership = async (req : Request, res : Response) : Promise<void> => {
     const { event_id } = req.body;
 
@@ -145,4 +122,9 @@ export const deleteMembership = async (req : Request, res : Response) : Promise<
         console.error(e);
         res.sendStatus(500);
     }
+}
+
+export const deleteCashierFromEvent = async (req : Request, res : Response) : Promise<void> => {
+    const { user_id, event_id } = req.body;
+
 }

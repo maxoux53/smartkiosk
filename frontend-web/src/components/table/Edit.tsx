@@ -92,7 +92,6 @@ export default function Edit<T>({ columns, data, add, edit, remove }:
                             setGlobalFilter(e.target.value)
                         }
                     />
-                    <input type="submit" value="Search" />
                 </form>
             </div>
             <table id="adminTable">

@@ -24,6 +24,6 @@ export const
     vatSearch = vine.create(vatIdSchema),
     vatCreation = vine.create(vatSchema),
     vatUpdate = vine.create(vatSchema),
-    vatDeletion = vine.create(vatIdSchema)
+    vatDeletion = vine.create(vatIdSchema),
     vatList = vine.create(vatListSchema)
 ;

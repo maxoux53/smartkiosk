@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getMembership = async (req : Request, res : Response) : Promise<void> => {
     const { user_id, event_id } = req.body;
@@ -20,8 +21,9 @@ export const getMembership = async (req : Request, res : Response) : Promise<voi
         }   
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -48,8 +50,9 @@ export const getAllCashiersByEvent = async (req : Request, res : Response) : Pro
         res.status(200).send(cashiers);
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -81,8 +84,9 @@ export const createMembership = async (req : Request, res : Response) : Promise<
         res.sendStatus(201);
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -99,8 +103,9 @@ export const joinEvent = async (req : Request, res : Response) : Promise<void> =
         res.sendStatus(201);
         
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -119,8 +124,9 @@ export const deleteMembership = async (req : Request, res : Response) : Promise<
         res.sendStatus(204);
         
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -140,7 +146,8 @@ export const deleteCashierFromEvent = async (req : Request, res : Response) : Pr
         res.sendStatus(204);
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

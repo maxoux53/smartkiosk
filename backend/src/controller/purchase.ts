@@ -1,6 +1,7 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { Decimal } from "@prisma/client/runtime/library";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getPurchase = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -16,8 +17,9 @@ export const getPurchase = async (req: Request, res: Response): Promise<void> =>
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -26,8 +28,9 @@ export const getAllPurchases = async (req : Request, res :Response) : Promise<vo
         const purchases = await prisma.purchase.findMany({}); 
         res.status(200).send(purchases);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -62,8 +65,9 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
             
         res.status(200).send(purchases);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -100,8 +104,9 @@ export const getPurchasesByEvent = async (req : Request, res :Response) : Promis
             
         res.status(200).send(purchases);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -120,7 +125,7 @@ export const createPurchase = async (req: Request, res: Response): Promise<void>
 
             // Promise.all = garantee that all order lines are created (wait for all promises))
             await Promise.all(order_lines.map(async (line: {product_id: number, quantity: number}) => {
-                const product = await tx.product.findUnique({
+                const product = await tx.product.findFirst({
                     where: {
                         id: line.product_id,
                         deletion_date: null
@@ -160,8 +165,9 @@ export const createPurchase = async (req: Request, res: Response): Promise<void>
 
         res.sendStatus(201);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -174,9 +180,10 @@ export const deletePurchase = async (req: Request, res: Response) : Promise<void
             }
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

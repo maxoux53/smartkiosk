@@ -2,8 +2,8 @@ import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
 import { hash, compare} from "../util/hash.ts";
 import { sign } from "../util/jwt.ts";
-import { PrismaClientKnownRequestError } from "../generated/prisma/internal/prismaNamespace.ts";
 import { eraseStoredImage } from '../util/images.ts';
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const login = async (req: Request, res: Response) : Promise<void> => {
     const { email, password } = req.body;
@@ -32,14 +32,15 @@ export const login = async (req: Request, res: Response) : Promise<void> => {
             res.sendStatus(401);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
                 id: req.body.id,
                 deletion_date: null
@@ -64,8 +65,9 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -92,8 +94,9 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
         
         res.status(200).send(users);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -116,8 +119,9 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
 
         res.status(201).send(newUser);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -140,15 +144,16 @@ export const deleteUser = async (req: Request, res: Response) : Promise<void> =>
             await eraseStoredImage(user.avatar);
         }
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus((e as PrismaClientKnownRequestError).code === 'P2025' ? 404 : 500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
 export const updateUser = async (req: Request, res: Response) : Promise<void> => {
-    const { id, first_name, last_name, email, is_admin, avatar } = req.body;
+    const { id, first_name, last_name, email, avatar } = req.body;
     const password_hash = (req.body.password ? await hash(req.body.password) : undefined);
     
     try {
@@ -161,14 +166,14 @@ export const updateUser = async (req: Request, res: Response) : Promise<void> =>
                 last_name,
                 email,
                 password_hash,
-                is_admin,
                 avatar
             },
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };

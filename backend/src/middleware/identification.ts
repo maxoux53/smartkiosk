@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from '../util/jwt.js';
 import { VerifyErrors } from 'jsonwebtoken';
 import prisma from "../database/databaseORM.ts";
+import { appropriateHttpStatusCode } from '../util/appropriateHttpStatusCode.ts';
 
 export const checkJWT = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     const authorizationHeader = req.get('authorization');
@@ -49,8 +50,9 @@ export const isHost = async (req: Request, res: Response, next: NextFunction) : 
         next();
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -78,8 +80,9 @@ export const isCashier = async (req: Request, res: Response, next: NextFunction)
         next();
 
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 

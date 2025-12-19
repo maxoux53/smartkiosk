@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 export const getEvent = async (req : Request, res : Response) : Promise<void> => {
     try {
@@ -15,8 +16,9 @@ export const getEvent = async (req : Request, res : Response) : Promise<void> =>
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -27,7 +29,31 @@ export const getAllEvents = async (req : Request, res : Response) : Promise<void
         res.status(200).send(events);
     } catch(e) {
         console.error(e)
-        res.sendStatus(500)
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
+    }
+}
+
+export const getEventsByUser = async (req : Request, res : Response) : Promise<void> => {
+    try {
+         const events = await prisma.event.findMany({
+            where: {
+                membership: {
+                    some: {
+                        user_id: req.session.id,  
+                        role: {
+                            in: ['host', 'cashier']
+                        }
+                    }
+                }
+            }
+        });
+      
+        res.status(200).send(events);
+    } catch(e) {
+        console.error(e)
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -57,8 +83,9 @@ export const createEvent = async (req : Request, res : Response) : Promise<void>
 
         res.status(201).send(newEvent);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -77,10 +104,11 @@ export const updateEvent = async (req : Request, res : Response) : Promise<void>
             }
         });
         
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }
 
@@ -102,10 +130,11 @@ export const deleteEvent = async (req : Request, res : Response) : Promise<void>
                 }
             })
         ])
-        res.sendStatus(200);
+        res.sendStatus(204);
         
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 }

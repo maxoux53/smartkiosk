@@ -1,5 +1,6 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
+import { appropriateHttpStatusCode } from "../util/appropriateHttpStatusCode.ts";
 
 /**
  * @swagger
@@ -40,7 +41,7 @@ import { Request, Response } from "express";
 */
 export const getProduct = async (req : Request, res : Response) : Promise<void> => {
     try {
-        const product = await prisma.product.findUnique({
+        const product = await prisma.product.findFirst({
             where: {
                 id: req.body.id,
                 deletion_date: null
@@ -71,8 +72,9 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
             res.sendStatus(404);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -104,8 +106,9 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
 
         res.status(200).send(products);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -137,8 +140,9 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
         });
         res.status(200).send(products);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -192,8 +196,9 @@ export const createProduct = async (req : Request, res : Response) : Promise<voi
         
         res.status(201).send(newProductId);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -216,10 +221,11 @@ export const updateProduct = async (req : Request, res : Response) : Promise<voi
             }
         });
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }
 };
 
@@ -236,7 +242,8 @@ export const deleteProduct = async (req : Request, res : Response) : Promise<voi
 
         res.sendStatus(204);
     } catch (e) {
-        console.error(e);
-        res.sendStatus(500);
+        
+        const { code, message } = appropriateHttpStatusCode(e as Error);
+        res.status(code).send(message);
     }  
 };

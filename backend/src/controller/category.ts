@@ -52,7 +52,7 @@ export const getAllCategories = async (req : Request, res : Response) : Promise<
                 : {})
         });
 
-        if (!results) {
+        if (results.length === 0) {
             res.sendStatus(404);
             return;
         }

@@ -124,7 +124,7 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
 
-        if (!results) {
+        if (results.length === 0) {
             res.sendStatus(404);
             return;
         }

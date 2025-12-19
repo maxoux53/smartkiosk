@@ -121,7 +121,7 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
             }
         });
 
-        if (!results) {
+        if (results.length === 0) {
             res.sendStatus(404);
             return;
         }

@@ -216,6 +216,7 @@ export const userVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.id = req.params.id;
             req.body = await userSchemas.userUpdate.validate(req.body);
             next();
         } catch (e) {
@@ -259,6 +260,7 @@ export const vatVal = {
     },
     update: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            req.body.type = req.params.type;
             req.body = await vatSchemas.vatUpdate.validate(req.body);
             next();
         } catch (e) {

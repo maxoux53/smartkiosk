@@ -152,7 +152,6 @@ export const membershipVal = {
     delete: async (req: Request, res: Response, next: NextFunction) => {
         try {
             req.body.event_id = req.params.event_id;
-            req.body.user_id = req.body.user_id;
             req.body = await membershipSchemas.membershipDeletion.validate(req.body);
             next();
         } catch (e) {

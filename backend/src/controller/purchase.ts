@@ -1,6 +1,5 @@
 import prisma from "../database/databaseORM.ts";
 import { Request, Response } from "express";
-import { purchase } from "../generated/prisma/client.ts";
 import { Decimal } from "@prisma/client/runtime/library";
 
 export const getPurchase = async (req: Request, res: Response): Promise<void> => {

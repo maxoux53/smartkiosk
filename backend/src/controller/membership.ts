@@ -127,4 +127,20 @@ export const deleteMembership = async (req : Request, res : Response) : Promise<
 export const deleteCashierFromEvent = async (req : Request, res : Response) : Promise<void> => {
     const { user_id, event_id } = req.body;
 
+    try {
+        await prisma.membership.delete({
+            where: {
+                user_id_event_id: {
+                    user_id,
+                    event_id,
+                },
+                role: "cashier"
+            }
+        })
+        res.sendStatus(204);
+
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
+    }
 }

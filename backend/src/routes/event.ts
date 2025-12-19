@@ -15,6 +15,7 @@ import {
 } from '../controller/purchase.ts';
 import { 
     createMembership ,
+    deleteCashierFromEvent,
     getAllCashiersByEvent
 } from '../controller/membership.ts';
 
@@ -31,6 +32,7 @@ router.delete('/:event_id', eventVal.delete, isHost, deleteEvent);
 
 router.post('/:event_id/cashier', isHost, membershipVal.create, createMembership);
 router.get('/:event_id/cashiers', isHost, membershipVal.getCashiersByEvent, getAllCashiersByEvent);
+router.delete('/:event_id/cashier', isHost, membershipVal.delete, deleteCashierFromEvent);
 
 router.get('/:event_id/products', productVal.getByEvent, getProductsByEvent);
 router.post('/:event_id/product', productVal.create, createProduct);

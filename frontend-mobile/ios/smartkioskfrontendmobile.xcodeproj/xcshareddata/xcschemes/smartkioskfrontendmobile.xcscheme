@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "smartkiosk.app"
-               BlueprintName = "smartkiosk"
-               ReferencedContainer = "container:smartkiosk.xcodeproj">
+               BuildableName = "smartkioskfrontendmobile.app"
+               BlueprintName = "smartkioskfrontendmobile"
+               ReferencedContainer = "container:smartkioskfrontendmobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "smartkioskTests.xctest"
-               BlueprintName = "smartkioskTests"
-               ReferencedContainer = "container:smartkiosk.xcodeproj">
+               BuildableName = "smartkioskfrontendmobileTests.xctest"
+               BlueprintName = "smartkioskfrontendmobileTests"
+               ReferencedContainer = "container:smartkioskfrontendmobile.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "smartkiosk.app"
-            BlueprintName = "smartkiosk"
-            ReferencedContainer = "container:smartkiosk.xcodeproj">
+            BuildableName = "smartkioskfrontendmobile.app"
+            BlueprintName = "smartkioskfrontendmobile"
+            ReferencedContainer = "container:smartkioskfrontendmobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "smartkiosk.app"
-            BlueprintName = "smartkiosk"
-            ReferencedContainer = "container:smartkiosk.xcodeproj">
+            BuildableName = "smartkioskfrontendmobile.app"
+            BlueprintName = "smartkioskfrontendmobile"
+            ReferencedContainer = "container:smartkioskfrontendmobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

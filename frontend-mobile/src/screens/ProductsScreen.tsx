@@ -1,11 +1,10 @@
 import { useState, type JSX } from "react";
-import { Text } from "react-native";
+import { View } from "react-native";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { styles } from "../styles";
 import EventNameHeader from "../components/EventNameHeader";
 import ProductList from "../components/ProductList";
 import { Product } from "../types/items";
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProductsScreen(): JSX.Element {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -52,7 +51,7 @@ export default function ProductsScreen(): JSX.Element {
     ];
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <EventNameHeader name="Nom de l'événement" />
 
             <SegmentedControl
@@ -66,6 +65,6 @@ export default function ProductsScreen(): JSX.Element {
             />
 
             <ProductList products={PLACEHOLDER_PRODUCTS[selectedIndex]} />
-        </SafeAreaView>
+        </View>
     );
 }

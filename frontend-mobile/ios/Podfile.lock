@@ -1,7 +1,7 @@
 PODS:
   - EXConstants (18.0.12):
     - ExpoModulesCore
-  - Expo (54.0.23):
+  - Expo (54.0.30):
     - ExpoModulesCore
     - hermes-engine
     - RCTRequired
@@ -26,7 +26,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - ExpoAsset (12.0.11):
+  - ExpoAsset (12.0.12):
     - ExpoModulesCore
   - ExpoFileSystem (19.0.21):
     - ExpoModulesCore
@@ -34,7 +34,7 @@ PODS:
     - ExpoModulesCore
   - ExpoKeepAwake (15.0.8):
     - ExpoModulesCore
-  - ExpoModulesCore (3.0.25):
+  - ExpoModulesCore (3.0.29):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -57,6 +57,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - ExpoSymbols (1.0.8):
+    - ExpoModulesCore
   - FBLazyVector (0.81.5)
   - hermes-engine (0.81.5):
     - hermes-engine/Pre-built (= 0.81.5)
@@ -1866,6 +1868,7 @@ DEPENDENCIES:
   - ExpoFont (from `../../node_modules/expo-font/ios`)
   - ExpoKeepAwake (from `../../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../../node_modules/expo-modules-core`)
+  - ExpoSymbols (from `../../node_modules/expo-symbols/ios`)
   - FBLazyVector (from `../../node_modules/react-native/Libraries/FBLazyVector`)
   - hermes-engine (from `../../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - RCTDeprecation (from `../../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1958,6 +1961,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../../node_modules/expo-modules-core"
+  ExpoSymbols:
+    :path: "../../node_modules/expo-symbols/ios"
   FBLazyVector:
     :path: "../../node_modules/react-native/Libraries/FBLazyVector"
   hermes-engine:
@@ -2104,12 +2109,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   EXConstants: 805f35b1b295c542ca6acce836f21a1f9ee104d5
-  Expo: fb09185d798c2876a4c5ca89a5c6b8b72b6dbecf
-  ExpoAsset: 23a958e97d3d340919fe6774db35d563241e6c03
+  Expo: 60c21ba34593688a2a6e8445c1f8b44abb0e3fae
+  ExpoAsset: f867e55ceb428aab99e1e8c082b5aee7c159ea18
   ExpoFileSystem: 858a44267a3e6e9057e0888ad7c7cfbf55d52063
   ExpoFont: 35ac6191ed86bbf56b3ebd2d9154eda9fad5b509
   ExpoKeepAwake: 55f75eca6499bb9e4231ebad6f3e9cb8f99c0296
-  ExpoModulesCore: aa1a8e103d41de84baa5d7c6b98314e2230f1eef
+  ExpoModulesCore: f3da4f1ab5a8375d0beafab763739dbee8446583
+  ExpoSymbols: 349ee2b4d7d5ff3ea8436467914f8a67635aa354
   FBLazyVector: e95a291ad2dadb88e42b06e0c5fb8262de53ec12
   hermes-engine: 9f4dfe93326146a1c99eb535b1cb0b857a3cd172
   RCTDeprecation: 943572d4be82d480a48f4884f670135ae30bf990

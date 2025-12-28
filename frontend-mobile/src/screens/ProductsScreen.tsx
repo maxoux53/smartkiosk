@@ -5,6 +5,7 @@ import { styles } from "../styles";
 import EventNameHeader from "../components/EventNameHeader";
 import ProductList from "../components/ProductList";
 import { Product } from "../types/items";
+import ProductBottomSheet from "../components/ProductBottomSheet";
 
 export default function ProductsScreen(): JSX.Element {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -65,6 +66,8 @@ export default function ProductsScreen(): JSX.Element {
             />
 
             <ProductList products={PLACEHOLDER_PRODUCTS[selectedIndex]} />
+
+            <ProductBottomSheet />
         </View>
     );
 }

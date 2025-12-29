@@ -1,10 +1,26 @@
-import { useCallback, forwardRef, useState } from 'react';
+import { useCallback, forwardRef, useState, RefObject, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { Product } from '../types/items';
+import { useCart } from '../contexts/CartContext';
+import { getInclVatPrice } from '../api/mock';
 
 export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Product | null }>(({ product }, ref) => {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+
+  useEffect(
+    () => { setQuantity(1); },
+    [product]
+  );
+
+  const handleAddToCart = () => {
+    if (product) {
+        addToCart(product.id, quantity);
+        (ref as RefObject<BottomSheetModal>)?.current?.dismiss();
+        setQuantity(1);
+    }
+  };
 
   const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -26,12 +42,12 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
         backdropComponent={renderBackdrop}
       >
         <BottomSheetView style={styles.contentContainer}>
-          <Image source={{ uri: product.image }} style={styles.image} />
+          <Image source={{ uri: product.picture }} style={styles.image} />
           
-          <Text style={styles.name}>{product.name}</Text>
+          <Text style={styles.name}>{product.label}</Text>
           
           <View style={styles.footer}>
-            <Text style={styles.price}>{product.price}€</Text>
+            <Text style={styles.price}>{(getInclVatPrice(product.id) * quantity).toFixed(2)}€</Text>
             
             <View style={styles.quantityContainer}>
                 <TouchableOpacity onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>
@@ -43,7 +59,7 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.addButton}>
+            <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
                 <Text style={styles.addButtonText}>Ajouter</Text>
             </TouchableOpacity>
           </View>
@@ -52,7 +68,7 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
   );
 });
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ // souk à trier
     contentContainer: {
         flex: 1,
         padding: 24,

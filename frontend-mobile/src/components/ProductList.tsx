@@ -3,6 +3,7 @@ import { Text, Image, FlatList, TouchableOpacity } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Product } from "../types/items";
 import { ProductBottomSheet } from "../components/ProductBottomSheet";
+import { getInclVatPrice } from "../api/mock";
 
 export default function ProductList(props: { products: Product[] }): JSX.Element {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -16,11 +17,11 @@ export default function ProductList(props: { products: Product[] }): JSX.Element
     const afficheProduits = (item: Product) => (
         <TouchableOpacity style={{width: '48%'}} onPress={() => handleProductPress(item)}>
             <Image 
-                source={{ uri: item.image }} 
+                source={{ uri: item.picture }} 
                 style={{width: '100%', aspectRatio: 1, borderRadius: 12, marginBottom: 8}} 
             />
-            <Text style={{fontSize: 16}}>{item.name}</Text>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{item.price}€</Text>
+            <Text style={{fontSize: 16}}>{item.label}</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{getInclVatPrice(item.id).toFixed(2)}€</Text>
         </TouchableOpacity>
     );
 
@@ -30,7 +31,7 @@ export default function ProductList(props: { products: Product[] }): JSX.Element
                 data={props.products}
                 numColumns={2}
                 renderItem={({ item }) => afficheProduits(item)}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 columnWrapperStyle={{justifyContent: 'space-between', marginBottom: 20}}
                 showsVerticalScrollIndicator={false}
             />

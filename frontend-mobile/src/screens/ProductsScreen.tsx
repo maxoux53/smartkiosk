@@ -5,57 +5,22 @@ import { styles } from "../styles";
 import EventNameHeader from "../components/EventNameHeader";
 import ProductList from "../components/ProductList";
 import { Product } from "../types/items";
+import { PRODUCTS, CATEGORIES } from "../api/mock";
 
 export default function ProductsScreen(): JSX.Element {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-    const PLACEHOLDER_PRODUCTS : Product[][] = [[
-            { 
-                id: '1', 
-                name: 'Radis', 
-                price: 10.99, 
-                image: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            },
-            { 
-                id: '2', 
-                name: 'Champignons', 
-                price: 10.99, 
-                image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            },
-            { 
-                id: '3', 
-                name: 'Cerises', 
-                price: 10.99, 
-                image: 'https://images.unsplash.com/photo-1528825871115-3581a5387919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            }
-        ], [
-            { 
-                id: '4', 
-                name: 'Jus d\'orange', 
-                price: 5.99, 
-                image: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            },
-            { 
-                id: '5', 
-                name: 'Café', 
-                price: 3.99, 
-                image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            },
-            { 
-                id: '6', 
-                name: 'Thé glacé', 
-                price: 4.99, 
-                image: 'https://plus.unsplash.com/premium_photo-1663840075252-0cef798abc16?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-            }
-        ]
-    ];
+    const productsByCategory: Array<Product[]> = Array.from({ length: CATEGORIES.length }, () => []);
+    for (const product of PRODUCTS) {
+        productsByCategory[product.category_id-1].push(product);
+    }
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
             <EventNameHeader name="Nom de l'événement" />
 
             <SegmentedControl
-                values={["Boisson", "Alimentaire"]}
+                values={CATEGORIES.map(c => c.label)}
                 selectedIndex={selectedIndex}
                 onChange={(event) => {
                     setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
@@ -64,7 +29,7 @@ export default function ProductsScreen(): JSX.Element {
                 style={{ width: "70%", marginVertical: 20 }}
             />
 
-            <ProductList products={PLACEHOLDER_PRODUCTS[selectedIndex]} />
+            <ProductList products={productsByCategory[selectedIndex]} />
         </SafeAreaView>
     );
 }

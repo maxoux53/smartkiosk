@@ -10,4 +10,6 @@ export type TabBarParamList = {
     Produits: undefined;
     Commande: undefined;
     Compte: undefined;
+    Hidden1: undefined;
+    Hidden2: undefined;
 };

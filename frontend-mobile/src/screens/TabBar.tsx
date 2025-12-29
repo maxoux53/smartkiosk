@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { type JSX, useState } from "react";
 import { createNativeBottomTabNavigator } from "@bottom-tabs/react-navigation";
 
 import EventsScreen from "./EventsScreen";
@@ -7,16 +7,23 @@ import OrderScreen from "./OrderScreen";
 import AccountScreen from "./AccountGroup/AccountStack";
 import { TabBarParamList } from "../types/navigation";
 
+import DevOnly from "./DevOnlyScreen";
+
 const Tab = createNativeBottomTabNavigator<TabBarParamList>();
 
 export default function TabBar(): JSX.Element {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isMember, setIsMember] = useState<boolean>(false);
+
     return (
         <Tab.Navigator>
             <Tab.Screen
                 name="Evenements"
                 component={EventsScreen}
                 options={{
-                    tabBarIcon: () => ({ sfSymbol: "calendar" })
+                    tabBarIcon: () => ({ sfSymbol: "calendar" }),
+                    tabBarLabel: "Événements",
+                    preventsDefault: !isLoggedIn
                 }}
             />
             <Tab.Screen
@@ -25,14 +32,16 @@ export default function TabBar(): JSX.Element {
                 options={{
                     tabBarIcon: () => ({
                         sfSymbol: "takeoutbag.and.cup.and.straw.fill"
-                    })
+                    }),
+                    tabBarItemHidden: !isMember
                 }}
             />
             <Tab.Screen
                 name="Commande"
                 component={OrderScreen}
                 options={{
-                    tabBarIcon: () => ({ sfSymbol: "cart.badge.clock.fill" })
+                    tabBarIcon: () => ({ sfSymbol: "cart.badge.clock.fill" }),
+                    tabBarItemHidden: !isMember
                 }}
             />
             <Tab.Screen
@@ -40,6 +49,39 @@ export default function TabBar(): JSX.Element {
                 component={AccountScreen}
                 options={{
                     tabBarIcon: () => ({ sfSymbol: "person.crop.circle.fill" })
+                }}
+            />
+            
+            <Tab.Screen
+                name="Hidden1"
+                component={DevOnly}
+                options={{
+                    tabBarItemHidden: true,
+                    title: "ToggleLogin",
+                    //role: "search",
+                    tabBarIcon: () => ({ sfSymbol: "lock.square.fill" })
+                }}
+                listeners={{
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        setIsLoggedIn(!isLoggedIn);
+                    }
+                }}
+            />
+            <Tab.Screen
+                name="Hidden2"
+                component={DevOnly}
+                options={{
+                    tabBarItemHidden: true,
+                    title: "ToggleMember",
+                    //role: "search",
+                    tabBarIcon: () => ({ sfSymbol: "calendar.and.person" })
+                }}
+                listeners={{
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        setIsMember(!isMember);
+                    }
                 }}
             />
         </Tab.Navigator>

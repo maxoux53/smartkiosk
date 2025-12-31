@@ -1,5 +1,5 @@
 import { useCallback, forwardRef, useState, RefObject, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { Product } from '../types/items';
 import { useCart } from '../contexts/CartContext';
@@ -14,12 +14,18 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
     [product]
   );
 
+  if (!product) { // temporaire
+    return null;
+  }
+
   const handleAddToCart = () => {
-    if (product) {
-        addToCart(product.id, quantity);
+      if (quantity < 1) {
+        Alert.alert('Quantité invalide', 'La quantité doit être égale ou supérieure à 1.');
+      } else {
+        addToCart(product!.id, quantity);
         (ref as RefObject<BottomSheetModal>)?.current?.dismiss();
         setQuantity(1);
-    }
+      }
   };
 
   const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => (
@@ -31,10 +37,6 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
     ),
     []
   );
-
-  if (!product) { // temporaire
-    return null;
-  }
 
   return (
       <BottomSheetModal
@@ -50,7 +52,7 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
             <Text style={styles.price}>{(getInclVatPrice(product.id) * quantity).toFixed(2)}€</Text>
             
             <View style={styles.quantityContainer}>
-                <TouchableOpacity onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>
+                <TouchableOpacity onPress={() => setQuantity(quantity - 1)}>
                     <Text style={styles.quantityButton}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.quantity}>{quantity}</Text>

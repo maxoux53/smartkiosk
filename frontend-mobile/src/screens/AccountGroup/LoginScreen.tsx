@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Platform,
+    Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -35,6 +36,14 @@ export default function LoginScreen(): JSX.Element {
             // TODO: Handle successful login (e.g., send token to backend)
             login();
         } catch (e) {
+            Alert.alert(
+                "Erreur de la connexion",
+                "Une erreur est survenue lors de la connexion avec Apple.",
+                [
+                    { text: "Ok", style: "cancel" },
+                    { text: "Réessayer", onPress: handleAppleSignIn }
+                ]
+            );
             if ((e as { code: string }).code === "ERR_REQUEST_CANCELED") {
                 // l'utilisateur a fermé la popup de connexion
             } else {

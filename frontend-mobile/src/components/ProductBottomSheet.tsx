@@ -14,10 +14,6 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
     [product]
   );
 
-  if (!product) { // temporaire
-    return null;
-  }
-
   const handleAddToCart = () => {
       if (quantity < 1) {
         Alert.alert('Quantité invalide', 'La quantité doit être égale ou supérieure à 1.');
@@ -37,6 +33,10 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
     ),
     []
   );
+
+  if (!product) { // temporaire
+    return null;
+  }
 
   return (
       <BottomSheetModal

@@ -34,7 +34,6 @@ export default function LoginScreen(): JSX.Element {
             console.log(credential);
             // TODO: Handle successful login (e.g., send token to backend)
             login();
-            navigation.navigate("Profile");
         } catch (e) {
             if ((e as { code: string }).code === "ERR_REQUEST_CANCELED") {
                 // l'utilisateur a fermé la popup de connexion
@@ -82,7 +81,6 @@ export default function LoginScreen(): JSX.Element {
                         ]}
                         onPress={() => {
                             login();
-                            navigation.navigate("Profile");
                         }}
                     >
                         <Text style={globalStyles.buttonText}>

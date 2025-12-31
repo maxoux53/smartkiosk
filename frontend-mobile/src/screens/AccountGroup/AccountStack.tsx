@@ -2,6 +2,7 @@ import { JSX } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { AccountStackParamList } from "../../types/navigation.ts";
+import { useAuth } from "../../contexts/AuthContext.tsx";
 
 import LoginScreen from "./LoginScreen.tsx";
 import ProfileScreen from "./ProfileScreen.tsx";
@@ -10,25 +11,30 @@ import OrderHistoryScreen from "./OrderHistoryScreen.tsx";
 const Stack = createNativeStackNavigator<AccountStackParamList>();
 
 export default function AccountStack(): JSX.Element {
+    const { isLoggedIn } = useAuth();
+
     return (
         <Stack.Navigator
-            initialRouteName="Login"
             screenOptions={{ headerShown: false }}
         >
-            <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-            />
+            {isLoggedIn ? (
+                <>
+                    <Stack.Screen
+                        name="Profile"
+                        component={ProfileScreen}
+                    />
 
-            <Stack.Screen
-                name="Profile"
-                component={ProfileScreen}
-            />
-
-            <Stack.Screen
-                name="OrderHistory"
-                component={OrderHistoryScreen}
-            />
+                    <Stack.Screen
+                        name="OrderHistory"
+                        component={OrderHistoryScreen}
+                    />
+                </>
+            ) : (
+                <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                />
+            )}
         </Stack.Navigator>
     );
 }

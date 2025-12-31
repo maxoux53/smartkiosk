@@ -26,6 +26,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - ExpoAppleAuthentication (8.0.8):
+    - ExpoModulesCore
   - ExpoAsset (12.0.12):
     - ExpoModulesCore
   - ExpoFileSystem (19.0.21):
@@ -2030,6 +2032,7 @@ PODS:
 DEPENDENCIES:
   - EXConstants (from `../../node_modules/expo-constants/ios`)
   - Expo (from `../../node_modules/expo`)
+  - ExpoAppleAuthentication (from `../../node_modules/expo-apple-authentication/ios`)
   - ExpoAsset (from `../../node_modules/expo-asset/ios`)
   - ExpoFileSystem (from `../../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../../node_modules/expo-font/ios`)
@@ -2121,6 +2124,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/expo-constants/ios"
   Expo:
     :path: "../../node_modules/expo"
+  ExpoAppleAuthentication:
+    :path: "../../node_modules/expo-apple-authentication/ios"
   ExpoAsset:
     :path: "../../node_modules/expo-asset/ios"
   ExpoFileSystem:
@@ -2286,6 +2291,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   EXConstants: 805f35b1b295c542ca6acce836f21a1f9ee104d5
   Expo: 60c21ba34593688a2a6e8445c1f8b44abb0e3fae
+  ExpoAppleAuthentication: 9413ae9a5e631a424cc04c1b13b0694dbab7d594
   ExpoAsset: f867e55ceb428aab99e1e8c082b5aee7c159ea18
   ExpoFileSystem: 858a44267a3e6e9057e0888ad7c7cfbf55d52063
   ExpoFont: 35ac6191ed86bbf56b3ebd2d9154eda9fad5b509

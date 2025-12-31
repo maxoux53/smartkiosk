@@ -1,4 +1,4 @@
-import { type JSX, useState } from "react";
+import { type JSX } from "react";
 import { createNativeBottomTabNavigator } from "@bottom-tabs/react-navigation";
 
 import EventsScreen from "./EventsScreen";
@@ -6,17 +6,17 @@ import ProductsScreen from "./ProductsScreen";
 import OrderScreen from "./OrderScreen";
 import AccountScreen from "./AccountGroup/AccountStack";
 import { TabBarParamList } from "../types/navigation";
+import { useAuth } from "../contexts/AuthContext";
 
 import DevOnly from "./DevOnlyScreen";
 
 const Tab = createNativeBottomTabNavigator<TabBarParamList>();
 
 export default function TabBar(): JSX.Element {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [isMember, setIsMember] = useState<boolean>(false);
+    const { isLoggedIn, isMember, login, logout, joinEvent, leaveEvent } = useAuth();
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator initialRouteName="Compte">
             <Tab.Screen
                 name="Evenements"
                 component={EventsScreen}
@@ -64,7 +64,11 @@ export default function TabBar(): JSX.Element {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
-                        setIsLoggedIn(!isLoggedIn);
+                        if (isLoggedIn) {
+                            logout();
+                        } else {
+                            login();
+                        }
                     }
                 }}
             />
@@ -80,7 +84,11 @@ export default function TabBar(): JSX.Element {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
-                        setIsMember(!isMember);
+                        if (isMember) {
+                            leaveEvent();
+                        } else {
+                            joinEvent();
+                        }
                     }
                 }}
             />

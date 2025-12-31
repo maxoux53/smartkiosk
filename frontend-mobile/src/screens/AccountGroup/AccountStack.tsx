@@ -16,19 +16,16 @@ export default function AccountStack(): JSX.Element {
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen
-                //options={{ unmountOnBlur: true }}
                 name="Login"
                 component={LoginScreen}
             />
 
             <Stack.Screen
-                //options={{ unmountOnBlur: true }}
                 name="Profile"
                 component={ProfileScreen}
             />
 
             <Stack.Screen
-                //options={{ unmountOnBlur: true }}
                 name="OrderHistory"
                 component={OrderHistoryScreen}
             />

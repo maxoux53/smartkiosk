@@ -14,9 +14,11 @@ import * as AppleAuthentication from "expo-apple-authentication";
 import { AccountStackParamList } from "../../types/navigation";
 import { styles as globalStyles } from "../../styles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function LoginScreen(): JSX.Element {
     const navigation = useNavigation<NativeStackNavigationProp<AccountStackParamList>>();
+    const { login } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const appleAuthAvailable = Platform.OS === 'ios'; // AppleAuthentication.isAvailableAsync();
@@ -31,6 +33,7 @@ export default function LoginScreen(): JSX.Element {
             });
             console.log(credential);
             // TODO: Handle successful login (e.g., send token to backend)
+            login();
             navigation.navigate("Profile");
         } catch (e) {
             if ((e as { code: string }).code === "ERR_REQUEST_CANCELED") {
@@ -77,7 +80,10 @@ export default function LoginScreen(): JSX.Element {
                             globalStyles.button,
                             localStyles.continueButton,
                         ]}
-                        onPress={() => navigation.navigate("Profile")}
+                        onPress={() => {
+                            login();
+                            navigation.navigate("Profile");
+                        }}
                     >
                         <Text style={globalStyles.buttonText}>
                             Continuer

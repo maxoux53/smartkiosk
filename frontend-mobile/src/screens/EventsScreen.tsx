@@ -3,6 +3,6 @@ import JoinEventLanding from "../components/JoinEventLanding";
 
 export default function EventsScreen(): JSX.Element {
     return (
-        <JoinEventLanding />
+        <JoinEventLanding /> // peut-être faire un eventsack à la place
     );
 }

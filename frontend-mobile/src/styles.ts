@@ -59,7 +59,8 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-        marginBottom: 0,
+        marginBottom: 10,
+        marginTop: 20,
     },
 
     // Product Bottom Sheet
@@ -219,7 +220,7 @@ export const styles = StyleSheet.create({
 
     // Order History
     orderContainer: {
-        marginBottom: 10,
+        marginBottom: 40,
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
     },
@@ -245,7 +246,7 @@ export const styles = StyleSheet.create({
     listHeader: {
         flexDirection: 'row',
         paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingTop: 0,
         paddingBottom: 10,
     },
     columnHeaderArticle: {

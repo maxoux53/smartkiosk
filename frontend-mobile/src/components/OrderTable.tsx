@@ -55,10 +55,10 @@ export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
                 keyExtractor={(item) => item.productId.toString()}
                 style={styles.flexContainer}
                 contentContainerStyle={styles.orderTableListContent}
-                scrollEnabled={!isCart}
+                scrollEnabled={isCart} // pas sûr
             />
 
-            <View style={[styles.summaryContainer, { paddingBottom: 20 + tabBarHeight }]}>
+            <View style={[styles.summaryContainer, { paddingBottom: 20 + (isCart ? tabBarHeight : 0) }]}>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>Sous-total ({count})</Text>
                     <Text style={styles.summaryValue}>{totalExclTax.toFixed(2)}€</Text>

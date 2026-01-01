@@ -1,6 +1,14 @@
 {
     "expo": {
-        "plugins": ["react-native-bottom-tabs"],
+        "plugins": [
+            "react-native-bottom-tabs",
+            [
+                "expo-camera",
+                {
+                    "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+                }
+            ]
+        ],
         "name": "smart-kiosk",
         "slug": "smart-kiosk",
         "version": "1.0.0",

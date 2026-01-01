@@ -30,6 +30,10 @@ PODS:
     - ExpoModulesCore
   - ExpoAsset (12.0.12):
     - ExpoModulesCore
+  - ExpoCamera (17.0.10):
+    - ExpoModulesCore
+    - ZXingObjC/OneD
+    - ZXingObjC/PDF417
   - ExpoFileSystem (19.0.21):
     - ExpoModulesCore
   - ExpoFont (14.0.10):
@@ -2028,12 +2032,18 @@ PODS:
     - Yoga
   - SwiftUIIntrospect (1.3.0)
   - Yoga (0.0.0)
+  - ZXingObjC/Core (3.6.9)
+  - ZXingObjC/OneD (3.6.9):
+    - ZXingObjC/Core
+  - ZXingObjC/PDF417 (3.6.9):
+    - ZXingObjC/Core
 
 DEPENDENCIES:
   - EXConstants (from `../../node_modules/expo-constants/ios`)
   - Expo (from `../../node_modules/expo`)
   - ExpoAppleAuthentication (from `../../node_modules/expo-apple-authentication/ios`)
   - ExpoAsset (from `../../node_modules/expo-asset/ios`)
+  - ExpoCamera (from `../../node_modules/expo-camera/ios`)
   - ExpoFileSystem (from `../../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../../node_modules/expo-font/ios`)
   - ExpoKeepAwake (from `../../node_modules/expo-keep-awake/ios`)
@@ -2118,6 +2128,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - SwiftUIIntrospect
+    - ZXingObjC
 
 EXTERNAL SOURCES:
   EXConstants:
@@ -2128,6 +2139,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/expo-apple-authentication/ios"
   ExpoAsset:
     :path: "../../node_modules/expo-asset/ios"
+  ExpoCamera:
+    :path: "../../node_modules/expo-camera/ios"
   ExpoFileSystem:
     :path: "../../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -2293,6 +2306,7 @@ SPEC CHECKSUMS:
   Expo: 60c21ba34593688a2a6e8445c1f8b44abb0e3fae
   ExpoAppleAuthentication: 9413ae9a5e631a424cc04c1b13b0694dbab7d594
   ExpoAsset: f867e55ceb428aab99e1e8c082b5aee7c159ea18
+  ExpoCamera: 6a326deb45ba840749652e4c15198317aa78497e
   ExpoFileSystem: 858a44267a3e6e9057e0888ad7c7cfbf55d52063
   ExpoFont: 35ac6191ed86bbf56b3ebd2d9154eda9fad5b509
   ExpoKeepAwake: 55f75eca6499bb9e4231ebad6f3e9cb8f99c0296
@@ -2373,6 +2387,7 @@ SPEC CHECKSUMS:
   RNWorklets: eb52e8433ab00dd3af9c46050889a4abe5cc82bf
   SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
   Yoga: 5934998fbeaef7845dbf698f698518695ab4cd1a
+  ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
 PODFILE CHECKSUM: a48fcdfe07323a2d6ecba0aa7704f4bc32397460
 

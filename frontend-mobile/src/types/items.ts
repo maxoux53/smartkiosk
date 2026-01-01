@@ -17,6 +17,12 @@ export type VAT = {
     rate: number;
 };
 
+export type Event = {
+    id: number;
+    name: string;
+    picture: string;
+};
+
 export type OrderItem = {
     productId: number;
     quantity: number;

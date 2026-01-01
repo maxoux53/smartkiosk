@@ -1,8 +1,21 @@
-import { Product, Category, VAT, Order } from "../types/items";
+import { Product, Category, VAT, Order, Event } from "../types/items";
 
 export const VATS: VAT[] = [
     { type: 'A', rate: 5 },
     { type: 'B', rate: 20 }
+];
+
+export const EVENTS: Event[] = [
+    {
+        id: 1,
+        name: "Soirée Halloween",
+        picture: "/Users/max/Documents/GitHub/smartkiosk/frontend-mobile/src/assets/void.png"
+    },
+    {
+        id: 2,
+        name: "Gala de fin d'année",
+        picture: "https://images.unsplash.com/photo-1519671482538-581b5db3acc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    }
 ];
 
 export const CATEGORIES: Category[] = [

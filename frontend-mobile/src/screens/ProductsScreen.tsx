@@ -5,7 +5,7 @@ import { styles } from "../styles";
 import EventNameHeader from "../components/EventNameHeader";
 import ProductList from "../components/ProductList";
 import { Product } from "../types/items";
-import { PRODUCTS, CATEGORIES } from "../api/mock";
+import { PRODUCTS, CATEGORIES, EVENTS } from "../api/mock";
 
 export default function ProductsScreen(): JSX.Element {
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -17,7 +17,7 @@ export default function ProductsScreen(): JSX.Element {
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-            <EventNameHeader name="Nom de l'événement" />
+            <EventNameHeader name={EVENTS[0].name} image={EVENTS[0].picture} />
 
             <SegmentedControl
                 values={CATEGORIES.map(c => c.label)}

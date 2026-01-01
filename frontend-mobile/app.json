@@ -23,7 +23,7 @@
         },
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.anonymous.smart-kiosk"
+            "bundleIdentifier": "be.smartdossier.kiosk"
         },
         "android": {
             "adaptiveIcon": {

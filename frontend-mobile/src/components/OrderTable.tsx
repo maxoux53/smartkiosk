@@ -1,12 +1,30 @@
 import { JSX } from "react";
-import { Text, View, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, FlatList, Image, TouchableOpacity, ViewStyle } from "react-native";
 import { useCart, CartItem } from "../contexts/CartContext";
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
 import { getProduct, getCategoryLabel, getInclVatPrice } from "../api/mock";
 
-export default function OrderTable(): JSX.Element {
-    const { items, totalExclTax, totalTax, totalInclTax, count } = useCart();
+interface OrderTableProps {
+    items?: CartItem[];
+    totalExclTax?: number;
+    totalTax?: number;
+    totalInclTax?: number;
+    count?: number;
+    style?: ViewStyle;
+}
+
+export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
+    const cart = useCart();
     const tabBarHeight = useBottomTabBarHeight();
+
+    const isCart = !props.items;
+
+    const items = props.items ?? cart.items;
+    const totalExclTax = props.totalExclTax ?? cart.totalExclTax();
+    const totalTax = props.totalTax ?? cart.totalTax();
+    const totalInclTax = props.totalInclTax ?? cart.totalInclTax();
+    const count = props.count ?? cart.count();
+    const style = props.style ?? {};
 
     const renderItem = ({ item }: { item: CartItem }) => {
         const product = getProduct(item.productId);
@@ -25,7 +43,7 @@ export default function OrderTable(): JSX.Element {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
             <View style={styles.listHeader}>
                 <Text style={styles.columnHeaderArticle}>ARTICLES</Text>
                 <Text style={styles.columnHeaderDescription}>DESCRIPTION</Text>
@@ -38,25 +56,28 @@ export default function OrderTable(): JSX.Element {
                 keyExtractor={(item) => item.productId.toString()}
                 style={styles.list}
                 contentContainerStyle={styles.listContent}
+                scrollEnabled={!isCart}
             />
 
             <View style={[styles.summaryContainer, { paddingBottom: 20 + tabBarHeight }]}>
                 <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>Sous-total ({count()})</Text>
-                    <Text style={styles.summaryValue}>{totalExclTax().toFixed(2)}€</Text>
+                    <Text style={styles.summaryLabel}>Sous-total ({count})</Text>
+                    <Text style={styles.summaryValue}>{totalExclTax.toFixed(2)}€</Text>
                 </View>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>TVA</Text>
-                    <Text style={styles.summaryValue}>{totalTax().toFixed(2)}€</Text>
+                    <Text style={styles.summaryValue}>{totalTax.toFixed(2)}€</Text>
                 </View>
                 <View style={styles.summaryRow}>
                     <Text style={styles.totalLabel}>Total</Text>
-                    <Text style={styles.totalValue}>{totalInclTax().toFixed(2)}€</Text>
+                    <Text style={styles.totalValue}>{totalInclTax.toFixed(2)}€</Text>
                 </View>
 
-                <TouchableOpacity style={styles.orderButton}>
-                    <Text style={styles.orderButtonText}>Order</Text>
-                </TouchableOpacity>
+                {isCart ?
+                    <TouchableOpacity style={styles.orderButton}>
+                        <Text style={styles.orderButtonText}>Order</Text>
+                    </TouchableOpacity>
+                : null}
             </View>
         </View>
     );

@@ -1,4 +1,4 @@
-import { Product, Category, VAT } from "../types/items";
+import { Product, Category, VAT, Order } from "../types/items";
 
 export const VATS: VAT[] = [
     { type: 'A', rate: 5 },
@@ -52,6 +52,34 @@ export const PRODUCTS: Product[] = [
         excl_vat_price: 4.158, 
         picture: 'https://plus.unsplash.com/premium_photo-1663840075252-0cef798abc16?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
         category_id: 2
+    }
+];
+
+export const ORDERS: Order[] = [
+    {
+        id: "R8762111",
+        eventName: "Bunker",
+        date: "21/06/25",
+        items: [
+            { productId: 1, quantity: 1 }, // Radis
+            { productId: 2, quantity: 1 }  // Champignons
+        ],
+        totalExclTax: 19.98,
+        totalTax: 2.00,
+        totalInclTax: 21.98,
+        count: 2
+    },
+    {
+        id: "R8744112",
+        eventName: "24H LLN",
+        date: "21/06/25",
+        items: [
+            { productId: 1, quantity: 1 } // Radis
+        ],
+        totalExclTax: 10.99,
+        totalTax: 1.00,
+        totalInclTax: 11.99,
+        count: 1
     }
 ];
 

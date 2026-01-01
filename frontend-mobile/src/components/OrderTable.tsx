@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { Text, View, FlatList, Image, TouchableOpacity, ViewStyle } from "react-native";
+import { Text, View, FlatList, Image, TouchableOpacity } from "react-native";
 import { useCart, CartItem } from "../contexts/CartContext";
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
 import { getProduct, getCategoryLabel, getInclVatPrice } from "../api/mock";
@@ -11,7 +11,6 @@ interface OrderTableProps {
     totalTax?: number;
     totalInclTax?: number;
     count?: number;
-    style?: ViewStyle;
 }
 
 export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
@@ -25,7 +24,6 @@ export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
     const totalTax = props.totalTax ?? cart.totalTax();
     const totalInclTax = props.totalInclTax ?? cart.totalInclTax();
     const count = props.count ?? cart.count();
-    const style = props.style ?? {};
 
     const renderItem = ({ item }: { item: CartItem }) => {
         const product = getProduct(item.productId);
@@ -44,7 +42,7 @@ export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
     };
 
     return (
-        <View style={[styles.flexContainer, style]}>
+        <View style={styles.flexContainer}>
             <View style={styles.listHeader}>
                 <Text style={styles.columnHeaderArticle}>ARTICLES</Text>
                 <Text style={styles.columnHeaderDescription}>DESCRIPTION</Text>

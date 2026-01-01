@@ -20,7 +20,6 @@ export default function OrderHistoryScreen(): JSX.Element {
                 totalTax={item.totalTax}
                 totalInclTax={item.totalInclTax}
                 count={item.count}
-                style={styles.orderTableStyle}
             />
         </View>
     );
@@ -35,7 +34,6 @@ export default function OrderHistoryScreen(): JSX.Element {
                 data={ORDERS}
                 renderItem={renderOrder}
                 keyExtractor={item => item.id}
-                contentContainerStyle={styles.orderHistoryListContent}
             />
         </SafeAreaView>
     );

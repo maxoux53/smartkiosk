@@ -240,10 +240,7 @@ export const styles = StyleSheet.create({
     orderTableStyle: {
         flex: 0,
     },
-    orderHistoryListContent: {
-        paddingBottom: 20,
-    },
-    
+
     // Order Table
     listHeader: {
         flexDirection: 'row',

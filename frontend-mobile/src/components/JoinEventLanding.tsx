@@ -19,7 +19,7 @@ export default function JoinEventLanding(): JSX.Element {
                     onBarcodeScanned={({ data }: BarcodeScanningResult) => {
                         console.log("QR Code scanned:", data);
                         setScanning(false);
-                        joinEvent();
+                        joinEvent(); // on devrait enregistrer ici l'id de l'évènement
                     }}
                     barcodeScannerSettings={{
                         barcodeTypes: ["qr"],

@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { Text, View, ImageBackground } from "react-native";
-//import { styles } from "../styles";
+import { styles } from "../styles";
 
 export default function EventNameHeader(props: { name: string, image: string }): JSX.Element {
     return (

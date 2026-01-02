@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { Text, View, FlatList, Image, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, Image, TouchableOpacity, Alert } from "react-native";
 import { useCart, CartItem } from "../contexts/CartContext";
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
 import { getProduct, getCategoryLabel, getInclVatPrice } from "../api/mock";
@@ -73,7 +73,9 @@ export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
                 </View>
 
                 {isCart ?
-                    <TouchableOpacity style={styles.orderButton}>
+                    <TouchableOpacity style={styles.orderButton} onPress={() => {
+                        Alert.alert("Échec du payement", "Le payement a échoué. Veuillez réessayer.");
+                    }}>
                         <Text style={styles.orderButtonText}>Order</Text>
                     </TouchableOpacity>
                 : null}

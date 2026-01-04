@@ -101,7 +101,7 @@ export const getAllUsers = async (req: Request, res: Response) : Promise<void> =
 };
 
 export const createUser = async (req: Request, res: Response) : Promise<void> => {
-    const { first_name, last_name, email, password, is_admin } = req.body;
+    const { first_name, last_name, email, password, is_admin, avatar } = req.body;
     
     try {
         const newUser = await prisma.user.create({
@@ -110,7 +110,8 @@ export const createUser = async (req: Request, res: Response) : Promise<void> =>
                 last_name,
                 email,
                 password_hash: await hash(password),
-                is_admin
+                is_admin,
+                avatar
             },
             select: {
                 id: true

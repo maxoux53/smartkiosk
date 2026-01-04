@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContext.tsx";
 import LoginScreen from "./LoginScreen.tsx";
 import ProfileScreen from "./ProfileScreen.tsx";
 import OrderHistoryScreen from "./OrderHistoryScreen.tsx";
+import RegisterScreen from "./RegisterScreen.tsx";
 
 const Stack = createNativeStackNavigator<AccountStackParamList>();
 
@@ -30,10 +31,10 @@ export default function AccountStack(): JSX.Element {
                     />
                 </>
             ) : (
-                <Stack.Screen
-                    name="Login"
-                    component={LoginScreen}
-                />
+                <>
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                </>
             )}
         </Stack.Navigator>
     );

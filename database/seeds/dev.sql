@@ -21,10 +21,11 @@ BEGIN TRANSACTION;
   INSERT INTO "user" (first_name, last_name, email, password_hash, is_admin, avatar) VALUES
   ('Jean', 'Dupont', 'jean.dupont@example.com', '$argon2id$v=19$m=65536,t=3,p=4$V000lTnXaHR9MC92KlXw9g$gkW3/en6nzYyD8B8xBwLDJzLUsPMQvN2Qvdl5ZYlSLo', TRUE, '9f0855fa-ce19-4658-292a-34d5972ba100'),
   ('Marie', 'Martin', 'marie.martin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$WP/x1wgMRo+KrjFhulmPyA$7c28Ij7ABG6BN27Km0S0oyePYFmigvY4Yfp6rKR34wo', FALSE, '9c7f5c46-9914-477f-7e58-83a82988a900'),
-  ('Pierre', 'Dubois', 'pierre.dubois@example.com', '$argon2id$v=19$m=65536,t=3,p=4$0dp8qdIlpBU/weXBh56iXw$MeOTNR7dC7+n6zSA/cNtdYEd8lTa7cba1DNzg8yWWfQ', FALSE, '2edf7a61-0e6e-4988-6b8a-613679f19f00');
+  ('Pierre', 'Dubois', 'pierre.dubois@example.com', '$argon2id$v=19$m=65536,t=3,p=4$0dp8qdIlpBU/weXBh56iXw$MeOTNR7dC7+n6zSA/cNtdYEd8lTa7cba1DNzg8yWWfQ', FALSE, '2edf7a61-0e6e-4988-6b8a-613679f19f00'),
+  ('Test', 'User', 'test@dev.com', '$argon2id$v=19$m=65536,t=3,p=4$X5gnq3ODIcf1yj7fan8G8g$fgekgplCnuJTr/3vLIvtRRBnJdh4DMQKwFF4sWNeH1w', TRUE, '2edf7a61-0e6e-4988-6b8a-613679f19f00');
 
   INSERT INTO event (name, location, image, iban) VALUES
-  ('Festival d''Été', 'Parc Central', '021d1aea-2420-41d1-f230-f6fd975fc100', 'GB29 NWBK 6016 1331 9268 19'),
+  ('Festival d''Été', 'Parc Central', '9c7f5c46-9914-477f-7e58-83a82988a900', 'GB29 NWBK 6016 1331 9268 19'),
   ('Conférence Tech', 'Centre des Congrès', '9e0c2140-ab35-4942-e3e4-445402632300', 'DE89 3704 0044 0532 0130 00');
 
   INSERT INTO membership (user_id, event_id, role) VALUES

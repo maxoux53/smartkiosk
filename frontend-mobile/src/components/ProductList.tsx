@@ -1,27 +1,26 @@
 import { JSX, useRef, useState } from "react";
 import { Text, Image, FlatList, TouchableOpacity } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Product } from "../types/items";
+import { ProductDetails } from "../types/items";
 import { ProductBottomSheet } from "../components/ProductBottomSheet";
-import { getInclVatPrice } from "../api/mock";
 
-export default function ProductList(props: { products: Product[] }): JSX.Element {
+export default function ProductList(props: { products: ProductDetails[] }): JSX.Element {
     const bottomSheetRef = useRef<BottomSheetModal>(null);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<ProductDetails | null>(null);
 
-    const handleProductPress = (item: Product) => {
+    const handleProductPress = (item: ProductDetails) => {
         setSelectedProduct(item);
         bottomSheetRef.current?.present();
     };
 
-    const afficheProduits = (item: Product) => (
+    const afficheProduits = (item: ProductDetails) => (
         <TouchableOpacity style={{width: '48%'}} onPress={() => handleProductPress(item)}>
             <Image 
                 source={{ uri: item.picture }} 
                 style={{width: '100%', aspectRatio: 1, borderRadius: 12, marginBottom: 8}} 
             />
             <Text style={{fontSize: 16}}>{item.label}</Text>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{getInclVatPrice(item.id).toFixed(2)}€</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{(Number(item.excl_vat_price) * (1 + item.category.vat.rate / 100)).toFixed(2)}€</Text>
         </TouchableOpacity>
     );
 

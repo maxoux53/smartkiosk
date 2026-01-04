@@ -1,11 +1,15 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from '../api/connect';
+import { Alert } from 'react-native';
 
 interface AuthContextType {
     isLoggedIn: boolean;
     isMember: boolean;
-    login: () => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+    login: (token: string, userId: number) => void;
     logout: () => void;
-    joinEvent: () => void;
+    joinEvent: (eventId: number) => void;
     leaveEvent: () => void;
 }
 
@@ -15,16 +19,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isMember, setIsMember] = useState(false);
 
-    const login = () => { setIsLoggedIn(true); };
-    const logout = () => {
-        setIsLoggedIn(false);
-        setIsMember(false);
+    const login = async (token: string, userId: number) => { 
+        setIsLoggedIn(true);
+        await AsyncStorage.setItem('token', token);
+        await AsyncStorage.setItem('userId', userId.toString());
     };
-    const joinEvent = () => { setIsMember(true); };
-    const leaveEvent = () => { setIsMember(false); };
+    const logout = async () => {
+        setIsLoggedIn(false);
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('userId');
+    };
+    const joinEvent = async (eventId: number) => { 
+        setIsMember(true);
+        try {
+            await AsyncStorage.setItem('eventId', eventId.toString());
+            await connect("/interact/me", "GET"); 
+        } catch (e) {
+            Alert.alert(
+                "Erreur",
+                `Une erreur est survenue : ${e}`,
+                [
+                    { text: "Ok" }
+                ]
+            );
+        }
+
+    };
+    const leaveEvent = async () => { 
+        setIsMember(false); 
+        await AsyncStorage.removeItem('eventId');
+        await AsyncStorage.removeItem('cart')
+    };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, isMember, login, logout, joinEvent, leaveEvent }}>
+        <AuthContext.Provider value={{ isLoggedIn, isMember,setIsLoggedIn , login, logout, joinEvent, leaveEvent }}>
             {children}
         </AuthContext.Provider>
     );

@@ -6,6 +6,22 @@ export type Product = {
     category_id: number;
 };
 
+export type ProductDetails = {
+    category: {
+        id: number,
+        label: string,
+        vat: {
+            type: string,
+            rate: number
+        }
+    }
+    id: number
+    excl_vat_price: string,
+    is_available: boolean,
+    label: string,
+    picture: string
+}
+
 export type Category = {
     id: number;
     label: string;
@@ -20,7 +36,7 @@ export type VAT = {
 export type Event = {
     id: number;
     name: string;
-    picture: string;
+    image: string;
 };
 
 export type OrderItem = {
@@ -29,12 +45,23 @@ export type OrderItem = {
 };
 
 export type Order = {
-    id: string;
-    eventName: string;
+    id: number;
     date: string;
-    items: OrderItem[];
-    totalExclTax: number;
-    totalTax: number;
-    totalInclTax: number;
-    count: number;
-};
+    order_line: {
+        product_id: number,
+        quantity: number,
+        price: number | string,
+        product: {
+            label: string,
+            picture: string,
+            event: {
+                id: number,
+                name: string
+            },
+            category: {
+                id: number
+                label: string
+            }
+        }
+    }[]
+}

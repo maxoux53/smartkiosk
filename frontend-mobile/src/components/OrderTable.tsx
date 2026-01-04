@@ -1,43 +1,62 @@
-import { JSX } from "react";
+import { JSX, useRef, useState } from "react";
 import { Text, View, FlatList, Image, TouchableOpacity, Alert } from "react-native";
-import { useCart, CartItem } from "../contexts/CartContext";
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
-import { getProduct, getCategoryLabel, getInclVatPrice } from "../api/mock";
 import { styles } from "../styles";
+import { connect } from "../api/connect";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CartItem, useCart } from "../contexts/CartContext";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { ProductBottomSheet } from "./ProductBottomSheet";
+import { ProductDetails } from "../types/items";
+import { it } from "node:test";
 
-interface OrderTableProps {
-    items?: CartItem[];
-    totalExclTax?: number;
-    totalTax?: number;
-    totalInclTax?: number;
-    count?: number;
+export type Item = {
+    id: number,
+    label: string,
+    picture: string,
+    quantity: number,
+    price: number,
+    category_id: number,
+    category_label: string,
 }
 
-export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
-    const cart = useCart();
+interface OrderTableProps {
+    items: Item[],
+    isCart: boolean
+}
+
+export default function OrderTable(props: OrderTableProps): JSX.Element {
+    const {removeFromCart, clearCart} = useCart();
     const tabBarHeight = useBottomTabBarHeight();
 
-    const isCart = !props.items;
+    const items = props.items;
+    const isCart = props.isCart;
+    const total = (items ?? []).reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    const items = props.items ?? cart.items;
-    const totalExclTax = props.totalExclTax ?? cart.totalExclTax();
-    const totalTax = props.totalTax ?? cart.totalTax();
-    const totalInclTax = props.totalInclTax ?? cart.totalInclTax();
-    const count = props.count ?? cart.count();
-
-    const renderItem = ({ item }: { item: CartItem }) => {
-        const product = getProduct(item.productId);
-
+    const renderItem = ({ item }: { item: Item }) => {
         return (
-            <View style={styles.itemContainer}>
-                <Image source={{ uri: product.picture }} style={styles.itemImage} />
+            <TouchableOpacity
+                style={styles.itemContainer}
+                disabled={!isCart}
+                onPress={() => {
+                    Alert.alert(
+                        "Sruppression d'un article",
+                        `Voulez-Vous vraiment supprimer cette article : ${item.label} x${item.quantity}`,
+                        [
+                            { text: "Confirmer", onPress: (() => removeFromCart(item.id))},
+                            { text: "Annuler", style: "cancel" }
+                        ]
+                    );
+                }}
+            >
+                <Image source={{ uri: item.picture }} style={styles.itemImage} />
                 <View style={styles.itemDetails}>
-                    <Text style={styles.itemCategory}>{getCategoryLabel(product.category_id)}</Text>
-                    <Text style={styles.itemName}>{product.label}</Text>
+                    <Text style={styles.itemCategory}>{item.category_label}</Text>
+                    <Text style={styles.itemName}>{item.label}</Text>
                     <Text style={styles.itemQuantity}>x{item.quantity}</Text>
                 </View>
-                <Text style={styles.itemPrice}>{(item.quantity * getInclVatPrice(product.id)).toFixed(2)}€</Text>
-            </View>
+                <Text style={styles.itemPrice}>{(item.quantity * item.price).toFixed(2)}€</Text>
+            </TouchableOpacity>
         );
     };
 
@@ -52,31 +71,37 @@ export default function OrderTable(props: OrderTableProps = {}): JSX.Element {
             <FlatList
                 data={items}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.productId.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 style={styles.flexContainer}
                 contentContainerStyle={styles.orderTableListContent}
-                scrollEnabled={isCart} // pas sûr
+                scrollEnabled={isCart}
             />
 
             <View style={[styles.summaryContainer, { paddingBottom: 20 + (isCart ? tabBarHeight : 0) }]}>
                 <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>Sous-total ({count})</Text>
-                    <Text style={styles.summaryValue}>{totalExclTax.toFixed(2)}€</Text>
-                </View>
-                <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>TVA</Text>
-                    <Text style={styles.summaryValue}>{totalTax.toFixed(2)}€</Text>
-                </View>
-                <View style={styles.summaryRow}>
                     <Text style={styles.totalLabel}>Total</Text>
-                    <Text style={styles.totalValue}>{totalInclTax.toFixed(2)}€</Text>
+                    <Text style={styles.totalValue}>{total.toFixed(2)}€</Text>
                 </View>
 
                 {isCart ?
-                    <TouchableOpacity style={styles.orderButton} onPress={() => {
-                        Alert.alert("Échec du payement", "Le payement a échoué. Veuillez réessayer.");
+                    <TouchableOpacity style={styles.orderButton} onPress={async () => {
+                        try {
+                            const cart = await AsyncStorage.getItem('cart');
+                            const itemList: CartItem[] = cart ? JSON.parse(cart) : [];
+
+                            if (itemList.length === 0) {
+                                Alert.alert("Panier vide", "Veuillez ajouter des produits dans votre panier avant de passer commande.");
+                            } else if (itemList) {
+                                await connect("/interact/me/purchase", "POST", {order_lines: itemList})
+                                Alert.alert("Commande effectuée", "Votre commande a bien été effectuée.");
+                                clearCart();
+                            }
+                            
+                        } catch(e) {
+                            Alert.alert("Échec du payement", "Le payement a échoué. Veuillez réessayer : " + e);
+                        }
                     }}>
-                        <Text style={styles.orderButtonText}>Order</Text>
+                        <Text style={styles.orderButtonText}>Commander</Text>
                     </TouchableOpacity>
                 : null}
             </View>

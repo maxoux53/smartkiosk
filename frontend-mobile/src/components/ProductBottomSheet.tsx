@@ -1,12 +1,11 @@
 import { useCallback, forwardRef, useState, RefObject, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
-import { Product } from '../types/items';
+import { ProductDetails } from '../types/items';
 import { useCart } from '../contexts/CartContext';
-import { getInclVatPrice } from '../api/mock';
 import { styles } from '../styles';
 
-export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Product | null }>(({ product }, ref) => {
+export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: ProductDetails | null }>(({ product }, ref) => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
@@ -50,7 +49,7 @@ export const ProductBottomSheet = forwardRef<BottomSheetModal, { product: Produc
           <Text style={styles.productName}>{product.label}</Text>
           
           <View style={styles.bottomSheetFooter}>
-            <Text style={styles.productPrice}>{(getInclVatPrice(product.id) * quantity).toFixed(2)}€</Text>
+            <Text style={styles.productPrice}>{(Number(product.excl_vat_price) * (1 + product.category.vat.rate / 100) * quantity).toFixed(2)}€</Text>
             
             <View style={styles.quantityContainer}>
                 <TouchableOpacity onPress={() => setQuantity(quantity - 1)}>

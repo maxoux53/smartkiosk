@@ -51,8 +51,16 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
                             product: {
                                 select: {
                                     label: true,
+                                    picture: true,
+                                    event: {
+                                        select: {
+                                            id: true,
+                                            name: true
+                                        }
+                                    },
                                     category:{
                                         select: {
+                                            id: true,
                                             label: true
                                         }
                                     }
@@ -62,6 +70,14 @@ export const getPurchasesByUser = async (req : Request, res :Response) : Promise
                 }
             }
         });
+
+        purchases.map((purchase) => {
+            purchase.order_line.map((line) => {
+                if (line?.product.picture) {
+                    line.product.picture = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${line.product.picture}/public`;
+                }
+            })
+        })
             
         res.status(200).send(purchases);
     } catch (e) {

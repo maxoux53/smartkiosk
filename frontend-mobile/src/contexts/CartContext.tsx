@@ -1,9 +1,11 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
-import { Product } from '../types/items';
-import { PRODUCTS, CATEGORIES, VATS } from '../api/mock';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { Product, ProductDetails } from '../types/items';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from '../api/connect';
+import { Alert } from 'react-native';
 
 export interface CartItem {
-  productId: number;
+  product_id: number;
   quantity: number;
 }
 
@@ -12,9 +14,9 @@ interface CartContextType {
   addToCart: (productId: number, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
-  totalExclTax: () => number;
-  totalTax: () => number;
-  totalInclTax: () => number;
+  totalExclTax: () => Promise<number>;
+  totalTax: () => Promise<number>;
+  totalInclTax: () => Promise<number>;
   count: () => number;
 }
 
@@ -23,83 +25,101 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (productId: number, quantity: number) => {
-    if (quantity <= 0) return;
+  useEffect(() => {
+    const fetchCart = async () => {
+      const cart = await AsyncStorage.getItem('cart');
+      const itemList: CartItem[] = cart ? JSON.parse(cart) : [];
+      setItems(itemList);
+    };
+    fetchCart();
+  }, [])
 
-    if (items.find(item => item.productId === productId)) {
-      setItems(prevItems =>
-        prevItems.map(item =>
-          item.productId === productId
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      );
+  const addToCart = async (productId: number, quantity: number) => {
+    const newItems = [...items];
+    const product = newItems.find((item => item.product_id === productId));
+    if (product) {
+      product.quantity += quantity;
     } else {
-      setItems([...items, { productId, quantity }]);
+      newItems.push({product_id :productId, quantity});
     }
-
-    return;
+    setItems(newItems);
+    await AsyncStorage.setItem('cart', JSON.stringify(newItems));
   };
 
-  const removeFromCart = (productId: number) => {
-    const productIndex = items.findIndex(item => item.productId === productId);
-
-    if (productIndex !== -1) {
-      setItems(items.splice(productIndex, 1));
-    }
-    
-    return;
+  const removeFromCart = async (productId: number) => {
+    const newItems = items.filter(item => item.product_id !== productId);
+    setItems(newItems);
+    await AsyncStorage.setItem('cart', JSON.stringify(newItems));
   };
 
-  const clearCart = (): void => {
+  const clearCart = async () => {
     setItems([]);
+    await AsyncStorage.removeItem('cart');
   };
 
-  const getProductPriceExclTax = (productId: number): number => {
-    const product = PRODUCTS.find(p => p.id === productId);
-    return product ? product.excl_vat_price : 0;
+  const getProductPriceExclTax = async (productId: number) => {
+    try {
+      const product: Product = await connect(`/interact/product/${productId}`, "GET");
+      return product.excl_vat_price;
+    } catch (e) {
+      Alert.alert(
+        "Erreur",
+        `Une erreur est survenue : ${e}`,
+        [
+            { text: "Ok" }
+        ]
+      );
+      return 0;
+    }
   }
 
-  const totalExclTax = (): number => {
+  const totalExclTax = async () => {
     let total = 0;
 
     for (const item of items) {
-      total += getProductPriceExclTax(item.productId) * item.quantity;
+      total += await getProductPriceExclTax(item.product_id) * item.quantity;
     }
 
     return total;
   }
 
-  const getProductTaxRate = (productId: number): number => {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return 0;
-    const category = CATEGORIES.find(c => c.id === product.category_id);
-    if (!category) return 0;
-    const vat = VATS.find(v => v.type === category.type);
-    return vat ? vat.rate : 0;
+  const getProductTaxRate = async (productId: number) => {
+    try {
+      const product: ProductDetails = await connect(`/interact/product/${productId}`, "GET");
+      return product.category.vat.rate;
+    } catch (e) {
+      Alert.alert(
+        "Erreur",
+        `Une erreur est survenue : ${e}`,
+        [
+            { text: "Ok" }
+        ]
+      );
+      return 0;
+    }
   }
 
-  const totalTax = (): number => {
+  const totalTax = async () => {
     let total = 0;
 
     for (const item of items) {
-      total += getProductPriceExclTax(item.productId) * (getProductTaxRate(item.productId) / 100) * item.quantity;
+      total += await getProductPriceExclTax(item.product_id) * (await getProductTaxRate(item.product_id) / 100) * item.quantity;
     }
 
     return total;
   }
 
-  const totalInclTax = (): number => {
+  const totalInclTax = async () => {
     let total = 0;
 
     for (const item of items) {
-      total += (getProductPriceExclTax(item.productId) * (1 + (getProductTaxRate(item.productId) / 100))) * item.quantity;
+      total += (await getProductPriceExclTax(item.product_id) * (1 + (await getProductTaxRate(item.product_id) / 100))) * item.quantity;
     }
 
     return total;
   }
 
-  const count = (): number => {
+  const count = () => {
     return items.length;
   }
 

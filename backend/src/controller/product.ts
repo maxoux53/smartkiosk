@@ -55,6 +55,7 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
                 event_id: true,
                 category: {
                     select: {
+                        id: true,
                         label: true,
                         vat:{
                             select: {
@@ -65,6 +66,10 @@ export const getProduct = async (req : Request, res : Response) : Promise<void> 
                 }
             }
         });
+
+        if (product?.picture) {
+            product.picture = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${product.picture}/public`;
+        }
 
         if (product) {
             res.status(200).send(product);
@@ -104,6 +109,12 @@ export const getAllProducts = async (req : Request, res : Response) : Promise<vo
             }
         });
 
+        products.map((product) => {
+            if (product?.picture) {
+                product.picture = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${product.picture}/public`;
+            }
+        })
+
         res.status(200).send(products);
     } catch (e) {
         
@@ -121,12 +132,14 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
                 event_id: req.body.event_id
             },
             select: {
+                id: true,
                 label: true,
                 is_available: true,
                 excl_vat_price: true,
                 picture: true,
                 category: {
                     select: {
+                        id: true,
                         label: true,
                         vat:{
                             select: {
@@ -138,6 +151,13 @@ export const getProductsByEvent = async (req : Request, res : Response) : Promis
                 }
             }
         });
+
+        products.map((product) => {
+            if (product?.picture) {
+                product.picture = `https://imagedelivery.net/${process.env.CF_ACCOUNT_HASH}/${product.picture}/public`;
+            }
+        })
+
         res.status(200).send(products);
     } catch (e) {
         

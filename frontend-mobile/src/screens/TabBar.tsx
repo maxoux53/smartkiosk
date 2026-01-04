@@ -23,7 +23,7 @@ export default function TabBar(): JSX.Element {
                 options={{
                     tabBarIcon: () => ({ sfSymbol: "calendar" }),
                     tabBarLabel: "Événements",
-                    preventsDefault: !isLoggedIn
+                    tabBarItemHidden: !isLoggedIn
                 }}
             />
             <Tab.Screen
@@ -33,7 +33,7 @@ export default function TabBar(): JSX.Element {
                     tabBarIcon: () => ({
                         sfSymbol: "takeoutbag.and.cup.and.straw.fill"
                     }),
-                    tabBarItemHidden: !isMember
+                    tabBarItemHidden: !isMember || !isLoggedIn
                 }}
             />
             <Tab.Screen
@@ -41,7 +41,7 @@ export default function TabBar(): JSX.Element {
                 component={OrderScreen}
                 options={{
                     tabBarIcon: () => ({ sfSymbol: "cart.badge.clock.fill" }),
-                    tabBarItemHidden: !isMember
+                    tabBarItemHidden: !isMember || !isLoggedIn
                 }}
             />
             <Tab.Screen
@@ -66,8 +66,6 @@ export default function TabBar(): JSX.Element {
                         e.preventDefault();
                         if (isLoggedIn) {
                             logout();
-                        } else {
-                            login();
                         }
                     }
                 }}
@@ -86,8 +84,6 @@ export default function TabBar(): JSX.Element {
                         e.preventDefault();
                         if (isMember) {
                             leaveEvent();
-                        } else {
-                            joinEvent();
                         }
                     }
                 }}

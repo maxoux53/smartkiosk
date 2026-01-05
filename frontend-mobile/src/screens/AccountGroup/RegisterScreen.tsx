@@ -135,41 +135,45 @@ export default function RegisterScreen(): JSX.Element {
                                 if (errorMessage !== "") {
                                     Alert.alert("Erreur de connexion", errorMessage);
                                 } else {
-                                    /*let avatarId: string | undefined;
+                                    let avatarId: string | null = null;
 
                                     if (avatar) {
-                                      const { uploadURL } = await connect<{ uploadURL: string }>("/img-upload", "GET");
 
-                                      if (!avatar.base64) {
-                                        throw new Error("Avatar sans base64 (active includeBase64: true)");
-                                      }
+                                        const { uploadURL } = await connect<{ uploadURL: string }>("/img-upload", "GET");
 
-                                      const mime = avatar.type ?? "image/jpeg";
-                                      const name = avatar.fileName ?? "avatar.jpg";
-                                      const dataUri = `data:${mime};base64,${avatar.base64}`;
+                                        const formData = new FormData();
 
-                                      const blob = await (await fetch(dataUri)).blob();
 
-                                      const formData = new FormData();
-                                      formData.append("file", blob as any, name);
+                                        formData.append('file', {
+                                            uri: avatar.uri,
+                                            name: avatar.fileName,
+                                            type: avatar.type ?? 'application/octet-stream',
+                                        } as any);
 
-                                      const uploadRes = await fetch(uploadURL, { method: "POST", body: formData });
+                                        const response = await fetch(uploadURL, {
+                                            method: 'POST',
+                                            body: formData,
+                                        });
 
-                                      const raw = await uploadRes.text();
-                                      if (!uploadRes.ok) {
-                                        throw new Error(`Upload Cloudflare échoué (HTTP ${uploadRes.status}): ${raw || uploadRes.statusText}`);
-                                      }
+                                        if (!response.ok) {
+                                            Alert.alert("Erreur d'envoi de l'avatar", "Une erreur est survenue lors de l'envoi de votre avatar !");
+                                        } else {
+                                            const data = (await response.json()) as { result?: { id?: string } };
+                                            avatarId = data.result?.id ?? null;
 
-                                      const parsed = JSON.parse(raw) as { result?: { id?: string } };
-                                      avatarId = parsed.result?.id;
-                                    }*/
+                                            if (!avatarId) {
+                                                Alert.alert("Erreur d'envoi de l'avatar", "La réponse d'upload ne contient pas d'identifiant d'image.");
+                                            }
+                                        }
+
+                                    }
                                     await connect<res>("/signup", "POST", {
                                         first_name: firstName,
                                         last_name: lastName,
                                         email: email,
                                         password: password,
                                         is_admin: false,
-                                        avatar: null
+                                        avatar: avatarId
                                     });
 
                                     const res = await connect<res>("/login", "POST", {
